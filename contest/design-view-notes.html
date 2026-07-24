@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>디자인 도면 포인트 노트 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="idea-entry.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 컨테스트 스토어</a><span class="badge-off">AI 연결 끊김</span></div>
+<main class="wrap" data-app-id="design-view-notes">
+  <div class="hero">
+    <div class="icon">📐</div>
+    <div>
+      <div class="sub">design-view-notes</div>
+      <h1>디자인 도면 포인트 노트</h1>
+      <p class="lead">Design View Notes · 6면도·사시도 관점</p>
+      <p class="lead">정면·배면·좌우·평면·저면·사시도 칸에 창작·유사 판단 포인트를 메모합니다. 이미지 분석 AI는 미연결입니다.</p>
+    </div>
+  </div>
+  <section class="card">
+    <label for="mainInput">지배적 창작 부분 요약</label>
+    <textarea id="mainInput" placeholder="예: 전면 곡면 분할선과 측면 통기구 패턴이 지배적…"></textarea>
+    <div class="checks">
+      <label><input type="checkbox" checked> 6면도 관점</label>
+      <label><input type="checkbox" checked> 사시도 관점</label>
+      <label><input type="checkbox"> 부분 디자인</label>
+    </div>
+    <button type="button" class="btn" id="runBtn">노트 정리 (데모)</button>
+    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
+  </section>
+  <section class="card">
+    <h2>출력 패널</h2>
+    <div class="out-grid" id="out">
+      <div class="out-card"><h3>형태 포인트</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>표면·질감</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>유사 디자인 대비</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+    </div>
+  </section>
+  <footer>App ID: design-view-notes · <a href="index.html">앱스토어</a> · <a href="../quality.html">허브</a></footer>
+</main>
+<div class="toast" id="toast">AI 연결 끊김 — 데모 골격만 표시합니다.</div>
+<script src="idea-entry.js"></script>
+</body>
+</html>

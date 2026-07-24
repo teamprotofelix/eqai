@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>청구항 요소 분해기 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="idea-entry.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 컨테스트 스토어</a><span class="badge-off">AI 연결 끊김</span></div>
+<main class="wrap" data-app-id="claim-decompose">
+  <div class="hero">
+    <div class="icon">🧩</div>
+    <div>
+      <div class="sub">claim-decompose</div>
+      <h1>청구항 요소 분해기</h1>
+      <p class="lead">Claim Element Decomposer · 특실 심사 브레인스토밍</p>
+      <p class="lead">독립항을 붙여 넣으면 구성요소·한정을 카드로 쪼개 보는 아이디어 툴. API 연결 시 자동 분해·번호 매기기를 붙일 수 있습니다.</p>
+    </div>
+  </div>
+  <section class="card">
+    <label for="mainInput">독립항 / 청구항 텍스트</label>
+    <textarea id="mainInput" placeholder="예: 1. 하우징; 상기 하우징 내부에 배치된 센서; 상기 센서와 연결된 제어기…"></textarea>
+    <div class="checks">
+      <label><input type="checkbox" checked> 구성요소 단위 카드</label>
+      <label><input type="checkbox" checked> 한정 사항 분리</label>
+      <label><input type="checkbox"> 종속항 관계 메모</label>
+    </div>
+    <button type="button" class="btn" id="runBtn">요소 분해 (데모)</button>
+    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
+  </section>
+  <section class="card">
+    <h2>출력 패널</h2>
+    <div class="out-grid" id="out">
+      <div class="out-card"><h3>구성요소 목록</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>한정 사항</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>심사 메모</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+    </div>
+  </section>
+  <footer>App ID: claim-decompose · <a href="index.html">앱스토어</a> · <a href="../quality.html">허브</a></footer>
+</main>
+<div class="toast" id="toast">AI 연결 끊김 — 데모 골격만 표시합니다.</div>
+<script src="idea-entry.js"></script>
+</body>
+</html>

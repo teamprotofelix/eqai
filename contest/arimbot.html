@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 아림 봇 🌸</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&amp;display=swap');
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nanum Pen Script', cursive, monospace;
+            background: linear-gradient(135deg, #ffe6f2 0%, #e6f7ff 100%);
+            color: #ff69b4;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 10px;
+            flex: 1;
+            max-height: 100vh;
+        }
+        
+        /* 모바일에서는 아바타를 위로 */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 5px 20px rgba(255, 182, 193, 0.3);
+            border: 4px solid #ffb6c1;
+        }
+        
+        .avatar {
+            font-size: 60px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        
+        .bot-info {
+            flex: 1;
+        }
+        
+        .bot-info h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #ff69b4;
+        }
+        
+        .bot-info p {
+            margin: 3px 0;
+            font-size: 16px;
+            color: #ff8fab;
+        }
+        
+        /* 채팅창 - 모바일 최적화 */
+        .chat {
+            flex: 1;
+            min-height: 0;
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+            background: white;
+            padding: 15px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.25);
+            border: 5px solid #ffb6c1;
+            margin-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .message {
+            margin: 12px 0;
+            padding: 14px 18px;
+            border-radius: 22px;
+            max-width: 85%;
+            font-size: 18px;
+            line-height: 1.45;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            word-break: break-word;
+        }
+        
+        .user {
+            margin-left: auto;
+            background: #fff0f5;
+            color: #ff69b4;
+            border-bottom-right-radius: 6px;
+        }
+        
+        .arim {
+            background: #e6f7ff;
+            color: #4a90e2;
+            border-bottom-left-radius: 6px;
+        }
+        
+        /* 입력 영역 - 하단 고정 스타일 */
+        .input-area {
+            display: flex;
+            gap: 10px;
+            padding: 10px 15px;
+            background: white;
+            border-top: 4px solid #ffb6c1;
+            position: sticky;
+            bottom: 0;
+            border-radius: 0 0 25px 25px;
+            box-shadow: 0 -5px 20px rgba(255, 182, 193, 0.2);
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 14px 20px;
+            background: #fff9fc;
+            color: #ff69b4;
+            border: 3px solid #ffb6c1;
+            border-radius: 30px;
+            font-size: 18px;
+            font-family: 'Nanum Pen Script', cursive;
+            outline: none;
+        }
+        
+        button {
+            padding: 14px 22px;
+            background: linear-gradient(135deg, #ff69b4, #ff8fab);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
+        .reset-btn {
+            background: linear-gradient(135deg, #ffb6c1, #ff8fab);
+            padding: 14px 16px;
+            font-size: 16px;
+        }
+        
+        /* PC에서는 기존 스타일 유지 */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 1100px;
+                padding: 20px;
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+                max-width: 220px;
+            }
+            
+            .avatar {
+                font-size: 110px;
+            }
+            
+            .chat {
+                max-height: 580px;
+            }
+            
+            .message {
+                font-size: 19px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 상단 아바타 + 정보 -->
+        <div class="header">
+            <div class="avatar">👧🏻</div>
+            <div class="bot-info">
+                <h2>🌸 아림 봇 🌸</h2>
+                <p><strong>전아림</strong> (초등 4학년)</p>
+                <p>착하고 똑똑한 네 친구 💕</p>
+            </div>
+        </div>
+        
+        <!-- 채팅창 -->
+        <div id="chat" class="chat"></div>
+        
+        <!-- 입력창 -->
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="아림이한테 말해보자 😊" 
+                   onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()">보내기</button>
+            <button onclick="resetChat()" class="reset-btn">새로</button>
+        </div>
+    </div>
+
+    <script>
+        // 기존 스크립트 그대로 사용 (변경 없음)
+        const arimPersona = {
+            name: "아림",
+            age: "초등 4학년",
+            personality: "착하고 똑똑하며 호기심 많고 장난기 있는 밝은 여자아이",
+            traits: "친구를 진심으로 아껴주고, 공부와 놀이를 좋아하며, 실수해도 밝게 웃고 배려심이 깊어요"
+        };
+
+        let chatHistory = [];
+
+        function addMessage(text, isUser) {
+            const chat = document.getElementById('chat');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${isUser ? 'user' : 'arim'}`;
+            msgDiv.innerHTML = isUser ? `너: ${text}` : `아림: ${text}`;
+            
+            chat.appendChild(msgDiv);
+            chat.scrollTop = chat.scrollHeight;
+            
+            chatHistory.push({ role: isUser ? 'user' : 'assistant', content: text });
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+            
+            input.value = '';
+            addMessage(msg, true);
+
+            const chat = document.getElementById('chat');
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message arim';
+            loadingDiv.innerHTML = '아림: ...';
+            chat.appendChild(loadingDiv);
+            chat.scrollTop = chat.scrollHeight;
+
+            try {
+                const response = await fetch('/api/grok', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [
+                            {
+                                role: 'system',
+                                content: `너는 이제부터 "${arimPersona.name}"이야. 
+${arimPersona.age}이고, ${arimPersona.personality}야. 
+${arimPersona.traits}
+
+답변할 때는 항상 초등학교 4학년 여자아이처럼 밝고, 친근하고, 장난기 있게 말해. 
+이모티콘을 적절히 사용하고, 너무 어렵거나 어른스러운 말은 하지 마.`
+                            },
+                            ...chatHistory
+                        ],
+                        model: 'grok-4.20-0309-non-reasoning',
+                        max_tokens: 35000,
+                        temperature: 0.
+                    })
+                });
+
+                const data = await response.json();
+                loadingDiv.remove();
+
+                const reply = data.choices?.[0]?.message?.content || "으음... 갑자기 생각이 안 나네 😅";
+                addMessage(reply, false);
+
+            } catch (error) {
+                loadingDiv.remove();
+                addMessage("서버랑 연결이 안 돼... 다시 시도해줄래? 🥺", false);
+            }
+        }
+
+        function resetChat() {
+            const chat = document.getElementById('chat');
+            chat.innerHTML = '';
+            chatHistory = [];
+            
+            setTimeout(() => {
+                addMessage("안녕! 나는 아림이야~ 오늘도 같이 재미있게 놀자! 🌸", false);
+            }, 300);
+        }
+
+        function init() {
+            setTimeout(() => {
+                addMessage("안녕! 나는 아림이야~ 오늘도 같이 재미있게 놀자! 🌸", false);
+            }, 800);
+            
+            document.getElementById('userInput').focus();
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

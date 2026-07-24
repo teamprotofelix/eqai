@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI실습</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%); 
+            color: #e2e8f0; 
+            padding: 40px 20px; 
+            text-align: center; 
+        }
+        h1 { 
+            background: linear-gradient(90deg, #00E5FF, #A78BFA); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            font-size: 2.5em; 
+            margin-bottom: 20px; 
+            font-weight: 900; 
+        }
+        .prezi-section { 
+            max-width: 1000px; 
+            margin: 0 auto 40px; 
+        }
+        .prezi-frame { 
+            width: 100%; 
+            height: 500px; 
+            border-radius: 16px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); 
+            overflow: hidden; 
+            margin-bottom: 20px; 
+            background: #000; 
+        }
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+            border-radius: 16px; 
+        }
+        .buttons { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; max-width: 600px; margin: 0 auto; }
+        button { 
+            padding: 15px 30px; 
+            border: none; 
+            border-radius: 30px; 
+            color: white; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 16px; 
+            transition: all 0.3s; 
+            box-shadow: 0 4px 15px rgba(0,229,255,0.3); 
+        }
+        button:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,229,255,0.5); }
+        #popupBtn { background: linear-gradient(90deg, #00E5FF, #00B4D8); }
+        #directBtn { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+        .warning { background: rgba(239,68,68,0.1); border: 1px solid #ef4444; color: #fecaca; padding: 15px; border-radius: 12px; margin: 20px auto; max-width: 600px; display: none; }
+        @media (max-width: 768px) { body { padding: 20px 10px; } h1 { font-size: 2em; } .prezi-frame { height: 350px; } .buttons { flex-direction: column; width: 100%; } button { width: 100%; } }
+    </style>
+</head>
+<body>
+    <h1>🚀 AI 실습 </h1>
+    <div class="prezi-section">
+        <div class="prezi-frame">
+            <iframe 
+                id="preziIframe"
+                src="https://prezi.com/embed/th56lg4cewoq/?bgcolor=ffffff&doNotTrack=0&frame_width=100%&frame_height=100%&embed=1&present=1" 
+                allowfullscreen 
+                allow="fullscreen *; autoplay *; encrypted-media *">
+            </iframe>
+        </div>
+        <div class="warning" id="warning">
+            🔒 Prezi 보안으로 내용이 안 보일 수 있어요. 아래 버튼 사용!
+        </div>
+        <div class="buttons">
+            <button id="popupBtn" onclick="openPopup()">🎬 Prezi 팝업 열기 (추천)</button>
+            <button id="directBtn" onclick="openDirect()">🔗 직접 링크 열기</button>
+        </div>
+    </div>
+
+    <script>
+        const preziUrl = 'https://prezi.com/p/th56lg4cewoq/ai-1/?present=1';
+        const iframe = document.getElementById('preziIframe');
+        const warning = document.getElementById('warning');
+
+        // iframe 체크 (필요 시 경고)
+        setTimeout(() => {
+            try {
+                if (!iframe.contentDocument || iframe.contentDocument.body.innerHTML.trim() === '') {
+                    warning.style.display = 'block';
+                }
+            } catch (e) {
+                warning.style.display = 'block';
+            }
+        }, 3000);
+
+        function openPopup() {
+            window.open(preziUrl, 'preziPopup', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+        }
+
+        function openDirect() {
+            window.open(preziUrl, '_blank');
+        }
+    </script>
+</body>
+</html>

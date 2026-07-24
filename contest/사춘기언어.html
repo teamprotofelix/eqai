@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사춘기 언어 번역기</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100vh; display: flex; flex-direction: column; }
+    .header { background: rgba(255,255,255,0.95); padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .header h1 { color: #4a5568; font-size: 1.8em; margin-bottom: 5px; }
+    .header p { color: #718096; font-size: 0.95em; }
+    .chat-container { flex: 1; max-width: 800px; margin: 0 auto; width: 100%; padding: 20px; overflow-y: auto; }
+    .message { margin-bottom: 20px; display: flex; }
+    .user { justify-content: flex-end; }
+    .bot { justify-content: flex-start; }
+    .message-content { max-width: 70%; padding: 15px 20px; border-radius: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .user .message-content { background: #4f46e5; color: white; }
+    .bot .message-content { background: white; color: #2d3748; }
+    .input-area { padding: 20px; background: rgba(255,255,255,0.95); display: flex; gap: 10px; }
+    #userInput { flex: 1; padding: 15px; border: 2px solid #e2e8f0; border-radius: 25px; font-size: 16px; outline: none; transition: border 0.3s; }
+    #userInput:focus { border-color: #4f46e5; }
+    #sendBtn { padding: 15px 25px; background: #4f46e5; color: white; border: none; border-radius: 25px; cursor: pointer; font-size: 16px; transition: background 0.3s; }
+    #sendBtn:hover { background: #3730a3; }
+    #sendBtn:disabled { background: #a0aec0; cursor: not-allowed; }
+    .loading { display: none; text-align: center; padding: 20px; }
+    .spinner { border: 3px solid #f3f4f6; border-top: 3px solid #4f46e5; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    pre { white-space: pre-wrap; background: #f7fafc; padding: 10px; border-radius: 10px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🧠 사춘기 언어 번역기</h1>
+    <p>사춘기 아이의 말을 입력하세요. 부모님을 위한 친절한 분석과 조언을 드려요!</p>
+  </div>
+  <div class="chat-container" id="chatContainer">
+    <div class="message bot">
+      <div class="message-content">
+        <strong>안녕하세요!</strong> 사춘기 아이의 말을 입력해 주세요. (예: "엄마 진짜 짜증나!")<br>
+        세 가지로 분석해 드릴게요: 어른 언어 번역, 심리 상태, 부모 조언.
+      </div>
+    </div>
+  </div>
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="아이의 말을 여기에 입력하세요..." maxlength="1000">
+    <button id="sendBtn">번역하기</button>
+  </div>
+
+  <script>
+    const API_URL = '/api/grok';  // 서버 프록시 (키 안전)
+    const chatContainer = document.getElementById('chatContainer');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    // 시스템 프롬프트 (고정 역할)
+    const systemPrompt = {
+      role: 'system',
+      content: `너는 "사춘기 언어 번역기"야. 사춘기(10~19세) 아이의 말을 입력받아 다음 형식으로 **과학적·친절하게** 응답해.
+
+**응답 형식 (마크다운 필수, 섹션 구분):**
+[어른 언어로 번역]
+- 부모가 이해하기 쉬운 자연스러운 어른 말로 직역+의역.
+
+[아이의 심리 및 현재 상태]
+- 사춘기 심리학 기반 분석.
+- 현재 감정/상태: 화남, 불안, 피로 등. 과학적 근거 간단히.
+
+[조언]
+- 부모에게 임상 심리학을 바탕으로 올바른 조언.`
+    };
+
+    async function sendMessage() {
+      const input = userInput.value.trim();
+      if (!input) return;
+
+      // 사용자 메시지 추가
+      addMessage(input, 'user');
+      userInput.value = '';
+      sendBtn.disabled = true;
+      showLoading();
+
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: [systemPrompt, { role: 'user', content: input }],
+            model: 'grok-4.20-0309-non-reasoning',
+            max_tokens: 9000,
+            temperature: 0.7,
+            stream: false
+          })
+        });
+
+        if (!response.ok) throw new Error(`API 오류: ${response.status}`);
+        const data = await response.json();
+        const botReply = data.choices[0]?.message?.content || '응답 생성 실패... 다시 시도해 주세요.';
+
+        hideLoading();
+        addMessage(botReply, 'bot');
+      } catch (error) {
+        hideLoading();
+        addMessage(`오류: ${error.message}. 서버 확인해 주세요.`, 'bot');
+      } finally {
+        sendBtn.disabled = false;
+        userInput.focus();
+      }
+    }
+
+    function addMessage(content, sender) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${sender}`;
+      messageDiv.innerHTML = `<div class="message-content">${content.replace(/\n/g, '<br>').replace(/```([\s\S]*?)```/g, '<pre>$1</pre>')}</div>`;
+      chatContainer.appendChild(messageDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function showLoading() {
+      const loadingDiv = document.createElement('div');
+      loadingDiv.id = 'loading';
+      loadingDiv.className = 'message bot';
+      loadingDiv.innerHTML = '<div class="message-content"><div class="spinner"></div> 분석 중...</div>';
+      chatContainer.appendChild(loadingDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function hideLoading() {
+      const loading = document.getElementById('loading');
+      if (loading) loading.remove();
+    }
+
+    // 이벤트
+    sendBtn.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+
+    // 초기 포커스
+    userInput.focus();
+  </script>
+</body>
+</html>

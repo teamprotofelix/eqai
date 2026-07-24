@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>좋은말 챗봇 - xAI Grok</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .chat-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #fafafa;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .user-message {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+        .bot-message {
+            background: #e9ecef;
+            color: #333;
+            margin-right: auto;
+        }
+        .input-area {
+            display: flex;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+        #messageInput {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+        }
+        #sendButton {
+            margin-left: 10px;
+            padding: 12px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        #sendButton:hover {
+            background: #218838;
+        }
+        #apiKeySection {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #apiKeyInput {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        #saveApiKey {
+            padding: 10px 20px;
+            background: #ffc107;
+            color: #212529;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #saveApiKey:hover {
+            background: #e0a800;
+        }
+        .hidden {
+            display: none;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #333;">😊 좋은말만 해주는 xAI Grok 챗봇</h1>
+
+    <div id="apiKeySection">
+        <h3>xAI API Key 입력 (세션 저장, 브라우저 닫기 시 삭제)</h3>
+        <input type="password" id="apiKeyInput" placeholder="xAI API Key를 입력하세요..." />
+        <button id="saveApiKey">저장하고 시작</button>
+        <p id="apiKeyStatus" style="margin-top: 10px; color: #666;"></p>
+    </div>
+
+    <div id="chatContainer" class="chat-container hidden">
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="메시지를 입력하세요... (Enter로 전송)" />
+            <button id="sendButton">전송</button>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://api.x.ai/v1/chat/completions';
+        const MODEL = 'grok-4-1-fast-reasoning';
+        let apiKey = sessionStorage.getItem('xai_api_key');
+
+        const apiKeySection = document.getElementById('apiKeySection');
+        const chatContainer = document.getElementById('chatContainer');
+        const apiKeyInput = document.getElementById('apiKeyInput');
+        const saveApiKeyBtn = document.getElementById('saveApiKey');
+        const apiKeyStatus = document.getElementById('apiKeyStatus');
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+
+        // API 키가 세션에 저장되어 있으면 바로 채팅 시작
+        if (apiKey) {
+            apiKeySection.classList.add('hidden');
+            chatContainer.classList.remove('hidden');
+            apiKeyStatus.textContent = 'API 키가 세션에 저장되어 있습니다. 브라우저를 닫으면 삭제됩니다.';
+        }
+
+        saveApiKeyBtn.addEventListener('click', () => {
+            const key = apiKeyInput.value.trim();
+            if (key) {
+                sessionStorage.setItem('xai_api_key', key);
+                apiKey = key;
+                apiKeySection.classList.add('hidden');
+                chatContainer.classList.remove('hidden');
+                apiKeyStatus.textContent = 'API 키가 세션에 저장되었습니다. 채팅을 시작하세요!';
+                addMessage('bot', '안녕하세요! 좋은 말만 해주는 챗봇입니다. 언제든 말씀하세요~ 😊');
+            } else {
+                apiKeyStatus.textContent = 'API 키를 입력해주세요.';
+                apiKeyStatus.style.color = 'red';
+            }
+        });
+
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message || !apiKey) return;
+
+            addMessage('user', message);
+            messageInput.value = '';
+            sendButton.disabled = true;
+            addMessage('bot', '생각 중... 💭');
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: MODEL,
+                        messages: [
+                            {
+                                role: 'system',
+                                content: '너는 좋은 말만 해주는 친절한 챗봇이야. 항상 격려하고, 칭찬하며, 긍정적인 말만 해. 부정적인 말은 절대 하지 마. 사용자를 응원하고, 행복하게 만들어줘. 한국어로 응답해.'
+                            },
+                            { role: 'user', content: message }
+                        ],
+                        stream: false,
+                        temperature: 0.7
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API 오류: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const botReply = data.choices[0]?.message?.content || '응답을 생성할 수 없습니다. 😔';
+                removeLastBotMessage();
+                addMessage('bot', botReply);
+            } catch (error) {
+                removeLastBotMessage();
+                addMessage('bot', `오류가 발생했어요: ${error.message}. API 키를 확인해주세요! 😅`);
+            } finally {
+                sendButton.disabled = false;
+                messageInput.focus();
+            }
+        }
+
+        function addMessage(sender, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeLastBotMessage() {
+            const lastBot = chatMessages.lastElementChild;
+            if (lastBot && lastBot.classList.contains('bot-message') && lastBot.textContent.includes('생각 중')) {
+                lastBot.remove();
+            }
+        }
+    </script>
+</body>
+</html>

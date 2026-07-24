@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관심법 좀 아는 봇 - Face Reading Advisor</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #8E24AA 0%, #AB47BC 50%, #F8BBD9 100%); 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+        .container { 
+            background: rgba(255,255,255,0.95); 
+            border-radius: 20px; 
+            box-shadow: 0 20px 40px rgba(142,36,170,0.3); 
+            padding: 40px; 
+            max-width: 600px; 
+            width: 100%; 
+            text-align: center; 
+        }
+        h1 { 
+            background: linear-gradient(45deg, #8E24AA, #FFD700); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            font-size: 2.5em; 
+            margin-bottom: 20px; 
+            text-shadow: 0 0 20px rgba(142,36,170,0.5); 
+        }
+        #upload { display: none; }
+        .upload-area { 
+            border: 3px dashed #AB47BC; 
+            border-radius: 15px; 
+            padding: 50px; 
+            margin: 20px 0; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            background: rgba(171,71,188,0.1); 
+        }
+        .upload-area:hover { 
+            background: rgba(171,71,188,0.2); 
+            border-color: #FFD700; 
+        }
+        .upload-area.dragover { 
+            background: rgba(255,215,0,0.3); 
+            border-color: #FFD700; 
+        }
+        #preview { 
+            max-width: 300px; 
+            max-height: 300px; 
+            border-radius: 15px; 
+            margin: 20px 0; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+            display: none; 
+        }
+        #analyzeBtn { 
+            background: linear-gradient(45deg, #8E24AA, #FFD700); 
+            color: white; 
+            border: none; 
+            padding: 15px 40px; 
+            font-size: 1.2em; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            box-shadow: 0 10px 20px rgba(142,36,170,0.3); 
+            display: none; 
+        }
+        #analyzeBtn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 15px 30px rgba(142,36,170,0.4); 
+        }
+        #result { 
+            margin-top: 30px; 
+            text-align: left; 
+            background: rgba(255,255,255,0.8); 
+            padding: 25px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+            display: none; 
+            font-size: 1.1em; 
+            line-height: 1.6; 
+        }
+        #result h2 { 
+            color: #8E24AA; 
+            margin-bottom: 15px; 
+            font-size: 1.5em; 
+        }
+        #loading { 
+            display: none; 
+            margin: 20px 0; 
+            font-size: 1.1em; 
+            color: #8E24AA; 
+        }
+        .spinner { 
+            border: 4px solid rgba(142,36,170,0.3); 
+            border-top: 4px solid #8E24AA; 
+            border-radius: 50%; 
+            width: 40px; 
+            height: 40px; 
+            animation: spin 1s linear infinite; 
+            margin: 0 auto 10px; 
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #error { 
+            color: #E91E63; 
+            margin: 20px 0; 
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔮 관심법 좀 아는 봇</h1>
+        <p>얼굴 사진으로 관상 분석 + 따뜻한 인생 조언 받아보세요! 🌟</p>
+
+        <input type="file" id="upload" accept="image/*">
+        <div class="upload-area" onclick="document.getElementById('upload').click()">
+            👤 얼굴 사진을 드래그하거나 클릭해서 업로드하세요!
+        </div>
+
+        <img id="preview" alt="관상 미리보기">
+
+        <div id="loading">
+            <div class="spinner"></div>
+            관상을 읽으며 인생 조언 준비 중... ✨
+        </div>
+
+        <button id="analyzeBtn">관상 분석 & 인생 조언 부탁해요! 🌟</button>
+
+        <div id="error"></div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const upload = document.getElementById('upload');
+        const preview = document.getElementById('preview');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const loading = document.getElementById('loading');
+        const result = document.getElementById('result');
+        const error = document.getElementById('error');
+        let imageBase64 = '';
+
+        upload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imageBase64 = e.target.result;
+                    preview.src = imageBase64;
+                    preview.style.display = 'block';
+                    analyzeBtn.style.display = 'block';
+                    error.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                showError('이미지 파일만 업로드해주세요! 🔮');
+            }
+        });
+
+        const uploadArea = document.querySelector('.upload-area');
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            upload.files = e.dataTransfer.files;
+            upload.dispatchEvent(new Event('change'));
+        });
+
+        analyzeBtn.addEventListener('click', async () => {
+            if (!imageBase64) return showError('먼저 사진 업로드!');
+
+            loading.style.display = 'block';
+            analyzeBtn.disabled = true;
+            result.style.display = 'none';
+            error.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/grok', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [
+                            {
+                                role: 'system',
+                                content: `너는 "관심법 좀 아는 봇"이다. 얼굴 사진으로 관상 분석 + 긍정 인생 조언:
+
+1. **[관상 분석]**: 얼굴 특징(이마=지혜/인내, 눈=인복/통찰, 코=재물/권위, 입=말재주/인연, 얼굴형=성격 등) 분석. 전통 관상학 기반, 긍정적으로.
+
+2. **[인생 조언]**: 분석 바탕 따뜻·친절한 조언. "이 관상처럼 강한 마음으로...", 실천 팁(명상/관계/커리어). 항상 긍정·희망 주기.
+
+섹션 나누어 출력. 재미있고 따뜻하게, 미신 아닌 동기부여로. 이모지 적절히.`
+                            },
+                            {
+                                role: 'user',
+                                content: [
+                                    {
+                                        type: 'text',
+                                        text: '이 얼굴 관상 분석하고 인생 조언 부탁해요! 따뜻하게 부탁드려요~ 🔮✨'
+                                    },
+                                    {
+                                        type: 'image_url',
+                                        image_url: { url: imageBase64 }
+                                    }
+                                ]
+                            }
+                        ],
+                        model: 'grok-4.20-0309-non-reasoning',
+                        max_tokens: 50000,
+                        temperature: 0.8
+                    })
+                });
+
+                const data = await response.json();
+
+                // 🔍 디버그 콘솔 (F12)
+                console.log('API Response:', data);
+                console.log('Status:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`API ${response.status}: ${data.error?.message || 'Unknown'}`);
+                }
+
+                if (data.choices && data.choices[0]?.message?.content) {
+                    result.innerHTML = data.choices[0].message.content;
+                    result.style.display = 'block';
+                } else {
+                    throw new Error('Content 누락: ' + JSON.stringify(data));
+                }
+            } catch (err) {
+                console.error(err);
+                showError(`오류: ${err.message}<br>서버 로그/F12 확인! 🌟`);
+            } finally {
+                loading.style.display = 'none';
+                analyzeBtn.disabled = false;
+            }
+        });
+
+        function showError(msg) {
+            error.innerHTML = msg;
+            error.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

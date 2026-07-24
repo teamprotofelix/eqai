@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>청구범위to도면 변환봇</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .patent-drawing { border: 2px solid #374151; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3); }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- 헤더 -->
+    <div class="bg-zinc-900 border-b border-zinc-800 px-6 py-4">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-11 h-11 bg-blue-600 rounded-xl flex items-center justify-center">
+                    <i class="fa-solid fa-drafting-compass text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold">청구범위to도면 변환봇</h1>
+                    <p class="text-xs text-zinc-400">grok-imagine-image-quality</p>
+                </div>
+            </div>
+            
+            <!-- API Key 입력 -->
+            <div class="flex items-center gap-x-2">
+                <div class="flex items-center bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
+                    <div class="px-3 py-2 text-xs text-zinc-400">XAI_KEY</div>
+                    <input id="api-key-input" type="password" class="bg-zinc-900 px-3 py-2 text-sm w-72 focus:outline-none border-l border-zinc-700" placeholder="sk-...">
+                    <button onclick="saveApiKey()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-sm font-medium">저장</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6 py-6">
+        <div class="mb-6 bg-zinc-900 border border-zinc-700 rounded-2xl p-4 text-sm">
+            <strong class="text-emerald-400">정상 작동 버전</strong> — 올바른 이미지 생성 API (`/v1/images/generations`) 사용
+        </div>
+
+        <div class="bg-zinc-900 border border-zinc-700 rounded-3xl overflow-hidden shadow-2xl">
+            <!-- 채팅 영역 -->
+            <div id="chat-container" class="h-[520px] overflow-y-auto p-6 space-y-6 bg-zinc-950">
+                <div class="flex gap-3">
+                    <div class="w-8 h-8 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center">
+                        <i class="fa-solid fa-robot text-white text-sm"></i>
+                    </div>
+                    <div class="px-5 py-4 bg-zinc-800 rounded-2xl text-sm max-w-[80%]">
+                        API Key를 입력하고 저장한 후 청구범위를 붙여넣으세요.<br>
+                        각 구성요소에 번호 태그가 표시된 기술도면을 생성합니다.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 입력 영역 -->
+            <div class="border-t border-zinc-700 p-4 bg-zinc-900">
+                <div class="flex gap-3">
+                    <textarea id="claim-input" class="flex-1 bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 text-sm resize-none focus:outline-none focus:border-blue-500" rows="3" placeholder="특허청구범위를 입력하세요"></textarea>
+                    <button onclick="generateDrawing()" class="px-8 bg-blue-600 hover:bg-blue-700 transition-colors rounded-2xl font-semibold flex items-center justify-center gap-2 min-w-[110px]">
+                        <i class="fa-solid fa-image mr-2"></i> 도면 생성
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function loadApiKey() {
+            const savedKey = sessionStorage.getItem('XAI_KEY');
+            if (savedKey) document.getElementById('api-key-input').value = savedKey;
+        }
+
+        function saveApiKey() {
+            const key = document.getElementById('api-key-input').value.trim();
+            if (!key) return alert('API Key를 입력하세요.');
+            sessionStorage.setItem('XAI_KEY', key);
+            alert('API Key가 세션에 저장되었습니다.');
+        }
+
+        function addMessage(content, isUser = false, imageUrl = null) {
+            const chat = document.getElementById('chat-container');
+            const div = document.createElement('div');
+            div.className = `flex gap-3 ${isUser ? 'justify-end' : ''}`;
+
+            if (isUser) {
+                div.innerHTML = `<div class="px-5 py-4 bg-blue-600 rounded-2xl text-sm max-w-[80%]">${content}</div>`;
+            } else {
+                let html = `<div class="w-8 h-8 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center"><i class="fa-solid fa-robot text-white text-sm"></i></div>
+                            <div class="px-5 py-4 bg-zinc-800 rounded-2xl text-sm max-w-[80%]">${content}</div>`;
+                
+                if (imageUrl) {
+                    html = `<div class="w-8 h-8 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center"><i class="fa-solid fa-robot text-white text-sm"></i></div>
+                            <div class="px-5 py-4 bg-zinc-800 rounded-2xl text-sm max-w-[80%]">
+                                ${content}
+                                <div class="mt-4"><img src="${imageUrl}" class="patent-drawing w-full rounded-xl"></div>
+                            </div>`;
+                }
+                div.innerHTML = html;
+            }
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        async function generateDrawing() {
+            const claim = document.getElementById('claim-input').value.trim();
+            const apiKey = sessionStorage.getItem('XAI_KEY');
+
+            if (!claim) return alert('청구범위를 입력하세요.');
+            if (!apiKey) return alert('먼저 API Key를 저장하세요.');
+
+            addMessage(claim, true);
+            document.getElementById('claim-input').value = '';
+
+            const chat = document.getElementById('chat-container');
+            const loading = document.createElement('div');
+            loading.className = `flex gap-3`;
+            loading.innerHTML = `<div class="w-8 h-8 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center"><i class="fa-solid fa-robot text-white text-sm"></i></div>
+                                <div class="px-5 py-4 bg-zinc-800 rounded-2xl text-sm">도면 생성 중... (grok-imagine-image)</div>`;
+            chat.appendChild(loading);
+            chat.scrollTop = chat.scrollHeight;
+
+            try {
+                // 올바른 이미지 생성 API 호출
+                const res = await fetch('https://api.x.ai/v1/images/generations', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: "grok-imagine-image",
+                        prompt: `Technical patent drawing style, black and white line art, clear numbered component tags. ${claim}. Each component must have a clear number tag (1, 2, 3...) with name.`,
+                        n: 1,
+                        response_format: "url"
+                    })
+                });
+
+                const data = await res.json();
+                loading.remove();
+
+                console.log('API 응답:', data);  // 디버깅용
+
+                if (!res.ok) {
+                    const errMsg = data.error?.message || JSON.stringify(data);
+                    addMessage(`API 오류 (${res.status}): ${errMsg}`);
+                    return;
+                }
+
+                const imageUrl = data.data?.[0]?.url;
+                
+                if (imageUrl) {
+                    addMessage('도면 생성 완료 (구성요소 태그 포함)', false, imageUrl);
+                } else {
+                    addMessage('이미지 URL을 받지 못했습니다. 응답을 확인하세요.');
+                }
+
+            } catch (err) {
+                loading.remove();
+                addMessage(`오류: ${err.message}`);
+                console.error(err);
+            }
+        }
+
+        window.onload = function() {
+            loadApiKey();
+            document.getElementById('claim-input').focus();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기재불비 갭 파인더 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="idea-entry.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 컨테스트 스토어</a><span class="badge-off">AI 연결 끊김</span></div>
+<main class="wrap" data-app-id="description-gap">
+  <div class="hero">
+    <div class="icon">🔍</div>
+    <div>
+      <div class="sub">description-gap</div>
+      <h1>기재불비 갭 파인더</h1>
+      <p class="lead">Description Gap Finder · 지지·명확성</p>
+      <p class="lead">청구항 용어와 명세서 지지 여부를 체크리스트로 훑으며 기재불비 후보를 표시하는 아이디어 툴입니다.</p>
+    </div>
+  </div>
+  <section class="card">
+    <label for="mainInput">의심 용어 / 청구항 번호 메모</label>
+    <textarea id="mainInput" placeholder="예: ‘실질적으로’ ‘충분한’ 청구항 1,3 용어 불명확 의심…"></textarea>
+    <div class="checks">
+      <label><input type="checkbox" checked> 명확성</label>
+      <label><input type="checkbox" checked> 명세서 지지</label>
+      <label><input type="checkbox"> 실시가능</label>
+    </div>
+    <button type="button" class="btn" id="runBtn">갭 스캔 (데모)</button>
+    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
+  </section>
+  <section class="card">
+    <h2>출력 패널</h2>
+    <div class="out-grid" id="out">
+      <div class="out-card"><h3>명확성 후보</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>지지 부족 후보</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>정합 메모</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+    </div>
+  </section>
+  <footer>App ID: description-gap · <a href="index.html">앱스토어</a> · <a href="../quality.html">허브</a></footer>
+</main>
+<div class="toast" id="toast">AI 연결 끊김 — 데모 골격만 표시합니다.</div>
+<script src="idea-entry.js"></script>
+</body>
+</html>

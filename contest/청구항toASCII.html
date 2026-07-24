@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>특허 청구범위 시각화 챗봇 (Proxy 안전 모드)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .info-section {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #2196f3;
+        }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            resize: vertical;
+        }
+        button {
+            background: #2196f3;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover, button:disabled:hover {
+            background: #1976d2;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .chat-section {
+            margin-top: 20px;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            min-height: 200px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        .error { background: #ffebee; color: #c62828; }
+        .warning { background: #fff3e0; color: #ef6c00; }
+        .ascii-art {
+            background: #000;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+            white-space: pre;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>특허 청구범위 ASCII 아트 시각화 챗봇</h1>
+        <div class="info-section">
+            <p><strong>🚀 안전 프록시 모드:</strong> 청구범위를 입력하고 도면 생성!</p>
+            <p><em>예: '하나 이상의 소프트웨어 코드부를 저장하는 컴퓨터 판독 저장 매체...'</em></p>
+        </div>
+
+        <div class="chat-section">
+            <label for="claim-input"><strong>특허 청구범위 텍스트 입력</strong></label>
+            <textarea id="claim-input" rows="6" placeholder="청구범위를 입력하세요. 위치 관계, 구성요소 등을 ASCII 아트로 시각화합니다."></textarea>
+            <button id="generate-btn" onclick="generateDiagram()">도면 생성 (ASCII 아트)</button>
+            <div id="output">출력 결과가 여기에 표시됩니다...</div>
+        </div>
+    </div>
+
+    <script>
+        // 도면 생성 함수 (서버 프록시 호출)
+        async function generateDiagram() {
+            const claimText = document.getElementById('claim-input').value.trim();
+            const outputDiv = document.getElementById('output');
+            const btn = document.getElementById('generate-btn');
+
+            if (!claimText) {
+                showStatus(outputDiv, '청구범위 텍스트를 입력하세요.', 'warning');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = '생성 중...';
+            outputDiv.innerHTML = '<div class="status warning">도면 생성 중... (xAI Grok 호출)</div>';
+
+            try {
+                // 청구범위 전용 프롬프트 구성
+                const userPrompt = `당신은 특허 청구범위 전문 ASCII 아트 도면화 전문가입니다.
+
+입력된 특허 청구범위 텍스트:
+${claimText}
+
+이 청구범위를 기술적으로 해석하여 ASCII 아트로 그림/도면을 출력하세요.
+- 구성요소(예: 컴퓨터, 메모리, 프로세서 등)를 사각형[], 원형(O), 삼각형(/\\), 선(--, |) 등으로 표현.
+- 위치 관계(예: '위에', '연결', '포함')가 있으면 실제 위치에 맞게 배치 (예: 위/아래/좌/우).
+- 기능/역할은 해당 구성요소 옆에 간략한 텍스트 라벨로 첨부 (예: [CPU] - 처리).
+- 전체 도면을 하나의 큰 pre/code 블록으로 깔끔하게 출력.
+- 불필요한 설명 텍스트 없이 도면 위주. 최대한 명확하고 구조화.
+- 전기통신/소프트웨어 분야 특허에 맞게 네트워크, 데이터 흐름 등 표현.
+- 모르는 부분은 일반화하여 표현.
+
+출력: 순수 ASCII 아트 도면 + 필요 최소 설명.`;
+
+                const response = await fetch('/api/grok', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: 'grok-4.20-0309-non-reasoning',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: '당신은 특허 청구범위 ASCII 아트 시각화 전문가. 출력은 순수 ASCII 아트 도면으로만.'
+                            },
+                            { role: 'user', content: userPrompt }
+                        ],
+                        temperature: 0.3,
+                        max_tokens: 40960,
+                        stream: false
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`서버 오류: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // 프록시 에러 체크
+                if (data.error) {
+                    throw new Error(data.error + (data.details ? `: ${data.details}` : ''));
+                }
+
+                if (!data.choices?.[0]?.message?.content) {
+                    throw new Error('응답 형식 오류: 예상치 못한 데이터');
+                }
+
+                const asciiArt = data.choices[0].message.content.trim();
+                outputDiv.innerHTML = `<div class="status success">도면 생성 완료!</div><div class="ascii-art">${asciiArt}</div>`;
+
+            } catch (error) {
+                console.error('생성 오류:', error);
+                outputDiv.innerHTML = `<div class="status error">오류: ${error.message}<br>서버 상태 확인 (/health) 또는 청구범위 간소화하세요.</div>`;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '도면 생성 (ASCII 아트)';
+            }
+        }
+
+        // 상태 표시 (자동 사라짐)
+        function showStatus(element, message, type) {
+            const statusDiv = document.createElement('div');
+            statusDiv.className = `status ${type}`;
+            statusDiv.textContent = message;
+            element.innerHTML = '';
+            element.appendChild(statusDiv);
+            setTimeout(() => { if (statusDiv.parentNode) statusDiv.remove(); }, 5000);
+        }
+
+        // Ctrl+Enter 지원
+        document.getElementById('claim-input').addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') generateDiagram();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏛️⚔️ 대전청사 미궁 - 신규심사관의 어둠 전투 (RPG 버전)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Orbitron', monospace; 
+            background: radial-gradient(circle at center, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background-attachment: fixed;
+            color: #e0e0e0; 
+            margin: 0; 
+            padding: 20px; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden;
+            position: relative;
+        }
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: radial-gradient(circle, rgba(255,0,64,0.1) 1px, transparent 1px);
+            background-size: 50px 50px; opacity: 0.3; pointer-events: none; z-index: -1;
+            animation: dustFloat 20s infinite linear;
+        }
+        @keyframes dustFloat { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-100vh) rotate(360deg); } }
+        .header { 
+            text-align: center; 
+            margin-bottom: 15px; 
+            text-shadow: 0 0 20px #ff0040;
+        }
+        .header h1 { 
+            font-family: 'Cinzel', serif;
+            font-size: 2.2em; 
+            background: linear-gradient(90deg, #ffd700, #ff6b35, #ffd700); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            margin: 0; 
+            animation: glowPulse 2s infinite alternate;
+            position: relative;
+        }
+        @keyframes glowPulse { 0% { text-shadow: 0 0 20px #ffd700; } 100% { text-shadow: 0 0 40px #ffd700, 0 0 60px #ff6b35; } }
+        .header p { font-size: 0.9em; opacity: 0.8; margin: 5px 0 0; }
+        .warning { 
+            background: linear-gradient(135deg, rgba(231,76,60,0.8), rgba(192,57,43,0.8)); 
+            color: #fff; 
+            padding: 12px; 
+            border-radius: 15px; 
+            margin-bottom: 15px; 
+            font-weight: 600; 
+            text-align: center; 
+            box-shadow: 0 0 20px rgba(231,76,60,0.5);
+            border: 1px solid #e74c3c;
+        }
+        #status-bar { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr 1fr; 
+            gap: 10px;
+            background: rgba(0,0,0,0.7); 
+            padding: 15px; 
+            border-radius: 15px; 
+            margin-bottom: 15px; 
+            backdrop-filter: blur(10px);
+            border: 1px solid #00ff88;
+            box-shadow: 0 0 15px rgba(0,255,136,0.3);
+        }
+        .status-item { 
+            text-align: center; 
+            font-size: 0.95em;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .status-item i { font-size: 1.5em; margin-bottom: 5px; color: #ffd700; }
+        .hp-bar { width: 100%; height: 12px; background: #1a1a1a; border-radius: 6px; overflow: hidden; border: 1px solid #ff0040; }
+        .hp-fill { height: 100%; background: linear-gradient(90deg, #00ff88, #27ae60); border-radius: 6px; transition: width 0.8s ease, box-shadow 0.3s; box-shadow: 0 0 10px #00ff88; }
+        .hp-fill.low { background: linear-gradient(90deg, #ff4757, #e74c3c); box-shadow: 0 0 15px #ff4757; animation: shake 0.5s; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        #chat-container { 
+            flex: 1; 
+            overflow-y: auto; 
+            background: rgba(0,0,0,0.6); 
+            border-radius: 15px; 
+            padding: 20px; 
+            margin-bottom: 15px; 
+            backdrop-filter: blur(5px);
+            border: 1px solid #333;
+            scroll-behavior: smooth;
+        }
+        .chat-message { 
+            margin-bottom: 15px; 
+            padding: 15px 20px; 
+            border-radius: 25px; 
+            max-width: 85%; 
+            position: relative;
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .bot { 
+            background: linear-gradient(135deg, rgba(52,152,219,0.9), rgba(41,128,185,0.9)); 
+            margin-left: auto; 
+            border-bottom-right-radius: 5px;
+        }
+        .bot::before { content: '🧙‍♂️'; position: absolute; left: -30px; top: 10px; font-size: 1.5em; }
+        .user { 
+            background: linear-gradient(135deg, rgba(243,156,18,0.9), rgba(230,126,34,0.9)); 
+            margin-right: auto; 
+            color: #fff;
+            border-bottom-left-radius: 5px;
+        }
+        .user::before { content: '👤'; position: absolute; right: -30px; top: 10px; font-size: 1.5em; }
+        .loading { 
+            background: linear-gradient(135deg, rgba(149,165,166,0.8), rgba(127,140,141,0.8)); 
+            margin-left: auto; 
+            color: #333; 
+            font-style: italic;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .section { 
+            background: rgba(255,255,255,0.15); 
+            padding: 10px; 
+            border-radius: 10px; 
+            margin: 10px 0; 
+            font-weight: 700; 
+            border-left: 4px solid #ffd700;
+            box-shadow: inset 0 0 10px rgba(255,215,0,0.2);
+        }
+        .damage { color: #ff4757 !important; font-weight: bold; text-shadow: 0 0 5px #ff4757; }
+        .heal { color: #00ff88 !important; font-weight: bold; text-shadow: 0 0 5px #00ff88; }
+        .input-section { 
+            display: flex; 
+            gap: 10px; 
+            background: rgba(0,0,0,0.5); 
+            padding: 15px; 
+            border-radius: 25px; 
+            backdrop-filter: blur(10px);
+            border: 1px solid #00ff88;
+        }
+        input[type="text"] { 
+            flex: 1; 
+            padding: 15px 20px; 
+            border: none; 
+            border-radius: 20px; 
+            background: rgba(255,255,255,0.95); 
+            font-size: 16px; 
+            font-family: inherit;
+            box-shadow: 0 0 10px rgba(0,255,136,0.3);
+        }
+        input:focus { outline: none; box-shadow: 0 0 20px #00ff88; }
+        button { 
+            padding: 15px 25px; 
+            background: linear-gradient(135deg, #ffd700, #f39c12); 
+            border: none; 
+            border-radius: 20px; 
+            color: #111; 
+            font-weight: 700; 
+            font-family: inherit;
+            cursor: pointer; 
+            transition: all 0.3s; 
+            box-shadow: 0 0 15px rgba(255,215,0,0.5);
+            position: relative; overflow: hidden;
+        }
+        button:hover { transform: scale(1.08) translateY(-2px); box-shadow: 0 5px 25px rgba(255,215,0,0.7); }
+        button:active { transform: scale(1.02); }
+        button:disabled { opacity: 0.4; cursor: not-allowed; }
+        @media (max-width: 768px) { body { padding: 10px; } #status-bar { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-scroll-torah"></i> 대전청사 미궁</h1>
+        <p>⚔️ 신규심사관의 특허 심사 모험! '이동 [북쪽/남쪽/동쪽/서쪽]', '공격 [등록/거절]', '인벤토리', '사용 [아이템]'</p>
+    </div>
+
+    <div class="warning">
+        🔒 <strong>서버 프록시 보안 모드</strong>: API 키 완벽 숨김. CORS 안전!
+    </div>
+
+    <div id="status-bar">
+        <div class="status-item">
+            <i class="fas fa-heart"></i> HP
+            <div class="hp-bar"><div id="hp-fill" class="hp-fill" style="width:100%"></div></div>
+        </div>
+        <div class="status-item">
+            <i class="fas fa-map-marker-alt"></i> 위치
+            <span id="location">입구</span>
+        </div>
+        <div class="status-item">
+            <i class="fas fa-sack"></i> 인벤
+            <span id="inventory">없음</span>
+        </div>
+    </div>
+
+    <div id="chat-container"></div>
+
+    <div class="input-section">
+        <input type="text" id="userInput" placeholder="명령어를 입력하세요... (예: 이동 북쪽)" />
+        <button id="sendBtn" onclick="sendMessage()">
+            <i class="fas fa-dungeon"></i> 탐험
+        </button>
+        <button onclick="testServer()">
+            <i class="fas fa-flask"></i> 테스트
+        </button>
+    </div>
+
+    <script>
+        const SYSTEM_PROMPT = `너는 '대전청사 미궁 탐험' RPG 게임 마스터. 지식재산처 신규심사관 모험. 유머+현실(특허 심사, 상사 압박) 서사.
+
+현재 상태: 추적하며 업데이트.
+
+응답 형식 **반드시**:
+[상황]
+(생생 서사: 위치 변화, 이벤트.)
+
+[전투/이벤트] (몬스터: 과장/국장 등. 등록: 80% 성공(몬스터 약화), 20% 부적합 데미지10-20. 거절: 80% 성공(퇴치), 20% 출원인 항소 데미지10-20.)
+(아이템: 포션(HP+30), 커피(+15), 서류(다음 공격 +성공).)
+
+끝에 JSON: {"hp":X,"maxHp":100,"location":"북쪽 사무실","inventory":["포션","커피"]}
+
+위치: 입구/북쪽 사무실/남쪽 회의실/동쪽 휴게실/서쪽 복도/지하 보스룸.
+랜덤: 몬스터/아이템/야근 이벤트. HP0: 오버. 5전승: 클리어. 한국어, 재미있게!`;
+
+        let gameState = { hp: 100, maxHp: 100, location: '입구', inventory: [], history: [] };
+
+        function saveState() { localStorage.setItem('daejunMazeRPG', JSON.stringify(gameState)); }
+        function loadState() { 
+            const saved = localStorage.getItem('daejunMazeRPG');
+            if (saved) gameState = JSON.parse(saved);
+            updateStatus();
+        }
+
+        function updateStatus() {
+            document.getElementById('location').textContent = gameState.location;
+            document.getElementById('inventory').textContent = gameState.inventory.join(', ') || '없음';
+            const hpPercent = Math.max(0, (gameState.hp / gameState.maxHp) * 100);
+            const hpFill = document.getElementById('hp-fill');
+            hpFill.style.width = hpPercent + '%';
+            if (hpPercent < 30) hpFill.classList.add('low');
+            else hpFill.classList.remove('low');
+            if (gameState.hp <= 0) {
+                setTimeout(() => alert('💀 게임 오버! 새로고침으로 재시작하세요.'), 100);
+            }
+        }
+
+        function addMessage(sender, text, isLoading = false) {
+            const container = document.getElementById('chat-container');
+            const msg = document.createElement('div');
+            msg.className = `chat-message ${sender} ${isLoading ? 'loading' : ''}`;
+            msg.innerHTML = text.replace(/\n/g, '<br>');
+            container.appendChild(msg);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const userText = input.value.trim();
+            if (!userText) return;
+
+            addMessage('user', userText);
+            input.value = '';
+            sendBtn.disabled = true;
+            const loadingMsg = addMessage('bot', '🔍 미궁 깊숙이 탐색 중... <i class="fas fa-spinner fa-spin"></i> (Grok API 호출)', true);
+
+            gameState.history.push({ role: 'user', content: userText });
+
+            try {
+                const response = await fetch('/api/grok', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [
+                            { role: 'system', content: SYSTEM_PROMPT + '\n현재 상태: ' + JSON.stringify(gameState) },
+                            ...gameState.history.slice(-10)
+                        ],
+                        model: 'grok-4.20-0309-non-reasoning',
+                        temperature: 0.8,
+                        max_tokens: 40000
+                    })
+                });
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(`서버 오류: ${err.error || response.status}`);
+                }
+
+                const data = await response.json();
+                let botText = data.choices[0].message.content;
+
+                // RPG 스타일 파싱
+                botText = botText
+                    .replace(/\[상황\]/gi, '<div class="section">[상황]</div>')
+                    .replace(/\[전투\/이벤트\]/gi, '<div class="section">[전투/이벤트]</div>')
+                    .replace(/데미지/gi, '<span class="damage">데미지</span>')
+                    .replace(/회복|치유|HP\+/gi, '<span class="heal">회복</span>');
+
+                // JSON 상태 업데이트
+                const jsonMatch = botText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    const newState = JSON.parse(jsonMatch[0]);
+                    Object.assign(gameState, newState);
+                    saveState();
+                    updateStatus();
+                }
+
+                // 로딩 교체
+                loadingMsg.outerHTML = `<div class="chat-message bot">${botText}</div>`;
+            } catch (error) {
+                addMessage('bot', `❌ 탐험 실패: ${error.message}. <a href="/health" target="_blank" style="color:#ffd700;">서버 헬스 체크</a>`);
+            } finally {
+                sendBtn.disabled = false;
+            }
+        }
+
+        async function testServer() {
+            try {
+                const res = await fetch('/api/test', { method: 'POST' });
+                const msg = await res.json();
+                alert('✅ 서버 연결 성공! ' + msg.message);
+            } catch(e) {
+                alert('❌ 서버 문제: ' + e.message + '\n서버를 재시작하세요!');
+            }
+        }
+
+        document.getElementById('userInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        window.onload = () => {
+            loadState();
+            addMessage('bot', '<div class="section">[미궁 입구]</div><i class="fas fa-torch-burning"></i> 🏛️ 대전청사에 발령되었습니다! 북쪽 사무실부터 탐험하세요. 어둠 속 행운을 빌어요, 심사관님! ⚔️');
+        };
+    </script>
+</body>
+</html>

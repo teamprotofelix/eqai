@@ -1,0 +1,60 @@
+# contest.jpg 이미지 생성 프롬프트
+# 용도: /contest/index.html 히어로(헤드) 이미지
+# 권장: 16:9 또는 21:9, 가로형, 텍스트 최소(로고 오버레이용)
+
+--------------------------------------------------------------------------------
+[메인 프롬프트 — 권장]
+--------------------------------------------------------------------------------
+Dark futuristic contest arena for an AI idea app store, cinematic wide banner.
+Center: a luminous holographic trophy made of cyan and violet light, floating
+above a sleek digital stage. Around it, soft app-icon-like tiles and abstract
+idea cards orbit gently, suggesting patents, trademarks, and design examination
+(subtle geometric seals, claim-structure lines, balance scale silhouette—not
+literal office paperwork). Deep space navy background (#05050f–#0a0a23), neon
+cyan (#00E5FF) and soft purple (#A78BFA) glow, gold accent sparkles like event
+highlights. Clean premium tech aesthetic matching a professional Korean IP
+research AI hub. Minimal UI chrome, no readable text, no logos, no watermarks.
+High detail, sharp, elegant, not cartoonish. 16:9 composition with empty dark
+space at top/bottom for overlay title.
+
+--------------------------------------------------------------------------------
+[짧은 버전]
+--------------------------------------------------------------------------------
+Cinematic dark navy AI contest hero banner, holographic cyan-violet trophy on
+digital stage, orbiting idea app cards, subtle IP exam motifs, neon glow,
+premium tech, no text, 16:9.
+
+--------------------------------------------------------------------------------
+[한글 요약 프롬프트]
+--------------------------------------------------------------------------------
+다크 네이비 우주 배경의 AI 컨테스트 히어로 배너. 중앙에 시안·보라 홀로그램
+트로피, 주변에 앱 아이콘 같은 아이디어 카드가 궤도처럼 떠 있음. 특허·상표·
+디자인 심사를 은은히 연상시키는 기하 문양만 포함. 네온 시안/바이올렛 글로우,
+골드 포인트. 전문적이고 세련된 테크 감성. 글자·로고·워터마크 없음. 16:9.
+
+--------------------------------------------------------------------------------
+[스타일 / 제약]
+--------------------------------------------------------------------------------
+- Style: cinematic, premium tech, glassmorphism glow, subtle particle dust
+- Palette: deep navy/black, cyan, violet, small gold accents
+- Mood: idea contest + brainstorming store (not a sports tournament poster)
+- Avoid: cluttered collage, stock handshake, cartoon mascot, Korean/English text,
+  real brand logos, realistic courtroom, messy desk photos
+- Safe area: keep main subject centered; leave soft vignette edges for CSS overlay
+
+--------------------------------------------------------------------------------
+[네거티브 프롬프트]
+--------------------------------------------------------------------------------
+text, letters, watermark, logo, blurry, low quality, oversaturated, cluttered,
+cartoon, anime face, realistic human crowd, paper documents with readable text,
+bright white background, daytime office photo
+
+--------------------------------------------------------------------------------
+[생성 팁]
+--------------------------------------------------------------------------------
+1) 1차: 메인 프롬프트로 3~4장 뽑기
+2) 글자가 생기면 네거티브 강화 후 재생성
+3) 사이트 적용 전: 어두운 오버레이(현재 index.html) 올려도 트로피·카드 윤곽이
+   남는 대비인지 확인
+4) 파일명: contest.jpg (contest 폴더 루트)
+5) 권장 해상도: 1920×1080 또는 2400×1350, JPG 품질 높음

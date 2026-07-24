@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골프폼 유연샘 - Golf Swing Advisor</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #4CAF50 0%, #2196F3 50%, #00BCD4 100%); 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+        .container { 
+            background: rgba(255,255,255,0.95); 
+            border-radius: 20px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+            padding: 40px; 
+            max-width: 600px; 
+            width: 100%; 
+            text-align: center; 
+        }
+        h1 { 
+            background: linear-gradient(45deg, #4CAF50, #FFEB3B); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            font-size: 2.5em; 
+            margin-bottom: 20px; 
+            text-shadow: 0 0 20px rgba(76,175,80,0.5); 
+        }
+        #upload { 
+            display: none; 
+        }
+        .upload-area { 
+            border: 3px dashed #4CAF50; 
+            border-radius: 15px; 
+            padding: 50px; 
+            margin: 20px 0; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            background: rgba(76,175,80,0.1); 
+        }
+        .upload-area:hover { 
+            background: rgba(76,175,80,0.2); 
+            border-color: #FFEB3B; 
+        }
+        .upload-area.dragover { 
+            background: rgba(255,235,59,0.3); 
+            border-color: #FFEB3B; 
+        }
+        #preview { 
+            max-width: 400px; 
+            max-height: 300px; 
+            border-radius: 15px; 
+            margin: 20px 0; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+            display: none; 
+        }
+        #analyzeBtn { 
+            background: linear-gradient(45deg, #4CAF50, #FFEB3B); 
+            color: white; 
+            border: none; 
+            padding: 15px 40px; 
+            font-size: 1.2em; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            box-shadow: 0 10px 20px rgba(76,175,80,0.3); 
+            display: none; 
+        }
+        #analyzeBtn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 15px 30px rgba(76,175,80,0.4); 
+        }
+        #result { 
+            margin-top: 30px; 
+            text-align: left; 
+            background: rgba(255,255,255,0.8); 
+            padding: 25px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+            display: none; 
+            font-size: 1.1em; 
+            line-height: 1.6; 
+        }
+        #result h2 { 
+            color: #4CAF50; 
+            margin-bottom: 15px; 
+            font-size: 1.5em; 
+        }
+        #loading { 
+            display: none; 
+            margin: 20px 0; 
+            font-size: 1.1em; 
+            color: #4CAF50; 
+        }
+        .spinner { 
+            border: 4px solid rgba(76,175,80,0.3); 
+            border-top: 4px solid #4CAF50; 
+            border-radius: 50%; 
+            width: 40px; 
+            height: 40px; 
+            animation: spin 1s linear infinite; 
+            margin: 0 auto 10px; 
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #error { 
+            color: #f44336; 
+            margin: 20px 0; 
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏌️‍♂️ 골프폼 유연샘</h1>
+        <p>스윙 사진 업로드하면, 프로 코치처럼 폼 분석 + 개선 조언 드려요! ⛳</p>
+
+        <input type="file" id="upload" accept="image/*">
+        <div class="upload-area" onclick="document.getElementById('upload').click()">
+            ⛳ 골프 스윙 사진을 드래그하거나 클릭해서 업로드하세요!
+        </div>
+
+        <img id="preview" alt="스윙 미리보기">
+
+        <div id="loading">
+            <div class="spinner"></div>
+            유연샘이 스윙 분석 중이에요... ⛳
+        </div>
+
+        <button id="analyzeBtn">유연샘 스윙 조언 부탁해요! 🏌️</button>
+
+        <div id="error"></div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const upload = document.getElementById('upload');
+        const preview = document.getElementById('preview');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const loading = document.getElementById('loading');
+        const result = document.getElementById('result');
+        const error = document.getElementById('error');
+        let imageBase64 = '';
+
+        // 업로드 핸들러
+        upload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imageBase64 = e.target.result;
+                    preview.src = imageBase64;
+                    preview.style.display = 'block';
+                    analyzeBtn.style.display = 'block';
+                    error.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                showError('이미지 파일만 업로드해주세요! ⛳');
+            }
+        });
+
+        // 드래그 앤 드롭
+        const uploadArea = document.querySelector('.upload-area');
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            upload.files = e.dataTransfer.files;
+            upload.dispatchEvent(new Event('change'));
+        });
+
+     // 분석 버튼 (수정 버전)
+    analyzeBtn.addEventListener('click', async () => {
+        if (!imageBase64) return showError('먼저 스윙 사진을 업로드해주세요!');
+
+        loading.style.display = 'block';
+        analyzeBtn.disabled = true;
+        result.style.display = 'none';
+        error.style.display = 'none';
+
+        try {
+            const payload = {
+                messages: [
+                    {
+                        role: 'system',
+                        content: `너는 "골프폼 유연샘" 프로 코치. 골프 스윙 사진 분석:
+
+1. **[현재 스윙폼 분석]**: 스윙 단계, 그립/스탠스/체중/로테이션/클럽 각도 장단점 분석.
+
+2. **[스윙폼 조언]**: 개선 팁, 단계 수정, 트레이닝 드릴 추천. 친근·재미있게.
+
+섹션 나누어 출력. 이모지 OK.`
+                    },
+                    {
+                        role: 'user',
+                        content: [
+                            { type: 'text', text: '스윙 분석하고 조언해줘! 🏌️⛳' },
+                            { type: 'image_url', image_url: { url: imageBase64 } }
+                        ]
+                    }
+                ],
+                model: 'grok-4.20-0309-non-reasoning', 
+                max_tokens: 50000,
+                temperature: 0.7
+            };
+
+            const response = await fetch('/api/grok', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            // 🔍 디버그: F12 콘솔 확인
+            console.log('Full API Response:', data);
+            console.log('Status:', response.status);
+
+            if (!response.ok) {
+                throw new Error(`API 에러 ${response.status}: ${data.error?.message || 'Unknown'}`);
+            }
+
+            if (data.choices && data.choices[0]?.message?.content) {
+                result.innerHTML = data.choices[0].message.content;
+                result.style.display = 'block';
+            } else {
+                throw new Error('choices 또는 content 누락: ' + JSON.stringify(data));
+            }
+        } catch (err) {
+            console.error('Client Error:', err);
+            showError(`분석 오류: ${err.message}<br>서버 로그와 F12 콘솔 확인하세요! 🔧`);
+        } finally {
+            loading.style.display = 'none';
+            analyzeBtn.disabled = false;
+        }
+    });
+
+    function showError(msg) {
+        error.innerHTML = msg;
+        error.style.display = 'block';
+    }
+</script>

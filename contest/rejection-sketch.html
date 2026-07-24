@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>거절이유 초안 스케치 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="idea-entry.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 컨테스트 스토어</a><span class="badge-off">AI 연결 끊김</span></div>
+<main class="wrap" data-app-id="rejection-sketch">
+  <div class="hero">
+    <div class="icon">📝</div>
+    <div>
+      <div class="sub">rejection-sketch</div>
+      <h1>거절이유 초안 스케치</h1>
+      <p class="lead">Rejection Draft Sketch · 의견제출통지서 구상</p>
+      <p class="lead">쟁점 체크와 한 줄 메모로 거절이유 뼈대 문장을 스케치합니다. 실제 통지서 문구 생성은 AI 재연결 후 확장 가능합니다.</p>
+    </div>
+  </div>
+  <section class="card">
+    <label for="mainInput">핵심 쟁점 메모</label>
+    <textarea id="mainInput" placeholder="예: 인용발명1+2 결합으로 진보성 부정 논거, 효과 기재 미흡…"></textarea>
+    <div class="checks">
+      <label><input type="checkbox" checked> 신규성</label>
+      <label><input type="checkbox" checked> 진보성</label>
+      <label><input type="checkbox"> 기재불비</label>
+      <label><input type="checkbox"> 확대된 선출원</label>
+    </div>
+    <button type="button" class="btn" id="runBtn">초안 스케치 (데모)</button>
+    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
+  </section>
+  <section class="card">
+    <h2>출력 패널</h2>
+    <div class="out-grid" id="out">
+      <div class="out-card"><h3>적용 조문 후보</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>주요 논거 뼈대</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>보강 질문</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+    </div>
+  </section>
+  <footer>App ID: rejection-sketch · <a href="index.html">앱스토어</a> · <a href="../quality.html">허브</a></footer>
+</main>
+<div class="toast" id="toast">AI 연결 끊김 — 데모 골격만 표시합니다.</div>
+<script src="idea-entry.js"></script>
+</body>
+</html>

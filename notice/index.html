@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>심사품질담당관실 공지</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #2c3e50 100%);
+            height: 100vh; overflow: hidden; font-family: 'Segoe UI', sans-serif;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .slideshow-container {
+            position: relative; 
+            width: 95vw; height: 95vh; 
+            max-width: 1920px; max-height: 1080px;
+            border-radius: 25px; overflow: hidden;
+            box-shadow: 0 25px 75px rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.1); /* 여백 배경 */
+        }
+        .slide {
+            position: absolute; top: 0; left: 0; 
+            width: 100%; height: 100%;
+            opacity: 0; transform: scale(0.95) translateY(20px);
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            object-fit: contain; /* 전체 보임! crop 없음 */
+            object-position: center;
+        }
+        .slide.active {
+            opacity: 1; transform: scale(1) translateY(0);
+        }
+.stack-preview {
+    position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 8px; pointer-events: none; z-index: 20;
+    align-items: center;
+}
+.stack-img {
+    width: 55px; height: 75px; border-radius: 12px; object-fit: cover;
+    opacity: 0.8; transition: all 0.5s ease; 
+    box-shadow: 0 5px 18px rgba(0,0,0,0.4); border: 2px solid rgba(255,255,255,0.4);
+}
+.stack-img.current { 
+    opacity: 1; transform: scale(1.3) rotate(0deg); 
+    box-shadow: 0 12px 35px rgba(255,255,255,0.7); border-color: white;
+}
+.stack-img.past { transform: translateX(10px) scale(0.9); }
+.stack-img.future { transform: translateX(-10px) scale(0.75); }
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .stack-preview { right: 10px; gap: 6px; }
+    .stack-img { width: 40px; height: 55px; }
+}
+@media (max-width: 480px) {
+    .stack-preview { display: none; }  /* 초소형 숨김 */
+}
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        <!-- img 슬라이드: src 수정 (notice1.jpg → 실제 파일명) -->
+        <img class="slide active" src="images/notice1.jpg" alt="공지 1">
+        <img class="slide" src="images/notice2.jpg" alt="공지 2">
+        <img class="slide" src="images/notice3.jpg" alt="공지 3">
+        <img class="slide" src="images/notice4.jpg" alt="공지 4">
+        <img class="slide" src="images/notice5.jpg" alt="공지 5">
+        <!-- 추가: <img class="slide" src="images/notice6.jpg" alt="공지 6"> -->
+
+        <div class="stack-preview" id="stackPreview"></div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentIndex = 0;
+        const intervalTime = 10000;  // 10초
+
+        function updateStackPreview() {
+            const stackPreview = document.getElementById('stackPreview');
+            stackPreview.innerHTML = '';
+            for (let i = -2; i <= 2; i++) {
+                const stackIdx = (currentIndex + i + totalSlides) % totalSlides;
+                const img = document.createElement('img');
+                img.src = slides[stackIdx].src;
+                img.alt = slides[stackIdx].alt;
+                img.className = `stack-img ${i === 0 ? 'current' : (i < 0 ? 'past' : 'future')}`;
+                stackPreview.appendChild(img);
+            }
+        }
+
+        function nextSlide() {
+            slides[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % totalSlides;
+            slides[currentIndex].classList.add('active');
+            updateStackPreview();
+        }
+
+        updateStackPreview();
+        setInterval(nextSlide, intervalTime);
+        document.querySelector('.slideshow-container').addEventListener('click', nextSlide);
+    </script>
+</body>
+</html>

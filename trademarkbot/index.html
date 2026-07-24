@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상표·디자인 비교봇 | 일시정지</title>
+    <meta name="description" content="상표·디자인 심사 비교 분석 서비스. 현재 일시정지 상태입니다.">
+    <meta name="theme-color" content="#0b1220">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg: #070b14;
+            --panel: rgba(15, 23, 42, 0.88);
+            --line: rgba(56, 189, 248, 0.28);
+            --cyan: #38bdf8;
+            --indigo: #818cf8;
+            --gold: #fbbf24;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --danger: #f87171;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Noto Sans KR', system-ui, sans-serif;
+            background:
+                radial-gradient(ellipse at 20% 0%, rgba(56, 189, 248, 0.12), transparent 45%),
+                radial-gradient(ellipse at 80% 10%, rgba(129, 140, 248, 0.12), transparent 40%),
+                linear-gradient(180deg, #0b1220 0%, #070b14 100%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.55;
+        }
+        a { color: var(--cyan); text-decoration: none; font-weight: 700; }
+        a:hover { text-decoration: underline; }
+
+        .top {
+            border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+        .top-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.35);
+            font-size: 1.25rem;
+        }
+        .brand h1 {
+            font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        .brand p {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-top: 0.15rem;
+        }
+        .badge-paused {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            font-weight: 800;
+            padding: 0.4rem 0.85rem;
+            border-radius: 999px;
+            background: rgba(100, 116, 139, 0.35);
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            color: #e2e8f0;
+        }
+        .badge-paused span.dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #94a3b8;
+            box-shadow: 0 0 8px #94a3b8;
+        }
+
+        .wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 1.5rem 1.25rem 3rem;
+        }
+
+        .pause-hero {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+        @media (max-width: 860px) {
+            .pause-hero { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 1.35rem 1.4rem;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+        }
+        .pause-hero .card.main {
+            background:
+                linear-gradient(145deg, rgba(14, 165, 233, 0.12), rgba(99, 102, 241, 0.08)),
+                var(--panel);
+        }
+        .kicker {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            color: var(--cyan);
+            text-transform: uppercase;
+            margin-bottom: 0.55rem;
+        }
+        .pause-hero h2 {
+            font-size: clamp(1.35rem, 3vw, 1.85rem);
+            font-weight: 800;
+            margin-bottom: 0.65rem;
+            line-height: 1.3;
+        }
+        .pause-hero .lead {
+            color: #cbd5e1;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .pause-msg {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            padding: 0.95rem 1rem;
+            border-radius: 14px;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            color: #fde68a;
+            font-weight: 700;
+        }
+        .pause-msg i { color: var(--gold); margin-top: 0.15rem; }
+        .meta-list {
+            list-style: none;
+            display: grid;
+            gap: 0.65rem;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+        .meta-list li {
+            display: flex;
+            gap: 0.55rem;
+            align-items: flex-start;
+        }
+        .meta-list i {
+            color: var(--indigo);
+            margin-top: 0.2rem;
+        }
+
+        .axes {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.65rem;
+            margin: 1.25rem 0;
+        }
+        @media (max-width: 720px) {
+            .axes { grid-template-columns: repeat(2, 1fr); }
+        }
+        .axis {
+            text-align: center;
+            padding: 0.85rem 0.5rem;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+        }
+        .axis strong {
+            display: block;
+            font-size: 0.92rem;
+            margin-bottom: 0.2rem;
+        }
+        .axis span {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 1.1rem;
+        }
+        @media (max-width: 900px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 0.35rem;
+        }
+        .section-sub {
+            font-size: 0.88rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+
+        .upload-zone {
+            border: 2px dashed rgba(56, 189, 248, 0.35);
+            border-radius: 18px;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            background: rgba(2, 6, 23, 0.35);
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            padding: 1.25rem;
+            text-align: center;
+        }
+        .upload-zone:hover {
+            border-color: rgba(56, 189, 248, 0.7);
+            background: rgba(14, 165, 233, 0.08);
+        }
+        .upload-zone i { font-size: 2.2rem; color: var(--cyan); opacity: 0.85; }
+        .upload-zone p { color: #cbd5e1; font-weight: 600; }
+        .upload-zone small { color: var(--muted); }
+
+        .checks {
+            display: grid;
+            gap: 0.55rem;
+            margin-bottom: 1rem;
+        }
+        .checks label {
+            display: flex;
+            gap: 0.55rem;
+            align-items: flex-start;
+            font-size: 0.92rem;
+            color: #cbd5e1;
+            cursor: default;
+        }
+        .checks input { margin-top: 0.2rem; accent-color: #0ea5e9; }
+
+        textarea {
+            width: 100%;
+            min-height: 110px;
+            resize: vertical;
+            border-radius: 14px;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            background: rgba(2, 6, 23, 0.45);
+            color: var(--text);
+            padding: 0.85rem 1rem;
+            font-family: inherit;
+            font-size: 0.92rem;
+            outline: none;
+        }
+        textarea:focus {
+            border-color: rgba(56, 189, 248, 0.6);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+        }
+
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin-top: 1rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            border: none;
+            border-radius: 14px;
+            padding: 0.9rem 1.2rem;
+            font-family: inherit;
+            font-weight: 800;
+            font-size: 0.98rem;
+            cursor: pointer;
+            min-height: 48px;
+        }
+        .btn-primary {
+            flex: 1;
+            min-width: 220px;
+            color: #0b1220;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            box-shadow: 0 12px 28px rgba(56, 189, 248, 0.25);
+        }
+        .btn-primary:hover { filter: brightness(1.06); }
+        .btn-ghost {
+            color: #e2e8f0;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        #toast {
+            display: none;
+            position: fixed;
+            left: 50%;
+            bottom: 28px;
+            transform: translateX(-50%);
+            z-index: 50;
+            max-width: min(520px, calc(100% - 24px));
+            padding: 1rem 1.2rem;
+            border-radius: 16px;
+            background: rgba(15, 23, 42, 0.96);
+            border: 1px solid rgba(251, 191, 36, 0.45);
+            color: #fde68a;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+        }
+        #toast.is-on { display: block; }
+
+        #result {
+            display: none;
+            margin-top: 1.1rem;
+        }
+        #result.is-on { display: block; }
+        #result .card {
+            border-color: rgba(251, 191, 36, 0.35);
+            background: linear-gradient(180deg, rgba(251, 191, 36, 0.08), rgba(15, 23, 42, 0.9));
+        }
+        #result h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            color: #fde68a;
+        }
+        #result p { color: #e2e8f0; }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="top">
+        <div class="top-inner">
+            <div class="brand">
+                <div class="brand-icon" aria-hidden="true"><i class="fa-solid fa-scale-balanced"></i></div>
+                <div>
+                    <h1>상표·디자인 비교봇</h1>
+                    <p>심사품질 · 형태·색상·배치·문자·의미 5축 비교 분석</p>
+                </div>
+            </div>
+            <div style="display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap;">
+                <span class="badge-paused"><span class="dot" aria-hidden="true"></span> 일시정지</span>
+                <a href="../quality.html" style="font-size:0.88rem;">← 서비스 허브</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="pause-hero" aria-label="서비스 소개 및 상태">
+            <article class="card main">
+                <div class="kicker">Trademark &amp; Design Examination</div>
+                <h2>상표·디자인 심사를 위한<br>시각 비교 분석 워크벤치</h2>
+                <p class="lead">
+                    상표·디자인 이미지의 유사·혼동 가능성을 5축(형태·색상·배치·문자·의미)으로
+                    구조화해 심사 포인트 도출을 돕던 전용 도구입니다.
+                </p>
+                <div class="pause-msg" role="status">
+                    <i class="fa-solid fa-pause-circle" aria-hidden="true"></i>
+                    <div>
+                        지금은 <strong>일시정지 상태</strong>입니다. 다음에 뵙겠습니다.<br>
+                        <span style="font-weight:600; color:#fef3c7; font-size:0.92rem;">
+                            외부 API·LLM 연결은 비활성화되어 있으며, 이 페이지는 정적 안내 전용입니다.
+                        </span>
+                    </div>
+                </div>
+            </article>
+            <aside class="card">
+                <div class="kicker">Service scope</div>
+                <ul class="meta-list">
+                    <li><i class="fa-solid fa-eye" aria-hidden="true"></i><span>상표 로고·도형 표장의 시각적 유사성 비교</span></li>
+                    <li><i class="fa-solid fa-palette" aria-hidden="true"></i><span>색상·배치·타이포 관점의 정량 리뷰 프레임</span></li>
+                    <li><i class="fa-solid fa-gavel" aria-hidden="true"></i><span>심사관용 혼동 가능성·등록 쟁점 정리 지원</span></li>
+                    <li><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span>현재 공개망 분석 엔진 연결 중단 (휴면/이전)</span></li>
+                </ul>
+            </aside>
+        </section>
+
+        <div class="axes" aria-label="5축 분석 프레임">
+            <div class="axis"><strong>형태</strong><span>Shape 40%</span></div>
+            <div class="axis"><strong>색상</strong><span>Color 20%</span></div>
+            <div class="axis"><strong>배치</strong><span>Layout 15%</span></div>
+            <div class="axis"><strong>문자</strong><span>Type 15%</span></div>
+            <div class="axis"><strong>의미</strong><span>Semantic 10%</span></div>
+        </div>
+
+        <section class="grid-2">
+            <article class="card">
+                <h2 class="section-title">상표·디자인 이미지</h2>
+                <p class="section-sub">업로드 UI는 유지되나, 분석 엔진은 연결되지 않습니다.</p>
+                <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="이미지 업로드 영역 (일시정지)">
+                    <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+                    <p>이미지를 선택하거나 드래그해도<br>분석은 실행되지 않습니다</p>
+                    <small>PNG · JPG · JPEG · 정적 안내 모드</small>
+                </div>
+                <input type="file" id="imageInput" accept="image/*" multiple hidden>
+                <div id="preview" style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.85rem;"></div>
+            </article>
+
+            <article class="card">
+                <h2 class="section-title">분석 설정 (참고용)</h2>
+                <p class="section-sub">운영 재개 시 제공되던 비교 항목 프레임입니다.</p>
+                <div class="checks">
+                    <label><input type="checkbox" checked disabled> 5축 정량 유사도 (형태·색상·배치·문자·의미)</label>
+                    <label><input type="checkbox" checked disabled> 식별력·등록가능성 관점 정리</label>
+                    <label><input type="checkbox" checked disabled> 선행표장 충돌·혼동 가능성</label>
+                    <label><input type="checkbox" disabled> 도형·심볼 세부 유사도</label>
+                    <label><input type="checkbox" disabled> 색상 대비·시각 주의도</label>
+                </div>
+                <label for="extra" class="section-sub" style="display:block;">추가 요청 (입력만 가능, 전송 없음)</label>
+                <textarea id="extra" placeholder="예: 도형 윤곽 중심으로 비교해 주세요 (현재 일시정지 — API 미연결)"></textarea>
+                <div class="btn-row">
+                    <button type="button" class="btn btn-primary" id="analyzeBtn">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        상표·디자인 분석 시작
+                    </button>
+                    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
+                </div>
+            </article>
+        </section>
+
+        <section id="result" aria-live="polite">
+            <div class="card">
+                <h3><i class="fa-solid fa-circle-pause" aria-hidden="true"></i> 일시정지 안내</h3>
+                <p id="resultText"></p>
+            </div>
+        </section>
+
+        <footer>
+            심사품질 · 상표·디자인 비교봇 · 공개망 일시정지 페이지<br>
+            <a href="../quality.html">서비스 허브로 돌아가기</a>
+        </footer>
+    </main>
+
+    <div id="toast" role="status" aria-live="assertive"></div>
+
+    <script>
+        (function () {
+            // 정적 휴면 페이지: 외부 LLM/API 호출 없음
+            const PAUSE_MSG = '지금은 일시정지 상태입니다. 다음에 뵙겠습니다.';
+            const DETAIL =
+                PAUSE_MSG +
+                '\n\n상표·디자인 비교 분석 엔진(외부 API·LLM) 연결이 비활성화되어 있습니다. ' +
+                '서비스 재개 전까지 이 페이지는 안내 전용으로 운영됩니다.';
+
+            const uploadZone = document.getElementById('uploadZone');
+            const imageInput = document.getElementById('imageInput');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const toast = document.getElementById('toast');
+            const result = document.getElementById('result');
+            const resultText = document.getElementById('resultText');
+            const preview = document.getElementById('preview');
+
+            let toastTimer = null;
+
+            function showPause(source) {
+                toast.textContent = PAUSE_MSG;
+                toast.classList.add('is-on');
+                if (toastTimer) clearTimeout(toastTimer);
+                toastTimer = setTimeout(function () {
+                    toast.classList.remove('is-on');
+                }, 3200);
+
+                result.classList.add('is-on');
+                resultText.textContent = DETAIL + (source ? '\n\n(요청: ' + source + ')' : '');
+            }
+
+            function blockEvent(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            }
+
+            uploadZone.addEventListener('click', function (e) {
+                blockEvent(e);
+                // 파일 선택 UI는 열 수 있게 하되, 선택 후에도 분석은 막음
+                imageInput.click();
+            });
+            uploadZone.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    blockEvent(e);
+                    imageInput.click();
+                }
+            });
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function (type) {
+                uploadZone.addEventListener(type, function (e) {
+                    blockEvent(e);
+                    if (type === 'drop') {
+                        showPause('이미지 업로드');
+                        // 미리보기만 로컬 표시 (API 없음)
+                        const files = e.dataTransfer && e.dataTransfer.files;
+                        if (files && files.length) renderLocalPreviews(files);
+                    }
+                });
+            });
+
+            imageInput.addEventListener('change', function (e) {
+                const files = e.target.files;
+                if (files && files.length) {
+                    renderLocalPreviews(files);
+                    showPause('이미지 업로드');
+                }
+                imageInput.value = '';
+            });
+
+            function renderLocalPreviews(fileList) {
+                preview.innerHTML = '';
+                Array.from(fileList).slice(0, 6).forEach(function (file) {
+                    if (!file.type || file.type.indexOf('image/') !== 0) return;
+                    const reader = new FileReader();
+                    reader.onload = function (ev) {
+                        const img = document.createElement('img');
+                        img.src = ev.target.result;
+                        img.alt = file.name;
+                        img.style.width = '72px';
+                        img.style.height = '72px';
+                        img.style.objectFit = 'contain';
+                        img.style.borderRadius = '10px';
+                        img.style.background = '#fff';
+                        img.style.border = '1px solid rgba(148,163,184,0.35)';
+                        preview.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            analyzeBtn.addEventListener('click', function () {
+                showPause('상표·디자인 분석 시작');
+            });
+
+            clearBtn.addEventListener('click', function () {
+                preview.innerHTML = '';
+                document.getElementById('extra').value = '';
+                result.classList.remove('is-on');
+                resultText.textContent = '';
+            });
+
+            // 안전장치: 전역 fetch 등을 쓰지 않음. 혹시 남은 핸들러가 있어도 네트워크 호출 없음.
+            window.analyzeTrademarks = function () {
+                showPause('분석 요청');
+                return Promise.resolve({ paused: true });
+            };
+        })();
+    </script>
+</body>
+</html>

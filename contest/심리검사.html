@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 심리검사봇 - 10문제로 내면을 맞춥니다</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #667eea, #764ba2); 
+            color: #fff; 
+            margin: 0; 
+            padding: 20px; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { 
+            font-size: 2.5em; 
+            background: linear-gradient(90deg, #ff6b9d, #f7931e); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            margin: 0; 
+            text-shadow: 0 0 20px rgba(255,107,157,0.5); 
+        }
+        button { 
+            padding: 10px 20px; 
+            background: linear-gradient(135deg, #ff6b9d, #f7931e); 
+            border: none; 
+            border-radius: 5px; 
+            color: #fff; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: transform 0.2s; 
+            margin-right: 10px;
+        }
+        button:hover { transform: scale(1.05); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        #chat-container { 
+            flex: 1; 
+            overflow-y: auto; 
+            background: rgba(0,0,0,0.2); 
+            border-radius: 10px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+        }
+        .message { 
+            margin-bottom: 15px; 
+            padding: 12px; 
+            border-radius: 18px; 
+            max-width: 80%; 
+            word-wrap: break-word; 
+        }
+        .bot { 
+            background: linear-gradient(135deg, #4ecdc4, #44a08d); 
+            margin-left: 20%; 
+        }
+        .user { 
+            background: linear-gradient(135deg, #f093fb, #f5576c); 
+            margin-right: 20%; 
+            color: #fff; 
+        }
+        .input-section { display: flex; gap: 10px; }
+        input[type="text"] { 
+            flex: 1; 
+            padding: 15px; 
+            border: none; 
+            border-radius: 25px; 
+            background: rgba(255,255,255,0.9); 
+            font-size: 16px; 
+        }
+        .section { 
+            background: rgba(255,255,255,0.2); 
+            padding: 10px; 
+            border-radius: 8px; 
+            margin: 5px 0; 
+            font-weight: bold; 
+        }
+        .progress { text-align: center; font-size: 1.2em; margin: 10px 0; }
+        .status { 
+            background: rgba(0,255,0,0.3); 
+            padding: 10px; 
+            border-radius: 8px; 
+            text-align: center; 
+            margin-bottom: 10px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧠 심리검사봇</h1>
+        <p>10개의 질문으로 MBTI, 에니어그램, Big Five, 현재 심리상태를 분석합니다! (서버 API 안전 연결)</p>
+    </div>
+
+    <div id="status" class="status" style="display: none;">✅ 서버 연결 완료 - 키 안전 모드</div>
+
+    <div id="chat-container"></div>
+    <div id="progress" class="progress" style="display: none;"></div>
+
+    <div class="input-section">
+        <input type="text" id="userInput" placeholder="질문에 솔직하게 답해주세요..." />
+        <button id="sendBtn" onclick="sendMessage()">전송</button>
+        <button id="restartBtn" onclick="restart()" style="display: none;">재시작</button>
+    </div>
+
+    <script>
+        const SYSTEM_PROMPT = `너의 이름은 '심리검사봇'이다. 10개의 질문을 순차적으로 하고, 모든 답변을 모아 MBTI(16유형), 에니어그램(9유형+날개), Big Five(OCEAN), 현재 심리상태(기쁨/스트레스/불안/평온 등)를 분석한다. 최신 이론(2024 Myers-Briggs, Riso-Hudson Enneagram, IPIP-NEO Big Five) 기반. 과학적·설득력 있게.
+
+질문 리스트 (순서대로 사용, 자유 응답 형식):
+1. 새로운 사람들과 대화하는 걸 즐기시나요, 아니면 친한 사람들과만 편안한가요? (E/I)
+2. 구체적인 사실을 중시하시나요, 큰 그림이나 가능성을 상상하시나요? (S/N)
+3. 계획적으로 행동하시나요, 상황에 따라 유연하게 하시나요? (J/P)
+4. 논리적 분석을 선호하시나요, 사람들의 감정을 고려하시나요? (T/F)
+5. 완벽주의적 동기(1번)가 강한가요, 도움 주는(2번) 타입인가요? (Enneagram)
+6. 모험을 추구하시나요, 안정을 중시하시나요? (O/A Big Five)
+7. 최근 일주일간 가장 기분 좋았던 일은? (긍정 감정)
+8. 스트레스 받을 때 어떻게 대처하나요? (불안/회복력)
+9. 리더십을 발휘하고 싶으신가요, 팀원으로 조용히 기여하시나요? (Big Five E/A)
+10. 인생에서 가장 중요한 가치는 무엇인가요? (Enneagram + 가치)
+
+10개 답변 완료 시 응답 형식:
+[MBTI 분석] 유형: INFP (93%) - 설명 + 근거.
+[에니어그램] 유형: 4w5 (트라이타입 4-9-5) - 동기 설명.
+[Big Five] O:85% C:70% E:60% A:55% N:40% - 강점/약점.
+[현재 심리상태] '창의적 흥분' (80% 활기, 20% 불안) - 조언.
+[전체 조언] 실생활 팁.
+
+답변은 벡터화(키워드 점수화) + 통계 모델링으로 정확히. 긍정적·지지적으로.`;
+
+        const QUESTIONS = [
+            "1. 새로운 사람들과 대화하는 걸 즐기시나요, 아니면 친한 사람들과만 편안한가요?",
+            "2. 구체적인 사실을 중시하시나요, 큰 그림이나 가능성을 상상하시나요?",
+            "3. 계획적으로 행동하시나요, 상황에 따라 유연하게 하시나요?",
+            "4. 논리적 분석을 선호하시나요, 사람들의 감정을 고려하시나요?",
+            "5. 완벽주의적 동기(1번)가 강한가요, 도움 주는(2번) 타입인가요?",
+            "6. 모험을 추구하시나요, 안정을 중시하시나요?",
+            "7. 최근 일주일간 가장 기분 좋았던 일은?",
+            "8. 스트레스 받을 때 어떻게 대처하나요?",
+            "9. 리더십을 발휘하고 싶으신가요, 팀원으로 조용히 기여하시나요?",
+            "10. 인생에서 가장 중요한 가치는 무엇인가요?"
+        ];
+
+        let currentQuestion = 0;
+        let answers = [];
+
+        function addMessage(sender, text) {
+            const container = document.getElementById('chat-container');
+            const msg = document.createElement('div');
+            msg.className = `message ${sender}`;
+            msg.innerHTML = text.replace(/\n/g, '<br>');
+            container.appendChild(msg);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function updateProgress() {
+            const progress = document.getElementById('progress');
+            progress.style.display = 'block';
+            progress.textContent = `진행: ${currentQuestion}/10`;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const userText = input.value.trim();
+            if (!userText) return;
+
+            addMessage('user', userText);
+            input.value = '';
+            document.getElementById('sendBtn').disabled = true;
+
+            answers.push(userText);
+
+            if (currentQuestion < 10) {
+                // 다음 질문 출력 (로컬)
+                addMessage('bot', `<div class="section">[질문 ${currentQuestion + 1}]</div>${QUESTIONS[currentQuestion]}`);
+                currentQuestion++;
+                updateProgress();
+            } else {
+                // 10개 완료: 서버 프록시로 분석 요청
+                try {
+                    const response = await fetch('/api/grok', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            messages: [
+                                { role: 'system', content: SYSTEM_PROMPT },
+                                { role: 'user', content: `답변들: ${answers.join('\n\n')}` }
+                            ],
+                            model: 'grok-4.20-0309-non-reasoning',  // 서버에서 오버라이드 가능
+                            temperature: 0.6,
+                            max_tokens: 20000,
+                            stream: false
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errData = await response.json();
+                        throw new Error(errData.error || `서버 오류: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    const botText = data.choices[0].message.content;
+                    const parsed = botText
+                        .replace(/\[([^\]]+)\]/g, '<div class="section">[$1]</div>')
+                        .replace(/\n/g, '<br>');
+                    addMessage('bot', parsed);
+                    document.getElementById('restartBtn').style.display = 'inline-block';
+                } catch (error) {
+                    addMessage('bot', `❌ 분석 오류: ${error.message}. 서버 확인 후 재시도하세요. (로그: 콘솔)`);
+                    console.error('Grok Proxy Error:', error);
+                }
+            }
+
+            document.getElementById('sendBtn').disabled = false;
+        }
+
+        function restart() {
+            currentQuestion = 0;
+            answers = [];
+            document.getElementById('chat-container').innerHTML = '';
+            document.getElementById('progress').style.display = 'none';
+            document.getElementById('restartBtn').style.display = 'none';
+            addMessage('bot', '<div class="section">[재시작]</div>🧠 심리검사 다시 시작! 첫 질문: ' + QUESTIONS[0]);
+            updateProgress();
+        }
+
+        // 서버 헬스체크 후 시작
+        async function init() {
+            try {
+                const health = await fetch('/health');
+                if (health.ok) {
+                    document.getElementById('status').style.display = 'block';
+                    addMessage('bot', '<div class="section">[준비 완료]</div>🧠 10문제 심리검사 시작! 첫 질문:<br>' + QUESTIONS[0]);
+                    updateProgress();
+                }
+            } catch (e) {
+                addMessage('bot', '<div class="section">[오류]</div>서버 연결 실패. Node.js 서버(http://localhost:3005) 실행하세요.');
+            }
+        }
+
+        document.getElementById('userInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        window.onload = init;
+    </script>
+</body>
+</html>

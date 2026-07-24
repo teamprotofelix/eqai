@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>진보성 쟁점 스파크 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="idea-entry.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 컨테스트 스토어</a><span class="badge-off">AI 연결 끊김</span></div>
+<main class="wrap" data-app-id="inventive-sparks">
+  <div class="hero">
+    <div class="icon">⚡</div>
+    <div>
+      <div class="sub">inventive-sparks</div>
+      <h1>진보성 쟁점 스파크</h1>
+      <p class="lead">Inventiveness Sparks · 과제·수단·효과</p>
+      <p class="lead">과제·수단·효과 입력을 바탕으로 진보성 긍정/부정 논거 스파크를 골격만 제시합니다.</p>
+    </div>
+  </div>
+  <section class="card">
+    <label for="mainInput">해결하려는 과제 / 수단 요약</label>
+    <textarea id="mainInput" placeholder="예: 과제=열폭주 억제, 수단=다층 냉각 유로, 효과=온도 편차 감소…"></textarea>
+    <div class="checks">
+      <label><input type="checkbox" checked> 긍정 논거</label>
+      <label><input type="checkbox" checked> 부정 논거</label>
+      <label><input type="checkbox"> 결합 용이성 메모</label>
+    </div>
+    <button type="button" class="btn" id="runBtn">스파크 생성 (데모)</button>
+    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
+  </section>
+  <section class="card">
+    <h2>출력 패널</h2>
+    <div class="out-grid" id="out">
+      <div class="out-card"><h3>긍정 논거 스파크</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>부정 논거 스파크</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>추가 확인 질문</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+    </div>
+  </section>
+  <footer>App ID: inventive-sparks · <a href="index.html">앱스토어</a> · <a href="../quality.html">허브</a></footer>
+</main>
+<div class="toast" id="toast">AI 연결 끊김 — 데모 골격만 표시합니다.</div>
+<script src="idea-entry.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상표 유사 체크 보드 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="idea-entry.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 컨테스트 스토어</a><span class="badge-off">AI 연결 끊김</span></div>
+<main class="wrap" data-app-id="tm-similarity-board">
+  <div class="hero">
+    <div class="icon">⚖️</div>
+    <div>
+      <div class="sub">tm-similarity-board</div>
+      <h1>상표 유사 체크 보드</h1>
+      <p class="lead">Trademark Similarity · 외관·호칭·관념 3축</p>
+      <p class="lead">출원표장과 인용표장을 나란히 두고 3축 체크리스트로 유사 쟁점을 정리하는 상표 심사 아이디어 보드입니다.</p>
+    </div>
+  </div>
+  <section class="card">
+    <label for="mainInput">출원 표장 / 호칭 메모</label>
+    <textarea id="mainInput" placeholder="예: 출원 표장 ‘AURA’, 호칭 아우라 / 인용 ‘ORA’…"></textarea>
+    <div class="checks">
+      <label><input type="checkbox" checked> 외관</label>
+      <label><input type="checkbox" checked> 호칭</label>
+      <label><input type="checkbox" checked> 관념</label>
+    </div>
+    <button type="button" class="btn" id="runBtn">유사 보드 갱신 (데모)</button>
+    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
+  </section>
+  <section class="card">
+    <h2>출력 패널</h2>
+    <div class="out-grid" id="out">
+      <div class="out-card"><h3>외관 포인트</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>호칭 포인트</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>관념·종합 메모</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+    </div>
+  </section>
+  <footer>App ID: tm-similarity-board · <a href="index.html">앱스토어</a> · <a href="../quality.html">허브</a></footer>
+</main>
+<div class="toast" id="toast">AI 연결 끊김 — 데모 골격만 표시합니다.</div>
+<script src="idea-entry.js"></script>
+</body>
+</html>

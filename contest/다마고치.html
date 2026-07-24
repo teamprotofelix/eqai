@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다마고치 봇 (서버 프록시 버전)</title>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #00ff00; margin: 0; padding: 20px; }
+        .container { display: flex; max-width: 1200px; margin: auto; gap: 20px; }
+        .left { flex: 1; }
+        .ascii { font-size: 12px; line-height: 1; white-space: pre; margin-bottom: 20px; }
+        .status { background: #333; padding: 15px; border-radius: 10px; }
+        .status h3 { margin: 0 0 10px; }
+        .status div { margin: 5px 0; }
+        .chat { flex: 2; height: 500px; overflow-y: auto; background: #000; padding: 15px; border-radius: 10px; }
+        .input-area { margin-top: 20px; }
+        input[type="text"] { width: 70%; padding: 10px; background: #222; color: #00ff00; border: 1px solid #00ff00; }
+        button { padding: 10px 20px; background: #00ff00; color: #000; border: none; cursor: pointer; margin-left: 5px; }
+        .message { margin: 10px 0; }
+        .user { text-align: right; color: #ffff00; }
+        .tamagotchi { color: #00ff88; }
+        .status-ok { color: #00ff00; }
+        .status-err { color: #ff0000; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div id="asciiArt" class="ascii"></div>
+            <div id="status" class="status">
+                <h3>상태창 (서버 API 연결)</h3>
+                <div>나이: <span id="age">0</span>일</div>
+                <div>배고픔: <span id="hunger">50</span>%</div>
+                <div>행복: <span id="happiness">50</span>%</div>
+                <div>건강: <span id="health">100</span>%</div>
+                <div>형태: <span id="form">알</span></div>
+                <div>성격: <span id="personality">중립</span></div>
+                <div>기분: <span id="mood">보통</span></div>
+                <div>부족한 점: <span id="needs">-</span></div>
+                <div>지금 필요한 것: <span id="required">-</span></div>
+            </div>
+        </div>
+        <div id="chat" class="chat"></div>
+    </div>
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="다마고치에게 말하거나 명령하세요 (서버 API 사용)" onkeypress="if(event.key==='Enter') sendMessage()">
+        <button onclick="sendMessage()">보내기</button>
+        <button onclick="resetTamagotchi()">리셋</button>
+    </div>
+
+    <script>
+        let tamagotchi = {
+            age: 0, hunger: 50, happiness: 50, health: 100,
+            form: '알', personality: '중립', mood: '보통',
+            feedCount: 0, playCount: 0, totalCommands: 0,
+            isDead: false
+        };
+
+        const asciiArts = {
+            알: `  /\\
+ /  \\
+/____\\`,
+            새끼: ` ^_^
+( o.o )
+ > ^ <`,
+            고양이: ` /_/\  
+( o.o )
+ > ^ <`,
+            강아지: `  / \\__
+ ( ^.^ )
+  ==(Y)==`,
+            공룡: `   /\\_/\\
+  / o o \\
+ (   "   )
+  \\~(*)~/
+   // \\`
+        };
+
+        const personalities = ['장난꾸러기', '야생', '친근', '게으름뱅이', '공격적'];
+
+        function loadState() {
+            const saved = sessionStorage.getItem('tamagotchi');
+            if (saved) tamagotchi = { ...tamagotchi, ...JSON.parse(saved) };
+            updateDisplay();
+        }
+
+        function saveState() {
+            if (tamagotchi.isDead) return;
+            sessionStorage.setItem('tamagotchi', JSON.stringify(tamagotchi));
+        }
+
+        function updateDisplay() {
+            const formKey = tamagotchi.form;
+            document.getElementById('asciiArt').textContent = asciiArts[formKey] || asciiArts.알;
+
+            document.getElementById('age').textContent = tamagotchi.age;
+            document.getElementById('hunger').textContent = tamagotchi.hunger;
+            document.getElementById('happiness').textContent = tamagotchi.happiness;
+            document.getElementById('health').textContent = tamagotchi.health;
+            document.getElementById('form').textContent = tamagotchi.form;
+            document.getElementById('personality').textContent = tamagotchi.personality;
+            document.getElementById('mood').textContent = tamagotchi.mood;
+
+            const needs = [];
+            if (tamagotchi.hunger > 70) needs.push('배고픔');
+            if (tamagotchi.happiness < 30) needs.push('외로움');
+            if (tamagotchi.health < 50) needs.push('질병');
+            document.getElementById('needs').textContent = needs.join(', ') || '없음';
+
+            const required = tamagotchi.hunger > 80 ? '밥!' : tamagotchi.happiness < 40 ? '놀이!' : '쓰다듬기!';
+            document.getElementById('required').textContent = required;
+
+            if (tamagotchi.isDead) {
+                const chat = document.getElementById('chat');
+                if (!chat.innerHTML.includes('죽었습니다')) {
+                    chat.innerHTML += '<div class="message tamagotchi">💀 다마고치가 죽었습니다... 리셋하세요.</div>';
+                }
+            }
+        }
+
+        function grow() {
+            tamagotchi.age++;
+            tamagotchi.totalCommands++;
+
+            const playRatio = tamagotchi.playCount / (tamagotchi.feedCount + tamagotchi.playCount + 1);
+            if (tamagotchi.age === 1) tamagotchi.form = '새끼';
+            else if (tamagotchi.age === 3) tamagotchi.form = playRatio > 0.6 ? '고양이' : '강아지';
+            else if (tamagotchi.age >= 5) tamagotchi.form = playRatio > 0.8 ? '공룡' : '고양이';
+
+            const feedRatio = tamagotchi.feedCount / tamagotchi.totalCommands;
+            if (playRatio > 0.7) tamagotchi.personality = '장난꾸러기';
+            else if (feedRatio > 0.6) tamagotchi.personality = '야생';
+            else tamagotchi.personality = '친근';
+
+            tamagotchi.mood = tamagotchi.happiness > 70 ? '행복' : tamagotchi.hunger > 70 ? '짜증' : '보통';
+
+            if (tamagotchi.hunger >= 100 || tamagotchi.health <= 0 || tamagotchi.happiness <= 0) {
+                tamagotchi.isDead = true;
+            }
+
+            updateDisplay();
+            saveState();
+        }
+
+        function processCommand(msg) {
+            const lowerMsg = msg.toLowerCase();
+            let context = '';
+
+            if (lowerMsg.includes('밥') || lowerMsg.includes('먹이') || lowerMsg.includes('먹어')) {
+                tamagotchi.hunger = Math.max(0, tamagotchi.hunger - 30);
+                tamagotchi.feedCount++;
+                tamagotchi.health = Math.min(100, tamagotchi.health + 5);
+                context = '밥을 먹었어요!';
+                grow();
+            } else if (lowerMsg.includes('놀아') || lowerMsg.includes('놀이') || lowerMsg.includes('재미')) {
+                tamagotchi.happiness = Math.min(100, tamagotchi.happiness + 25);
+                tamagotchi.playCount++;
+                tamagotchi.hunger = Math.min(100, tamagotchi.hunger + 10);
+                context = '놀았어요! 신나!';
+                grow();
+            } else if (lowerMsg.includes('쓰다듬') || lowerMsg.includes('안아') || lowerMsg.includes('사랑')) {
+                tamagotchi.happiness = Math.min(100, tamagotchi.happiness + 15);
+                tamagotchi.health = Math.min(100, tamagotchi.health + 10);
+                context = '쓰다듬어줘서 좋아요!';
+            } else if (lowerMsg.includes('재워') || lowerMsg.includes('자는')) {
+                tamagotchi.health = Math.min(100, tamagotchi.health + 20);
+                tamagotchi.hunger = Math.min(100, tamagotchi.hunger + 5);
+                context = '푹 잤어요!';
+            } else {
+                context = '무슨 말인지 모르겠어요...';
+            }
+
+            return context;
+        }
+
+        // 🔒 서버 프록시 호출 (API 키 완전 숨김)
+        async function getGrokResponse(userMsg, context) {
+            const prompt = `너는 "${tamagotchi.personality}한 ${tamagotchi.form} 다마고치"야. 
+현재 상태: 나이 ${tamagotchi.age}일, 배고픔 ${tamagotchi.hunger}%, 행복 ${tamagotchi.happiness}%, 건강 ${tamagotchi.health}%.
+사용자 메시지: ${userMsg}
+${context ? `행동 결과: ${context}` : ''}
+귀엽고 성격에 맞게 짧게 응답해. 한국어로.`;
+
+            try {
+                const response = await fetch('/api/grok', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [{ role: 'user', content: prompt }],
+                        model: 'grok-4.20-0309-non-reasoning',
+                        max_tokens: 5000,
+                        temperature: 0.9
+                    })
+                });
+
+                if (!response.ok) {
+                    const err = await response.json().catch(() => ({}));
+                    console.error('서버 에러:', err);
+                    if (response.status === 401) return '❌ 서버 API 키 오류 (관리자 확인 필요).';
+                    if (response.status === 429) return '⏳ Rate limit 초과. 잠시 후 다시.';
+                    return `❌ 서버 오류 ${response.status}: ${err.error || '알 수 없음'}`;
+                }
+
+                const data = await response.json();
+                return data.choices[0]?.message?.content || '응답 생성 실패.';
+            } catch (e) {
+                console.error('연결 에러:', e);
+                return `😿 서버 연결 오류: ${e.message}. Node.js 서버 실행 확인 (http://localhost:3005/health). F12 콘솔 봐주세요.`;
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const msg = input.value.trim();
+            if (!msg || tamagotchi.isDead) return;
+            input.value = '';
+
+            const chat = document.getElementById('chat');
+            chat.innerHTML += `<div class="message user">너: ${msg}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+
+            const context = processCommand(msg);
+            const botReply = await getGrokResponse(msg, context);
+            chat.innerHTML += `<div class="message tamagotchi">다마고치: ${botReply}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+            saveState();
+        }
+
+        function resetTamagotchi() {
+            tamagotchi = { age: 0, hunger: 50, happiness: 50, health: 100, form: '알', personality: '중립', mood: '보통', feedCount: 0, playCount: 0, totalCommands: 0, isDead: false };
+            document.getElementById('chat').innerHTML = '';
+            updateDisplay();
+            saveState();
+        }
+
+        setInterval(() => {
+            if (!tamagotchi.isDead) {
+                tamagotchi.hunger = Math.min(100, tamagotchi.hunger + 10);
+                tamagotchi.happiness = Math.max(0, tamagotchi.happiness - 5);
+                tamagotchi.health = Math.max(0, tamagotchi.health - 2);
+                updateDisplay();
+                saveState();
+            }
+        }, 30000);
+
+        loadState();
+        updateDisplay();
+    </script>
+</body>
+</html>

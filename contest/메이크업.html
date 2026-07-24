@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메이크업 조언샘 - Makeup Advice Sam</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%); 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+        .container { 
+            background: rgba(255,255,255,0.95); 
+            border-radius: 20px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+            padding: 40px; 
+            max-width: 600px; 
+            width: 100%; 
+            text-align: center; 
+        }
+        h1 { 
+            background: linear-gradient(45deg, #ff6b9d, #ffd93d); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            font-size: 2.5em; 
+            margin-bottom: 20px; 
+            text-shadow: 0 0 20px rgba(255,107,157,0.5); 
+        }
+        #upload { 
+            display: none; 
+        }
+        .upload-area { 
+            border: 3px dashed #ff6b9d; 
+            border-radius: 15px; 
+            padding: 50px; 
+            margin: 20px 0; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            background: rgba(255,107,157,0.1); 
+        }
+        .upload-area:hover { 
+            background: rgba(255,107,157,0.2); 
+            border-color: #ffd93d; 
+        }
+        .upload-area.dragover { 
+            background: rgba(255,217,61,0.3); 
+            border-color: #ffd93d; 
+        }
+        #preview { 
+            max-width: 300px; 
+            max-height: 300px; 
+            border-radius: 15px; 
+            margin: 20px 0; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+            display: none; 
+        }
+        #analyzeBtn { 
+            background: linear-gradient(45deg, #ff6b9d, #ffd93d); 
+            color: white; 
+            border: none; 
+            padding: 15px 40px; 
+            font-size: 1.2em; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            box-shadow: 0 10px 20px rgba(255,107,157,0.3); 
+            display: none; 
+        }
+        #analyzeBtn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 15px 30px rgba(255,107,157,0.4); 
+        }
+        #result { 
+            margin-top: 30px; 
+            text-align: left; 
+            background: rgba(255,255,255,0.8); 
+            padding: 25px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+            display: none; 
+            font-size: 1.1em; 
+            line-height: 1.6; 
+        }
+        #result h2 { 
+            color: #ff6b9d; 
+            margin-bottom: 15px; 
+            font-size: 1.5em; 
+        }
+        #loading { 
+            display: none; 
+            margin: 20px 0; 
+            font-size: 1.1em; 
+            color: #ff6b9d; 
+        }
+        .spinner { 
+            border: 4px solid rgba(255,107,157,0.3); 
+            border-top: 4px solid #ff6b9d; 
+            border-radius: 50%; 
+            width: 40px; 
+            height: 40px; 
+            animation: spin 1s linear infinite; 
+            margin: 0 auto 10px; 
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #error { 
+            color: #e74c3c; 
+            margin: 20px 0; 
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💄 메이크업 조언샘</h1>
+        <p>얼굴 사진을 업로드하면, AI가 분석 후 완벽한 메이크업 팁을 드려요! ✨</p>
+
+        <input type="file" id="upload" accept="image/*">
+        <div class="upload-area" onclick="document.getElementById('upload').click()">
+            📸 사진을 드래그하거나 클릭해서 업로드하세요!
+        </div>
+
+        <img id="preview" alt="미리보기">
+
+        <div id="loading">
+            <div class="spinner"></div>
+            메이크업 선생님이 분석 중이에요... ✨
+        </div>
+
+        <button id="analyzeBtn">메이크업 선생님 조언해주세요! 💖</button>
+
+        <div id="error"></div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const upload = document.getElementById('upload');
+        const preview = document.getElementById('preview');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const loading = document.getElementById('loading');
+        const result = document.getElementById('result');
+        const error = document.getElementById('error');
+        let imageBase64 = '';
+
+        // 업로드 핸들러
+        upload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imageBase64 = e.target.result; // data:image/jpeg;base64,...
+                    preview.src = imageBase64;
+                    preview.style.display = 'block';
+                    analyzeBtn.style.display = 'block';
+                    error.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                showError('이미지 파일만 업로드해주세요! 📸');
+            }
+        });
+
+        // 드래그 앤 드롭
+        const uploadArea = document.querySelector('.upload-area');
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            upload.files = e.dataTransfer.files;
+            upload.dispatchEvent(new Event('change'));
+        });
+
+        // 분석 버튼
+        analyzeBtn.addEventListener('click', async () => {
+            if (!imageBase64) return showError('먼저 사진을 업로드해주세요!');
+
+            loading.style.display = 'block';
+            analyzeBtn.disabled = true;
+            result.style.display = 'none';
+            error.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/grok', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [
+                            {
+                                role: 'system',
+                                content: `너는 "메이크업 조언샘"이다. 사용자가 업로드한 얼굴 사진을 분석하여:
+
+1. **[현재 사진 분석]**: 얼굴의 특징(피부 톤, 얼굴형, 눈/코/입/턱선 모양, 머리 스타일, 기존 메이크업 여부 등)을 상세하고 객관적으로 분석. 사실 기반으로.
+
+2. **[메이크업 조언]**: 이 얼굴을 더 멋있고 예쁘게 만드는 메이크업 팁을 현재 사진을 근거로 사실적·설득력 있게, 재미있고 친근하게 조언. 
+   - 단계별 가이드(베이스 → 아이 → 립 등).
+   - 제품 추천(예: 쿠션, 아이라이너 브랜드).
+   - "이 눈매에 딱 맞는!", "피부 톤 업그레이드!"처럼 설득력 있게.
+   - 자연스럽고 과하지 않게, 일상/파티 버전 제안.
+
+응답은 반드시 **[현재 사진 분석]** 섹션과 **[메이크업 조언] 섹션으로 나누어 출력. 이모지 적절히 사용해 재미있게.`
+                            },
+                            {
+                                role: 'user',
+                                content: [
+                                    {
+                                        type: 'text',
+                                        text: '이 사진의 얼굴을 분석하고, 더 예쁘고 멋진 메이크업 조언 부탁해요! 💄✨'
+                                    },
+                                    {
+                                        type: 'image_url',
+                                        image_url: {
+                                            url: imageBase64
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        model: 'grok-4.20-0309-non-reasoning',
+                        max_tokens: 50000,
+                        temperature: 0.8
+                    })
+                });
+
+                const data = await response.json();
+                if (data.choices && data.choices[0].message.content) {
+                    result.innerHTML = data.choices[0].message.content;
+                    result.style.display = 'block';
+                } else {
+                    throw new Error('응답 형식 오류');
+                }
+            } catch (err) {
+                console.error(err);
+                showError('분석 중 오류가 발생했어요. 다시 시도해주세요! 😅<br>' + (err.message || ''));
+            } finally {
+                loading.style.display = 'none';
+                analyzeBtn.disabled = false;
+            }
+        });
+
+        function showError(msg) {
+            error.innerHTML = msg;
+            error.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

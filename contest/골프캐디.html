@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오른손의 스마트 골프 캐디 챗봇</title>
+
+    <style>
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f3f5f7;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .sub {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .info-section {
+            background: #e8f4ff;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 6px solid #2196f3;
+            line-height: 1.7;
+        }
+
+        .input-section {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 0 3px rgba(33,150,243,0.15);
+        }
+
+        button {
+
+            width: 100%;
+            background: linear-gradient(135deg,#2196f3,#1565c0);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.25s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #messages {
+
+            margin-top: 25px;
+            background: #f8f9fb;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 320px;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 18px;
+        }
+
+        .user {
+            justify-content: flex-end;
+        }
+
+        .user .content {
+
+            background: #1976d2;
+            color: white;
+            padding: 14px 18px;
+            border-radius: 18px 18px 4px 18px;
+            max-width: 75%;
+            white-space: pre-wrap;
+        }
+
+        .bot {
+            justify-content: flex-start;
+        }
+
+        .bot .content {
+
+            background: white;
+            color: #222;
+            padding: 16px 18px;
+            border-radius: 18px 18px 18px 4px;
+            max-width: 85%;
+            white-space: pre-wrap;
+            border: 1px solid #e5e7eb;
+            line-height: 1.6;
+        }
+
+        .status {
+
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .warning {
+            background: #fff8e1;
+            color: #ef6c00;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .hint-box {
+
+            background: #fafafa;
+            border: 1px dashed #bbb;
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 20px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+
+            .form-row {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>⛳ 오른손의 스마트 골프 캐디 챗봇</h1>
+
+    <div class="sub">
+        거리 · 바람 · 높이차 · 지형 조건 기반 실전 샷 보정
+    </div>
+
+    <div class="info-section">
+
+        <strong>실전 계산 규칙 적용</strong><br><br>
+        ✔ 타격거리=쳐야하는 거리; 비거리=목표거리=실측거리<br>
+        ✔ 러프: 거리 10% 감소<br>
+        ✔ 벙커: 거리 20% 감소<br>
+        ✔ 그린벙커: 거리 40% 감소<br>
+        ✔ 높이차 보정 공식 적용<br>
+        ✔ 횡풍 방향 보정 계산<br>
+        ✔ 실제 조준 방향(도) 계산<br>
+
+    </div>
+
+    <div class="input-section">
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label>목표거리 (m)</label>
+                <input type="number" id="distance" placeholder="예: 150">
+            </div>
+
+            <div class="form-group">
+                <label>바람세기 (m/s)</label>
+                <input type="number" id="wind-speed" placeholder="예: 5">
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>바람방향</label>
+
+                <select id="wind-dir">
+
+                    <option value="">선택</option>
+
+                    <option value="정면바람">정면바람</option>
+                    <option value="후면바람">후면바람</option>
+
+                    <option value="좌측→우측 횡풍">좌측→우측 횡풍</option>
+                    <option value="우측→좌측 횡풍">우측→좌측 횡풍</option>
+
+                    <option value="좌전방">좌전방</option>
+                    <option value="우전방">우전방</option>
+
+                    <option value="좌후방">좌후방</option>
+                    <option value="우후방">우후방</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    높이차이 (m)<br>
+                    <small>
+                        언덕(+) / 내리막(-)
+                    </small>
+                </label>
+
+                <input type="number"
+                       id="elevation"
+                       placeholder="예: +10">
+
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>지형조건</label>
+
+                <select id="terrain">
+
+                    <option value="">선택</option>
+
+                    <option value="페어웨이">페어웨이</option>
+                    <option value="러프">러프 (거리 10% 감소)</option>
+                    <option value="벙커">벙커 (거리 20% 감소)</option>
+                    <option value="그린벙커">그린벙커 (거리 40% 감소)</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>추가 정보 (선택)</label>
+
+                <textarea id="extra-info"
+                          placeholder="예:
+7번 아이언
+드로우 성향
+탄도 높음"></textarea>
+
+            </div>
+
+        </div>
+
+        <button id="analyze-btn"
+                onclick="analyze()">
+
+            환경 분석 시작
+
+        </button>
+
+        <div class="hint-box">
+
+            💡 Ctrl + Enter 로도 분석 가능<br>
+            💡 높이차 공식 및 지형 손실률이 실제 계산에 반영됩니다.
+
+        </div>
+
+    </div>
+
+    <div id="messages">
+
+        스마트 골프 캐디 준비 완료 ⛳<br>
+        값을 입력 후 분석 버튼을 눌러주세요.
+
+    </div>
+
+</div>
+
+<script>
+
+    // Node.js Proxy 유지
+    const PROXY_URL = '/api/grok';
+
+    // 기존 모델 유지
+    const MODEL = 'grok-4.20-0309-non-reasoning';
+
+    // 수정된 시스템 프롬프트
+    const SYSTEM_PROMPT = `
+당신은 실전 골프 거리/방향 보정 AI 캐디이다.
+
+사용자는 다음 값을 입력한다.
+
+- 목표거리(m)
+- 바람세기(m/s)
+- 바람방향
+- 높이차이(m)
+- 지형조건
+- 추가 정보
+
+반드시 아래 계산 규칙을 따른다.
+
+추천 타격거리= 타격거리= 실제 쳐야하는 거리
+비거리=실제 비거리=목표거리=실제거리=공을치는 위치에서 홀컵까지 거리
+
+
+========================
+[높이차 계산 규칙]
+========================
+
+높이차:
+- 언덕(오르막) = +값
+- 내리막 = -값
+
+1.
+목표거리 100m 이상일 때:
+
+ 목표거리 =
+(타격거리 - 높이차이)
+
+예시:
+목표거리 150m & 오르막 10m
+→ 타격거리 = 160m 체감
+
+2.
+목표거리 100m 미만일 때:
+
+목표거리 =
+(타격거리 - 높이차이 * (목표거리 / 100))
+
+예시:
+목표거리 50m & 오르막 10m
+→ 50 + 10*(50/100)
+→ 타격거리 55m 체감
+
+========================
+[지형조건 규칙]
+========================
+
+- 페어웨이:
+  손실 없음
+
+- 러프:
+  거리 10% 감소
+
+- 벙커:
+  거리 20% 감소
+
+- 그린벙커:
+  거리 40% 감소
+
+========================
+[바람 규칙]
+========================
+
+- 정면바람:
+  더 강하게 쳐야 함
+
+- 후면바람:
+  덜 쳐야 함
+
+- 좌측→우측 횡풍:
+  공이 우측으로 밀림
+  따라서 좌측 조준
+
+- 우측→좌측 횡풍:
+  공이 좌측으로 밀림
+  따라서 우측 조준
+
+- 좌전방:
+  거리 감소 + 우측 밀림
+
+- 우전방:
+  거리 감소 + 좌측 밀림
+
+- 좌후방:
+  거리 증가 + 우측 밀림
+
+- 우후방:
+  거리 증가 + 좌측 밀림
+
+========================
+[반드시 출력]
+========================
+
+1.
+환경 분석
+
+2.
+추천 타격 거리(m)
+
+3.
+추천 조준 방향(좌/우 몇 도)
+
+4.
+계산 근거 설명
+
+5.
+예상 오차 가능성
+
+========================
+[중요]
+========================
+
+- 계산 과정을 설명할 것
+- 한국어 응답
+- 보기 좋게 출력
+- 실전 감각 기반 설명
+
+마지막에는 반드시:
+
+"현장 돌풍·탄도·스핀량에 따라 실제 결과는 달라질 수 있습니다."
+
+를 포함할 것.
+`;
+
+    function addMessage(role, content) {
+
+        const messagesDiv =
+            document.getElementById('messages');
+
+        const msg =
+            document.createElement('div');
+
+        msg.className =
+            `message ${role}`;
+
+        msg.innerHTML = `
+            <div class="content">
+                ${content.replace(/\n/g, '<br>')}
+            </div>
+        `;
+
+        messagesDiv.appendChild(msg);
+
+        messagesDiv.scrollTop =
+            messagesDiv.scrollHeight;
+    }
+
+    function showStatus(type, message) {
+
+        const messagesDiv =
+            document.getElementById('messages');
+
+        const div =
+            document.createElement('div');
+
+        div.className =
+            `status ${type}`;
+
+        div.innerHTML = message;
+
+        messagesDiv.appendChild(div);
+
+        messagesDiv.scrollTop =
+            messagesDiv.scrollHeight;
+
+        setTimeout(() => {
+
+            if (div.parentNode) {
+                div.remove();
+            }
+
+        }, 5000);
+    }
+
+    async function analyze() {
+
+        const distance =
+            document.getElementById('distance').value;
+
+        const windSpeed =
+            document.getElementById('wind-speed').value;
+
+        const windDir =
+            document.getElementById('wind-dir').value;
+
+        const elevation =
+            document.getElementById('elevation').value;
+
+        const terrain =
+            document.getElementById('terrain').value;
+
+        const extraInfo =
+            document.getElementById('extra-info').value.trim();
+
+        if (
+            !distance ||
+            !windSpeed ||
+            !windDir ||
+            elevation === '' ||
+            !terrain
+        ) {
+
+            showStatus(
+                'warning',
+                '모든 필수 항목을 입력하세요.'
+            );
+
+            return;
+        }
+
+        const userMessage = `
+목표거리: ${distance}m
+바람세기: ${windSpeed}m/s
+바람방향: ${windDir}
+높이차이: ${elevation}m
+지형조건: ${terrain}
+추가 정보: ${extraInfo || '없음'}
+`;
+
+        addMessage('user', userMessage);
+
+        showStatus(
+            'warning',
+            'xAI Grok 분석 중...'
+        );
+
+        const btn =
+            document.getElementById('analyze-btn');
+
+        btn.disabled = true;
+        btn.textContent = '분석 중...';
+
+        try {
+
+            const response =
+                await fetch(PROXY_URL, {
+
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify({
+
+                    model: MODEL,
+
+                    messages: [
+                        {
+                            role: 'system',
+                            content: SYSTEM_PROMPT
+                        },
+                        {
+                            role: 'user',
+                            content: userMessage
+                        }
+                    ],
+
+                    temperature: 0.3,
+                    max_tokens: 36000,
+                    stream: false
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(
+                    `서버 오류: ${response.status}`
+                );
+            }
+
+            const data =
+                await response.json();
+
+            if (data.error) {
+
+                throw new Error(
+                    data.error +
+                    (data.details
+                        ? ` : ${data.details}`
+                        : '')
+                );
+            }
+
+            if (!data.choices?.[0]?.message?.content) {
+
+                throw new Error(
+                    '응답 형식 오류'
+                );
+            }
+
+            addMessage(
+                'bot',
+                data.choices[0].message.content.trim()
+            );
+
+            showStatus(
+                'success',
+                '분석 완료'
+            );
+
+        }
+        catch(error) {
+
+            console.error(error);
+
+            addMessage(
+                'bot',
+                `분석 실패:\n${error.message}`
+            );
+
+            showStatus(
+                'error',
+                `오류 발생: ${error.message}`
+            );
+        }
+        finally {
+
+            btn.disabled = false;
+            btn.textContent = '환경 분석 시작';
+        }
+    }
+
+    // Ctrl + Enter 지원
+    document.addEventListener('keydown', function(e) {
+
+        if (e.ctrlKey && e.key === 'Enter') {
+            analyze();
+        }
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>심사품질 AI센터 | Examination Quality AI</title>
+    <meta name="description" content="특허·상표·디자인 심사품질 진단을 위한 AI 허브. 서비스 바로가기, 이용 가이드, Vector RAG·Rule·Knowledge Graph 기반 EQAI.">
+    <meta name="theme-color" content="#0a0a23">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="심사품질 AI센터 | Examination Quality AI">
+    <meta property="og:description" content="심사품질 진단의 객관성·정확성·일관성을 위한 AI 동반자">
+    <meta property="og:image" content="https://moip.ai.kr/QAlogo.jpg">
+    <meta property="og:url" content="https://moip.ai.kr/quality.html">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #05050f;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --cyan: #00E5FF;
+            --violet: #A78BFA;
+            --coral: #FF6B6B;
+            --gold: #FFD700;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --border: rgba(0, 229, 255, 0.28);
+            --nav-h: 64px;
+            --focus: #67e8f9;
+            --radius: 18px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 12px); }
+
+        body {
+            font-family: 'Noto Sans KR', system-ui, sans-serif;
+            background: radial-gradient(ellipse at center, #0a0a23 0%, #000 72%);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        canvas#canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 200;
+            padding: 0.75rem 1.2rem;
+            background: var(--cyan);
+            color: #041016;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 0 0 8px 0;
+        }
+        .skip-link:focus { left: 0; outline: 3px solid #fff; }
+
+        /* ===== Nav ===== */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0 1.1rem;
+            background: rgba(5, 5, 15, 0.82);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 800;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+        .nav-brand span {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            background: linear-gradient(90deg, var(--cyan), var(--violet));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.15rem;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 0.45rem 0.7rem;
+            border-radius: 999px;
+            transition: color 0.2s, background 0.2s;
+        }
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: #fff;
+            background: rgba(0, 229, 255, 0.12);
+            outline: none;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .lang-toggle,
+        .nav-icon-btn {
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.4rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            background: rgba(0, 0, 0, 0.45);
+            color: var(--cyan);
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .lang-toggle:hover,
+        .nav-icon-btn:hover,
+        .lang-toggle:focus-visible,
+        .nav-icon-btn:focus-visible {
+            border-color: var(--cyan);
+            background: rgba(0, 229, 255, 0.12);
+            outline: none;
+        }
+
+        .nav-toggle {
+            display: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--cyan);
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 900px) {
+            .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: var(--nav-h);
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 0.75rem;
+                background: rgba(5, 5, 18, 0.96);
+                border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+            }
+            .site-nav.is-open .nav-links { display: flex; }
+            .nav-links a { padding: 0.75rem 1rem; border-radius: 10px; }
+            .nav-actions .nav-icon-btn.desktop-only { display: none; }
+        }
+
+        /* ===== Hero ===== */
+        header.hero {
+            min-height: 72vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background-image: linear-gradient(rgba(5, 5, 20, 0.55), rgba(5, 5, 15, 0.78)), url('aicenter.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 3rem 1.25rem 2.5rem;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.62);
+            backdrop-filter: blur(14px);
+            padding: 2.4rem 1.8rem 2rem;
+            border-radius: 28px;
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75), inset 0 0 40px rgba(0, 229, 255, 0.06);
+            max-width: 820px;
+            width: 100%;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .main-logo {
+            max-width: min(640px, 100%);
+            width: auto;
+            height: auto;
+            max-height: min(42vh, 360px);
+            display: block;
+            margin: 0 auto 1.1rem;
+            object-fit: contain;
+            object-position: center;
+            filter: drop-shadow(0 0 36px rgba(0, 229, 255, 0.75));
+            border-radius: 16px;
+        }
+
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.6rem, 5vw, 2.8rem);
+            font-weight: 900;
+            background: linear-gradient(90deg, #00E5FF, #A78BFA, #FF6B6B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2.8s ease-in-out infinite alternate;
+            margin-bottom: 0.7rem;
+            letter-spacing: -0.5px;
+        }
+
+        .header-subtitle {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            opacity: 0.95;
+            line-height: 1.55;
+            max-width: 640px;
+            margin: 0 auto 1.4rem;
+            color: #e2e8f0;
+        }
+
+        .hero-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.85rem 1.4rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+            min-height: 48px;
+            color: #fff;
+        }
+        .btn:focus-visible {
+            outline: 3px solid var(--focus);
+            outline-offset: 3px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #00E5FF, #A78BFA);
+            color: #0b1220;
+            box-shadow: 0 14px 36px rgba(0, 229, 255, 0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 44px rgba(0, 229, 255, 0.5);
+        }
+        .btn-ghost {
+            background: rgba(0, 0, 0, 0.55);
+            border-color: rgba(0, 229, 255, 0.45);
+        }
+        .btn-ghost:hover {
+            transform: translateY(-2px);
+            border-color: var(--cyan);
+            background: rgba(0, 229, 255, 0.1);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(36px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glow {
+            0% { filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.35)); }
+            100% { filter: drop-shadow(0 0 18px rgba(0, 229, 255, 0.75)); }
+        }
+
+        /* ===== Sections ===== */
+        section {
+            padding: 72px 20px;
+            max-width: 1180px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        section.visible { opacity: 1; transform: translateY(0); }
+
+        .section-head {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.55rem, 4vw, 2.35rem);
+            text-align: center;
+            margin-bottom: 0.65rem;
+            background: linear-gradient(90deg, #00E5FF, #00B4D8, #A78BFA);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        h2 i { margin-right: 0.35rem; }
+
+        .section-lead {
+            text-align: center;
+            color: var(--muted);
+            font-size: 1.05rem;
+            max-width: 720px;
+            margin: 0 auto 1.75rem;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .filter-btn {
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 700;
+            padding: 0.5rem 0.95rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 229, 255, 0.28);
+            background: rgba(0, 0, 0, 0.4);
+            color: #cbd5e1;
+            cursor: pointer;
+        }
+        .filter-btn:hover,
+        .filter-btn[aria-pressed="true"] {
+            color: #041016;
+            background: linear-gradient(135deg, #00E5FF, #A78BFA);
+            border-color: transparent;
+        }
+        .filter-btn:focus-visible {
+            outline: 3px solid var(--focus);
+            outline-offset: 2px;
+        }
+
+        .search-wrap {
+            max-width: 420px;
+            margin: 0 auto 1.75rem;
+        }
+        .search-wrap input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            background: rgba(0, 0, 0, 0.45);
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.98rem;
+        }
+        .search-wrap input:focus {
+            outline: 2px solid var(--cyan);
+            outline-offset: 2px;
+        }
+
+        /* Service cards */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .service-card {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 229, 255, 0.55);
+            box-shadow: 0 24px 50px rgba(0, 229, 255, 0.18);
+        }
+        .service-card:focus-visible {
+            outline: 3px solid var(--focus);
+            outline-offset: 3px;
+        }
+
+        .service-thumb {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background: #0a0a23;
+            overflow: hidden;
+        }
+        .service-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.45s ease;
+        }
+        .service-card:hover .service-thumb img { transform: scale(1.06); }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 0.28rem 0.55rem;
+            border-radius: 999px;
+            letter-spacing: 0.02em;
+            z-index: 1;
+        }
+        .badge-live { background: rgba(16, 185, 129, 0.9); color: #fff; }
+        .badge-beta { background: rgba(251, 191, 36, 0.95); color: #1c1917; }
+        .badge-new { background: linear-gradient(135deg, #00E5FF, #A78BFA); color: #041016; }
+        .badge-event { background: rgba(255, 215, 0, 0.95); color: #1c1917; }
+        .badge-paused {
+            background: rgba(100, 116, 139, 0.95);
+            color: #f8fafc;
+            border: 1px solid rgba(226, 232, 240, 0.35);
+        }
+        .service-card[data-status="paused"] {
+            opacity: 0.92;
+        }
+        .service-card[data-status="paused"] .service-thumb {
+            filter: grayscale(0.25);
+        }
+
+        .service-body {
+            padding: 1.1rem 1.15rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 0.45rem;
+        }
+        .service-body h3 {
+            font-size: 1.12rem;
+            font-weight: 800;
+            line-height: 1.35;
+            color: #f8fafc;
+        }
+        .service-body .en {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            color: var(--cyan);
+            opacity: 0.85;
+            letter-spacing: 0.03em;
+        }
+        .service-body p {
+            font-size: 0.92rem;
+            color: #cbd5e1;
+            flex: 1;
+        }
+        .service-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-top: 0.25rem;
+        }
+        .chip {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 0.22rem 0.5rem;
+            border-radius: 999px;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.22);
+            color: #a5f3fc;
+        }
+        .service-cta {
+            margin-top: 0.55rem;
+            font-weight: 800;
+            font-size: 0.92rem;
+            color: var(--cyan);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .service-card.is-hidden { display: none; }
+
+        /* Guide */
+        .role-grid,
+        .steps {
+            display: grid;
+            gap: 1rem;
+        }
+        .steps {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            margin-bottom: 1.75rem;
+        }
+        .step-card,
+        .role-card,
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.35rem 1.25rem;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+        }
+        .step-num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--cyan);
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+        .step-card h3,
+        .role-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.45rem;
+        }
+        .step-card p,
+        .role-card p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+        .role-grid {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+        .role-card a {
+            display: inline-flex;
+            margin-top: 0.75rem;
+            color: var(--cyan);
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .role-card a:hover { text-decoration: underline; }
+        .role-card a:focus-visible {
+            outline: 2px solid var(--focus);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        /* Accordion tech */
+        .accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .acc-item {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            overflow: hidden;
+        }
+        .acc-btn {
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            font-size: 1.02rem;
+            font-weight: 800;
+            color: #f8fafc;
+            background: transparent;
+            border: 0;
+            padding: 1rem 1.15rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .acc-btn:hover { background: rgba(0, 229, 255, 0.06); }
+        .acc-btn:focus-visible {
+            outline: 2px solid var(--focus);
+            outline-offset: -2px;
+        }
+        .acc-btn .chev {
+            color: var(--cyan);
+            transition: transform 0.25s ease;
+        }
+        .acc-item.is-open .acc-btn .chev { transform: rotate(180deg); }
+        .acc-panel {
+            display: none;
+            padding: 0 1.15rem 1.15rem;
+            color: #cbd5e1;
+            font-size: 0.98rem;
+        }
+        .acc-item.is-open .acc-panel { display: block; }
+        .acc-panel ul {
+            margin: 0.5rem 0 0 1.1rem;
+        }
+        .acc-panel li { margin: 0.35rem 0; }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .feature-grid .card h3 {
+            font-size: 1.05rem;
+            margin: 0.4rem 0 0.55rem;
+        }
+        .icon-box {
+            font-size: 1.7rem;
+            color: var(--cyan);
+            text-shadow: 0 0 18px rgba(0, 229, 255, 0.5);
+        }
+        .effect-list {
+            list-style: none;
+        }
+        .effect-list li {
+            position: relative;
+            padding-left: 1.1rem;
+            margin: 0.4rem 0;
+            color: #cbd5e1;
+            font-size: 0.93rem;
+        }
+        .effect-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--cyan);
+        }
+
+        .effects-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+        .effects-row i {
+            color: var(--cyan);
+            text-shadow: 0 0 16px rgba(0, 229, 255, 0.55);
+            margin-bottom: 0.4rem;
+        }
+        .effects-row h3 {
+            font-size: 0.98rem;
+            font-weight: 700;
+        }
+
+        /* Partners */
+        .partners {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+        .partner-card {
+            text-align: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.6rem 1.2rem;
+        }
+        .partner-card img {
+            max-width: 220px;
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 229, 255, 0.28);
+            filter: drop-shadow(0 0 24px rgba(0, 229, 255, 0.45));
+            transition: transform 0.35s ease, filter 0.35s ease;
+        }
+        .partner-card a:hover img {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 36px rgba(0, 229, 255, 0.7));
+        }
+        .partner-card a:focus-visible {
+            outline: 3px solid var(--focus);
+            outline-offset: 4px;
+            border-radius: 12px;
+        }
+        .partner-card p {
+            margin-top: 1rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .partner-card .grad {
+            background: linear-gradient(45deg, #FFD700, #FF6B6B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        footer {
+            text-align: center;
+            padding: 48px 20px 36px;
+            opacity: 0.9;
+            font-size: 0.92rem;
+            background: linear-gradient(to top, #000, transparent);
+            color: #94a3b8;
+        }
+        footer a {
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        footer a:hover { text-decoration: underline; }
+
+        .empty-state {
+            display: none;
+            text-align: center;
+            color: var(--muted);
+            padding: 2rem;
+            border: 1px dashed rgba(0, 229, 255, 0.25);
+            border-radius: 14px;
+        }
+        .empty-state.is-visible { display: block; }
+
+        /* i18n helpers */
+        .i18n-block-en { display: none !important; }
+        html[lang="en"] .i18n-block-ko { display: none !important; }
+        html[lang="en"] .i18n-block-en { display: revert !important; }
+
+        @media (max-width: 768px) {
+            header.hero {
+                min-height: auto;
+                padding-top: 2rem;
+                background-attachment: scroll;
+            }
+            section { padding: 56px 16px; }
+            .hero-ctas .btn { width: 100%; max-width: 360px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            section { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#services">
+        <span class="i18n-block-ko">서비스 목록으로 건너뛰기</span>
+        <span class="i18n-block-en">Skip to services</span>
+    </a>
+
+    <canvas id="canvas" aria-hidden="true"></canvas>
+
+    <nav class="site-nav" id="siteNav" aria-label="주 메뉴">
+        <a class="nav-brand" href="#top">
+            <i class="fas fa-atom" aria-hidden="true"></i>
+            <span>EQAI Center</span>
+        </a>
+
+        <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="메뉴 열기">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#services" data-nav><span class="i18n-block-ko">서비스</span><span class="i18n-block-en">Services</span></a></li>
+            <li><a href="#guide" data-nav><span class="i18n-block-ko">이용 안내</span><span class="i18n-block-en">Guide</span></a></li>
+            <li><a href="#tech" data-nav><span class="i18n-block-ko">기술</span><span class="i18n-block-en">Tech</span></a></li>
+            <li><a href="#partners" data-nav><span class="i18n-block-ko">파트너</span><span class="i18n-block-en">Partners</span></a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <button type="button" class="lang-toggle" id="langToggle" aria-label="Language toggle">KO | EN</button>
+            <a class="nav-icon-btn desktop-only" href="index.html?opening=1" title="오프닝 다시 보기">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span class="i18n-block-ko">오프닝</span>
+                <span class="i18n-block-en">Opening</span>
+            </a>
+        </div>
+    </nav>
+
+    <header class="hero" id="top">
+        <div class="hero-content">
+            <img src="QAlogo.jpg" alt="심사품질 AI센터 로고" class="main-logo" decoding="async">
+            <h1 class="main-title">Examination Quality AI</h1>
+            <p class="header-subtitle">
+                <span class="i18n-block-ko">
+                    특허·상표·디자인 심사품질 진단의<br>
+                    객관성·정확성·일관성을 위한 <strong>AI 동반자</strong>
+                </span>
+                <span class="i18n-block-en">
+                    An AI companion for objective, accurate, and consistent<br>
+                    examination quality in patents, trademarks, and designs.
+                </span>
+            </p>
+            <div class="hero-ctas">
+                <a class="btn btn-primary" href="#services">
+                    <i class="fas fa-rocket" aria-hidden="true"></i>
+                    <span class="i18n-block-ko">서비스 시작</span>
+                    <span class="i18n-block-en">Start Services</span>
+                </a>
+                <a class="btn btn-ghost" href="#guide">
+                    <i class="fas fa-map-signs" aria-hidden="true"></i>
+                    <span class="i18n-block-ko">이용 가이드</span>
+                    <span class="i18n-block-en">How to Use</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services -->
+    <section id="services" aria-labelledby="services-title">
+        <div class="section-head">
+            <h2 id="services-title"><i class="fas fa-th-large" aria-hidden="true"></i>
+                <span class="i18n-block-ko">서비스 허브</span>
+                <span class="i18n-block-en">Service Hub</span>
+            </h2>
+            <p class="section-lead">
+                <span class="i18n-block-ko">목적에 맞는 서비스를 선택하세요. 카드 한 장으로 설명·대상·상태를 확인할 수 있습니다.</span>
+                <span class="i18n-block-en">Pick a service by goal. Each card shows description, audience, and status.</span>
+            </p>
+        </div>
+
+        <div class="filters" role="group" aria-label="서비스 필터">
+            <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">
+                <span class="i18n-block-ko">전체</span><span class="i18n-block-en">All</span>
+            </button>
+            <button type="button" class="filter-btn" data-filter="daily" aria-pressed="false">
+                <span class="i18n-block-ko">일상 업무</span><span class="i18n-block-en">Daily</span>
+            </button>
+            <button type="button" class="filter-btn" data-filter="diagnosis" aria-pressed="false">
+                <span class="i18n-block-ko">진단 지원</span><span class="i18n-block-en">Diagnosis</span>
+            </button>
+            <button type="button" class="filter-btn" data-filter="lab" aria-pressed="false">
+                <span class="i18n-block-ko">실험·컨테스트</span><span class="i18n-block-en">Lab</span>
+            </button>
+            <button type="button" class="filter-btn" data-filter="model" aria-pressed="false">
+                <span class="i18n-block-ko">오픈 모델</span><span class="i18n-block-en">Open Model</span>
+            </button>
+        </div>
+
+        <div class="search-wrap">
+            <label for="serviceSearch" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
+                <span class="i18n-block-ko">서비스 검색</span><span class="i18n-block-en">Search services</span>
+            </label>
+            <input type="search" id="serviceSearch" placeholder="서비스 검색… / Search services" autocomplete="off">
+        </div>
+
+        <div class="service-grid" id="serviceGrid">
+            <!-- filled by JS from SERVICE_DATA for single source of truth; also SSR fallback below -->
+        </div>
+        <p class="empty-state" id="emptyState">
+            <span class="i18n-block-ko">검색 결과가 없습니다.</span>
+            <span class="i18n-block-en">No matching services.</span>
+        </p>
+    </section>
+
+    <!-- Guide -->
+    <section id="guide" aria-labelledby="guide-title">
+        <div class="section-head">
+            <h2 id="guide-title"><i class="fas fa-route" aria-hidden="true"></i>
+                <span class="i18n-block-ko">이용 방법</span>
+                <span class="i18n-block-en">How to Use</span>
+            </h2>
+            <p class="section-lead">
+                <span class="i18n-block-ko">처음 방문이라면 3단계로 시작하세요. 역할에 맞는 추천 경로도 준비했습니다.</span>
+                <span class="i18n-block-en">New here? Follow three steps. Role-based paths are ready below.</span>
+            </p>
+        </div>
+
+        <div class="steps">
+            <article class="step-card">
+                <div class="step-num">STEP 01</div>
+                <h3>
+                    <span class="i18n-block-ko">목적 선택</span>
+                    <span class="i18n-block-en">Choose a goal</span>
+                </h3>
+                <p>
+                    <span class="i18n-block-ko">일일 브리핑, 사례 관리, 진단 지원, 실험·컨테스트, 오픈 모델 중 오늘 필요한 일을 고릅니다.</span>
+                    <span class="i18n-block-en">Pick daily briefing, case management, diagnosis support, lab/contest, or open models.</span>
+                </p>
+            </article>
+            <article class="step-card">
+                <div class="step-num">STEP 02</div>
+                <h3>
+                    <span class="i18n-block-ko">서비스 카드 확인</span>
+                    <span class="i18n-block-en">Check the card</span>
+                </h3>
+                <p>
+                    <span class="i18n-block-ko">대상·상태 배지·한 줄 설명을 확인한 뒤 「바로가기」로 이동합니다. 외부 서비스는 새 탭에서 열립니다.</span>
+                    <span class="i18n-block-en">Review audience, status badge, and summary, then open the link. External apps open in a new tab.</span>
+                </p>
+            </article>
+            <article class="step-card">
+                <div class="step-num">STEP 03</div>
+                <h3>
+                    <span class="i18n-block-ko">업무에 적용</span>
+                    <span class="i18n-block-en">Apply to work</span>
+                </h3>
+                <p>
+                    <span class="i18n-block-ko">진단·검색·리뷰 결과를 업무에 반영하고, 필요 시 다른 서비스와 교차 확인합니다.</span>
+                    <span class="i18n-block-en">Apply diagnosis, search, and review results—and cross-check with other tools when needed.</span>
+                </p>
+            </article>
+        </div>
+
+        <h3 style="text-align:center; margin: 0.5rem 0 1rem; font-size: 1.15rem;">
+            <span class="i18n-block-ko">역할별 추천 경로</span>
+            <span class="i18n-block-en">Recommended paths by role</span>
+        </h3>
+        <div class="role-grid">
+            <article class="role-card">
+                <h3><i class="fas fa-user-check" style="color:var(--cyan)" aria-hidden="true"></i>
+                    <span class="i18n-block-ko"> 진단관</span>
+                    <span class="i18n-block-en"> Examiner / QA officer</span>
+                </h3>
+                <p>
+                    <span class="i18n-block-ko">오늘의 심사품질 → 진단관 지원 AI → 청구범위 리뷰 순으로 업무 루프를 구성하세요.</span>
+                    <span class="i18n-block-en">Start with Daily Quality → Diagnosis AI → Claims Review.</span>
+                </p>
+                <a href="https://quality.moip.ai.kr" target="_blank" rel="noopener noreferrer">
+                    <span class="i18n-block-ko">진단관 지원 AI 열기 →</span>
+                    <span class="i18n-block-en">Open Diagnosis AI →</span>
+                </a>
+            </article>
+            <article class="role-card">
+                <h3><i class="fas fa-flask" style="color:var(--cyan)" aria-hidden="true"></i>
+                    <span class="i18n-block-ko"> 연구·학습</span>
+                    <span class="i18n-block-en"> Research & learning</span>
+                </h3>
+                <p>
+                    <span class="i18n-block-ko">AI 컨테스트와 오픈 모델로 실험하고, 사례 관리 시스템으로 인사이트를 축적하세요.</span>
+                    <span class="i18n-block-en">Explore the AI Contest and Open Model, then capture insights in Case Management.</span>
+                </p>
+                <a href="https://moip.ai.kr/contest/" target="_blank" rel="noopener noreferrer">
+                    <span class="i18n-block-ko">AI 컨테스트 열기 →</span>
+                    <span class="i18n-block-en">Open AI Contest →</span>
+                </a>
+            </article>
+            <article class="role-card">
+                <h3><i class="fas fa-door-open" style="color:var(--cyan)" aria-hidden="true"></i>
+                    <span class="i18n-block-ko"> 처음 방문</span>
+                    <span class="i18n-block-en"> First visit</span>
+                </h3>
+                <p>
+                    <span class="i18n-block-ko">「오늘의 심사품질」로 센터 분위기를 파악한 뒤, 관심 서비스 카드를 탐색해 보세요.</span>
+                    <span class="i18n-block-en">Start with Daily Examination Quality, then browse service cards that match your interest.</span>
+                </p>
+                <a href="https://moip.ai.kr/notice" target="_blank" rel="noopener noreferrer">
+                    <span class="i18n-block-ko">오늘의 심사품질 열기 →</span>
+                    <span class="i18n-block-en">Open Daily Quality →</span>
+                </a>
+            </article>
+        </div>
+    </section>
+
+    <!-- Tech -->
+    <section id="tech" aria-labelledby="tech-title">
+        <div class="section-head">
+            <h2 id="tech-title"><i class="fas fa-microchip" aria-hidden="true"></i>
+                <span class="i18n-block-ko">한눈에 보는 EQAI</span>
+                <span class="i18n-block-en">EQAI at a Glance</span>
+            </h2>
+            <p class="section-lead">
+                <span class="i18n-block-ko">목적·배경·핵심 기술·다음 단계를 접어서 정리했습니다. 필요한 항목만 펼쳐 보세요.</span>
+                <span class="i18n-block-en">Purpose, background, core stack, and roadmap—expand only what you need.</span>
+            </p>
+        </div>
+
+        <div class="accordion" id="techAccordion">
+            <div class="acc-item is-open">
+                <button type="button" class="acc-btn" aria-expanded="true">
+                    <span><span class="i18n-block-ko">서비스 목적</span><span class="i18n-block-en">Purpose</span></span>
+                    <i class="fas fa-chevron-down chev" aria-hidden="true"></i>
+                </button>
+                <div class="acc-panel">
+                    <p class="i18n-block-ko">
+                        심사품질 진단관의 업무 효율을 높이고, 특허·상표·디자인 분야 심사품질 진단의
+                        <strong>객관성·정확성·일관성</strong>을 강화하기 위한 전용 AI 센터를 제공합니다.
+                    </p>
+                    <p class="i18n-block-en">
+                        We provide a dedicated AI center to raise examiner efficiency and strengthen
+                        <strong>objectivity, accuracy, and consistency</strong> in IP examination quality.
+                    </p>
+                </div>
+            </div>
+
+            <div class="acc-item">
+                <button type="button" class="acc-btn" aria-expanded="false">
+                    <span><span class="i18n-block-ko">개발 배경 & 솔루션</span><span class="i18n-block-en">Background & solution</span></span>
+                    <i class="fas fa-chevron-down chev" aria-hidden="true"></i>
+                </button>
+                <div class="acc-panel">
+                    <p class="i18n-block-ko"><strong>과제</strong>: 판례·심사기준·진단사례 등 방대한 자료 종합, 일반 LLM의 학습 한계·확증 편향·환각·미세 뉘앙스 이해 부족.</p>
+                    <p class="i18n-block-en"><strong>Challenges</strong>: massive multi-source materials; generic LLMs face limited domain data, bias, hallucination, and weak nuance.</p>
+                    <ul class="effect-list">
+                        <li>Vector DB RAG</li>
+                        <li>Rule Based System</li>
+                        <li>Knowledge Graph</li>
+                        <li>Hybrid FTS</li>
+                        <li>Multi Agents</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="acc-item">
+                <button type="button" class="acc-btn" aria-expanded="false">
+                    <span><span class="i18n-block-ko">개발 방향 (로드맵)</span><span class="i18n-block-en">Roadmap</span></span>
+                    <i class="fas fa-chevron-down chev" aria-hidden="true"></i>
+                </button>
+                <div class="acc-panel">
+                    <ul class="effect-list">
+                        <li class="i18n-block-ko"><strong>LoRA</strong> — 도메인 특화 정확도 향상, 법령 개정 시 경량 교체</li>
+                        <li class="i18n-block-en"><strong>LoRA</strong> — domain accuracy gains; lightweight swaps on law updates</li>
+                        <li class="i18n-block-ko"><strong>LLM 체이닝</strong> — 요약 → NER → 논리 검증 → 최종 판단</li>
+                        <li class="i18n-block-en"><strong>LLM chaining</strong> — summary → NER → logic check → judgment</li>
+                        <li class="i18n-block-ko"><strong>NeuroSymbolic (개발 중)</strong> — 설명 가능한 AI, 논리 모순·누락 탐지</li>
+                        <li class="i18n-block-en"><strong>NeuroSymbolic (in progress)</strong> — explainable AI; contradiction/gap detection</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="acc-item">
+                <button type="button" class="acc-btn" aria-expanded="false">
+                    <span><span class="i18n-block-ko">비전</span><span class="i18n-block-en">Vision</span></span>
+                    <i class="fas fa-chevron-down chev" aria-hidden="true"></i>
+                </button>
+                <div class="acc-panel">
+                    <p class="i18n-block-ko">
+                        단순 보조 도구가 아닌, <strong>살아있는 업무 동반자</strong>이자
+                        존재론적 스케일의 지능 시스템으로 진화합니다.
+                    </p>
+                    <p class="i18n-block-en">
+                        Beyond a simple assistant—an evolving, living work companion at the scale of intelligence itself.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-grid" style="margin-top: 2rem;">
+            <article class="card">
+                <div class="icon-box"><i class="fas fa-database" aria-hidden="true"></i></div>
+                <h3>Vector DB RAG</h3>
+                <ul class="effect-list">
+                    <li class="i18n-block-ko">고정밀 검색 · 정확성 향상</li>
+                    <li class="i18n-block-en">High-precision retrieval</li>
+                </ul>
+            </article>
+            <article class="card">
+                <div class="icon-box"><i class="fas fa-cogs" aria-hidden="true"></i></div>
+                <h3>Rule Based System</h3>
+                <ul class="effect-list">
+                    <li class="i18n-block-ko">환각 방지 · 법적 기준 준수</li>
+                    <li class="i18n-block-en">Anti-hallucination · legal rules</li>
+                </ul>
+            </article>
+            <article class="card">
+                <div class="icon-box"><i class="fas fa-project-diagram" aria-hidden="true"></i></div>
+                <h3>Knowledge Graph</h3>
+                <ul class="effect-list">
+                    <li class="i18n-block-ko">판례·기준 관계 추론</li>
+                    <li class="i18n-block-en">Case–rule relationship reasoning</li>
+                </ul>
+            </article>
+            <article class="card">
+                <div class="icon-box"><i class="fas fa-search" aria-hidden="true"></i></div>
+                <h3>Hybrid FTS</h3>
+                <ul class="effect-list">
+                    <li class="i18n-block-ko">키워드 + 벡터 하이브리드</li>
+                    <li class="i18n-block-en">Keyword + vector hybrid search</li>
+                </ul>
+            </article>
+            <article class="card">
+                <div class="icon-box"><i class="fas fa-users-cog" aria-hidden="true"></i></div>
+                <h3>Multi Agents</h3>
+                <ul class="effect-list">
+                    <li class="i18n-block-ko">13종 에이전트 협업</li>
+                    <li class="i18n-block-en">13 specialized agents</li>
+                </ul>
+            </article>
+            <article class="card">
+                <div class="icon-box"><i class="fas fa-sliders-h" aria-hidden="true"></i></div>
+                <h3>
+                    <span class="i18n-block-ko">학습 & 제어</span>
+                    <span class="i18n-block-en">Learning & control</span>
+                </h3>
+                <ul class="effect-list">
+                    <li class="i18n-block-ko">자동 chunking · 파라미터 조절</li>
+                    <li class="i18n-block-en">Auto-chunking · parameter control</li>
+                </ul>
+            </article>
+        </div>
+
+        <div style="margin-top: 2.5rem;">
+            <h3 style="text-align:center; margin-bottom: 1.1rem; font-size: 1.15rem;">
+                <span class="i18n-block-ko">기대 효과</span>
+                <span class="i18n-block-en">Expected impact</span>
+            </h3>
+            <div class="effects-row">
+                <div>
+                    <i class="fas fa-chart-line fa-2x" aria-hidden="true"></i>
+                    <h3 class="i18n-block-ko">정확도·일관성 ↑</h3>
+                    <h3 class="i18n-block-en">Accuracy & consistency</h3>
+                </div>
+                <div>
+                    <i class="fas fa-clock fa-2x" aria-hidden="true"></i>
+                    <h3 class="i18n-block-ko">검색 시간 단축</h3>
+                    <h3 class="i18n-block-en">Faster search</h3>
+                </div>
+                <div>
+                    <i class="fas fa-brain fa-2x" aria-hidden="true"></i>
+                    <h3 class="i18n-block-ko">집단 지능화</h3>
+                    <h3 class="i18n-block-en">Collective intelligence</h3>
+                </div>
+                <div>
+                    <i class="fas fa-users fa-2x" aria-hidden="true"></i>
+                    <h3 class="i18n-block-ko">편차 최소화</h3>
+                    <h3 class="i18n-block-en">Less variance</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section id="partners" aria-labelledby="partners-title">
+        <div class="section-head">
+            <h2 id="partners-title"><i class="fas fa-handshake" aria-hidden="true"></i>
+                <span class="i18n-block-ko">파트너 · 소속</span>
+                <span class="i18n-block-en">Partners</span>
+            </h2>
+            <p class="section-lead">
+                <span class="i18n-block-ko">학회와 개발팀이 공익적 심사품질 AI 서비스를 함께 만들어 갑니다.</span>
+                <span class="i18n-block-en">A collegium and engineering team building public-interest examination quality AI.</span>
+            </p>
+        </div>
+        <div class="partners">
+            <article class="partner-card">
+                <a href="https://caipex.site" target="_blank" rel="noopener noreferrer">
+                    <img src="caipexlogo.jpg" alt="CAIPEX" width="320" height="200" loading="lazy" decoding="async">
+                </a>
+                <p>
+                    <span class="i18n-block-ko">AI기반 지식재산 심사품질 학회</span>
+                    <span class="i18n-block-en">IP examination quality collegium</span>
+                    <span class="grad"> CAIPEX</span>
+                </p>
+                <p style="font-size:0.9rem; font-weight:500; color:#94a3b8; margin-top:0.4rem;">
+                    Advancing innovation in intellectual property examination
+                </p>
+            </article>
+            <article class="partner-card">
+                <a href="https://protofelix.moip.ai.kr" target="_blank" rel="noopener noreferrer">
+                    <img src="TPFlogo.jpg" alt="Team ProtoFelix" width="320" height="200" loading="lazy" decoding="async">
+                </a>
+                <p>
+                    <span class="i18n-block-ko">AI 개발팀</span>
+                    <span class="i18n-block-en">AI engineering team</span>
+                    <span class="grad"> TeamProtoFelix</span>
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <p>
+            &copy; 2026
+            <span class="i18n-block-ko">심사품질연구회 AI센터 · TeamProtoFelix 설계 및 공익 서비스</span>
+            <span class="i18n-block-en">Examination Quality Research AI Center · public-interest service by TeamProtoFelix</span>
+        </p>
+        <p style="margin-top: 0.75rem;">
+            <a href="index.html?opening=1">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span class="i18n-block-ko">Connect to Futures 오프닝</span>
+                <span class="i18n-block-en">Back to opening</span>
+            </a>
+            ·
+            <a href="index.html">
+                <span class="i18n-block-ko">홈</span>
+                <span class="i18n-block-en">Home</span>
+            </a>
+        </p>
+    </footer>
+
+    <script>
+        (function () {
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // Mark hub visit for opening journey
+            try { localStorage.setItem('moip_visited_hub', '1'); } catch (e) {}
+
+            // 배지 정렬: 운영 중 → 베타 → 이벤트(컨테스트) → 휴면/일시정지
+            // (요청: 특실 검색 에이전트 다음에 컨테스트 배치)
+            const BADGE_ORDER = { live: 0, beta: 1, event: 2, new: 2, paused: 3 };
+
+            const SERVICES = [
+                // ----- 운영 중 -----
+                {
+                    id: 'notice',
+                    category: 'daily',
+                    href: 'https://moip.ai.kr/notice',
+                    img: 'notice.jpg',
+                    badge: 'live',
+                    badgeKo: '운영 중',
+                    badgeEn: 'Live',
+                    titleKo: '오늘의 심사품질',
+                    titleEn: 'Daily Examination Quality',
+                    enLabel: 'Daily Briefing',
+                    descKo: '일일 심사품질 이슈와 브리핑을 확인합니다.',
+                    descEn: 'Daily examination-quality issues and briefings.',
+                    audienceKo: '전체',
+                    audienceEn: 'Everyone',
+                    keywords: 'notice daily 공지 브리핑 오늘의'
+                },
+                {
+                    id: 'cases',
+                    category: 'daily',
+                    href: 'https://welcome.moip.ai.kr',
+                    img: 'consultation.jpg',
+                    badge: 'live',
+                    badgeKo: '운영 중',
+                    badgeEn: 'Live',
+                    titleKo: '심사사례 관리 시스템',
+                    titleEn: 'Case Management',
+                    enLabel: 'Case Hub',
+                    descKo: 'AI 기반 심사·진단 사례를 관리하고 공유합니다.',
+                    descEn: 'Manage and share AI-assisted examination cases.',
+                    audienceKo: '진단·연구',
+                    audienceEn: 'QA & research',
+                    keywords: 'case consultation welcome 사례 관리'
+                },
+                {
+                    id: 'quality',
+                    category: 'diagnosis',
+                    href: 'https://quality.moip.ai.kr',
+                    img: 'aiconnect.jpg',
+                    badge: 'live',
+                    badgeKo: '운영 중',
+                    badgeEn: 'Live',
+                    titleKo: '진단관 지원 AI',
+                    titleEn: 'Diagnosis Support AI',
+                    enLabel: 'EQAI Core',
+                    descKo: '심사품질 진단을 위한 전용 AI 업무 동반자입니다.',
+                    descEn: 'Dedicated AI companion for examination quality diagnosis.',
+                    audienceKo: '진단관',
+                    audienceEn: 'QA officers',
+                    keywords: 'quality diagnosis 진단관 지원'
+                },
+                {
+                    id: 'claims',
+                    category: 'diagnosis',
+                    href: 'https://claims.moip.ai.kr/',
+                    img: 'claimsbotlogo.jpg',
+                    badge: 'live',
+                    badgeKo: '운영 중',
+                    badgeEn: 'Live',
+                    titleKo: '특허청구범위 리뷰 시스템',
+                    titleEn: 'Claims Review System',
+                    enLabel: 'Claims Bot',
+                    descKo: '특허 청구범위 작성·검토를 AI로 지원합니다.',
+                    descEn: 'AI-assisted patent claim drafting and review.',
+                    audienceKo: '특허 실무',
+                    audienceEn: 'Patent practice',
+                    keywords: 'claims patent 청구범위 리뷰'
+                },
+                {
+                    id: 'openmodel',
+                    category: 'model',
+                    href: 'https://lulu.moip.ai.kr',
+                    img: 'OWMlogo.jpg',
+                    badge: 'live',
+                    badgeKo: '운영 중',
+                    badgeEn: 'Live',
+                    titleKo: 'Open Weights LLM Model',
+                    titleEn: 'Open Weights LLM',
+                    enLabel: 'Open Model',
+                    descKo: '오픈 웨이트 모델을 활용한 실험·추론 환경입니다.',
+                    descEn: 'Experiment and reason with open-weight language models.',
+                    audienceKo: '연구·개발',
+                    audienceEn: 'R&D',
+                    keywords: 'open model llm lulu owm weights'
+                },
+                // ----- 베타 -----
+                {
+                    id: 'search-agent',
+                    category: 'diagnosis',
+                    href: 'https://patent.moip.ai.kr',
+                    img: 'searchlogo.jpg',
+                    badge: 'beta',
+                    badgeKo: '베타',
+                    badgeEn: 'Beta',
+                    titleKo: '특실 검색 에이전트',
+                    titleEn: 'Patent Search Agent',
+                    enLabel: 'Prior-Art Search',
+                    descKo: '특허청구범위를 넣으면 AI가 유사 선행기술을 찾아 순위를 매기는 검색 서비스입니다.',
+                    descEn: 'Paste claims—AI finds and ranks similar prior art.',
+                    audienceKo: '특허 실무',
+                    audienceEn: 'Patent practice',
+                    keywords: 'search agent prior art 특실 검색 선행기술 청구범위 patent'
+                },
+                {
+                    id: 'prompt-manager',
+                    category: 'diagnosis',
+                    href: 'https://pm.moip.ai.kr',
+                    img: 'pmlogo.jpg',
+                    badge: 'beta',
+                    badgeKo: '베타',
+                    badgeEn: 'Beta',
+                    titleKo: '특실심사-PromptManager',
+                    titleEn: 'Patent Exam Prompt Manager',
+                    enLabel: 'Prompt Manager',
+                    descKo: '특허·실용신안 심사에 쓰는 프롬프트를 저장·관리하는 서비스입니다.',
+                    descEn: 'Store and manage prompts used in patent & utility model examination.',
+                    audienceKo: '특허 실무',
+                    audienceEn: 'Patent practice',
+                    keywords: 'prompt manager pm 특실심사 프롬프트 특허 실용신안'
+                },
+                // ----- 이벤트 -----
+                {
+                    id: 'contest',
+                    category: 'lab',
+                    href: 'https://moip.ai.kr/contest/',
+                    img: 'contestlogo.jpg',
+                    badge: 'event',
+                    badgeKo: '이벤트',
+                    badgeEn: 'Event',
+                    titleKo: '심사품질연구회 AI 컨테스트',
+                    titleEn: 'AI Contest',
+                    enLabel: 'Idea Store',
+                    descKo: '심사·일상 아이디어 출품작 앱스토어. 브레인스토밍용 정적 프로토타입을 모았습니다.',
+                    descEn: 'App-store of exam & everyday idea prototypes for brainstorming.',
+                    audienceKo: '연구·학습',
+                    audienceEn: 'Research & learning',
+                    keywords: 'contest ai 컨테스트 실험 아이디어 앱스토어'
+                },
+                // ----- 휴면 / 일시정지 -----
+                {
+                    id: 'welcomebot',
+                    category: 'daily',
+                    href: 'https://moip.ai.kr/welcomebot',
+                    img: 'welcomebotlogo.jpg',
+                    badge: 'paused',
+                    badgeKo: '휴면',
+                    badgeEn: 'Paused',
+                    titleKo: '안녕봇',
+                    titleEn: 'Welcome Bot',
+                    enLabel: 'Internal Notice',
+                    descKo: '심사품질 안내 챗봇. 현재 내부망으로 이전되어 공개망에서는 휴면 상태입니다.',
+                    descEn: 'Quality welcome bot—migrated to internal network (public pause).',
+                    audienceKo: '전체',
+                    audienceEn: 'Everyone',
+                    keywords: 'welcome 안녕봇 휴면 내부망'
+                },
+                {
+                    id: 'trademarkbot',
+                    category: 'diagnosis',
+                    href: 'https://moip.ai.kr/trademarkbot/',
+                    img: 'trademarkbotlogo.jpg',
+                    badge: 'paused',
+                    badgeKo: '일시정지',
+                    badgeEn: 'Paused',
+                    titleKo: '상표·디자인 비교봇',
+                    titleEn: 'Trademark & Design Compare',
+                    enLabel: 'TM / Design',
+                    descKo: '상표·디자인 심사 비교 분석 서비스. 현재 일시정지 상태입니다.',
+                    descEn: 'Trademark & design comparison for examination—currently paused.',
+                    audienceKo: '상표·디자인',
+                    audienceEn: 'TM & Design',
+                    keywords: 'trademark design 상표 디자인 비교봇 일시정지'
+                }
+            ];
+
+            const badgeClass = {
+                live: 'badge-live',
+                beta: 'badge-beta',
+                new: 'badge-new',
+                event: 'badge-event',
+                paused: 'badge-paused'
+            };
+
+            function isExternal(href) {
+                try {
+                    const u = new URL(href, window.location.href);
+                    return u.origin !== window.location.origin;
+                } catch (e) {
+                    return true;
+                }
+            }
+
+            function renderServices() {
+                const grid = document.getElementById('serviceGrid');
+                const lang = document.documentElement.lang === 'en' ? 'en' : 'ko';
+                const ordered = SERVICES.slice().sort(function (a, b) {
+                    const pa = BADGE_ORDER[a.badge] != null ? BADGE_ORDER[a.badge] : 9;
+                    const pb = BADGE_ORDER[b.badge] != null ? BADGE_ORDER[b.badge] : 9;
+                    return pa - pb;
+                });
+                grid.innerHTML = ordered.map(function (s) {
+                    const title = lang === 'en' ? s.titleEn : s.titleKo;
+                    const desc = lang === 'en' ? s.descEn : s.descKo;
+                    const audience = lang === 'en' ? s.audienceEn : s.audienceKo;
+                    const badge = lang === 'en' ? s.badgeEn : s.badgeKo;
+                    const go = lang === 'en' ? 'Open' : '바로가기';
+                    const external = isExternal(s.href);
+                    const rel = external ? 'noopener noreferrer' : '';
+                    const target = external ? '_blank' : '_self';
+                    const extIcon = external ? ' <i class="fas fa-external-link-alt" aria-hidden="true" style="font-size:0.75em"></i>' : '';
+                    return (
+                        '<a class="service-card" href="' + s.href + '" target="' + target + '" rel="' + rel + '"' +
+                        ' data-category="' + s.category + '" data-status="' + s.badge + '"' +
+                        ' data-keywords="' + s.keywords.toLowerCase() + ' ' + s.titleKo.toLowerCase() + ' ' + s.titleEn.toLowerCase() + '"' +
+                        ' aria-label="' + title + ' · ' + badge + (external ? (lang === 'en' ? ' (opens in new tab)' : ' (새 탭)') : '') + '">' +
+                        '<div class="service-thumb">' +
+                        '<span class="badge ' + (badgeClass[s.badge] || 'badge-live') + '">' + badge + '</span>' +
+                        '<img src="' + s.img + '" alt="" width="640" height="360" loading="lazy" decoding="async"' +
+                        ' onerror="this.style.opacity=0.2">' +
+                        '</div>' +
+                        '<div class="service-body">' +
+                        '<div class="en">' + s.enLabel + '</div>' +
+                        '<h3>' + title + '</h3>' +
+                        '<p>' + desc + '</p>' +
+                        '<div class="service-meta"><span class="chip">' + audience + '</span></div>' +
+                        '<div class="service-cta">' + go + ' →' + extIcon + '</div>' +
+                        '</div></a>'
+                    );
+                }).join('');
+                applyFilters();
+            }
+
+            let activeFilter = 'all';
+            let searchQuery = '';
+
+            function applyFilters() {
+                const cards = document.querySelectorAll('.service-card');
+                let visible = 0;
+                cards.forEach(function (card) {
+                    const cat = card.getAttribute('data-category');
+                    const kw = (card.getAttribute('data-keywords') || '') + ' ' + card.textContent.toLowerCase();
+                    const matchCat = activeFilter === 'all' || cat === activeFilter;
+                    const matchQ = !searchQuery || kw.indexOf(searchQuery) !== -1;
+                    const show = matchCat && matchQ;
+                    card.classList.toggle('is-hidden', !show);
+                    if (show) visible += 1;
+                });
+                document.getElementById('emptyState').classList.toggle('is-visible', visible === 0);
+            }
+
+            document.querySelectorAll('.filter-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    activeFilter = btn.getAttribute('data-filter');
+                    document.querySelectorAll('.filter-btn').forEach(function (b) {
+                        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+                    });
+                    applyFilters();
+                });
+            });
+
+            document.getElementById('serviceSearch').addEventListener('input', function (e) {
+                searchQuery = (e.target.value || '').trim().toLowerCase();
+                applyFilters();
+            });
+
+            // Accordion
+            document.querySelectorAll('.acc-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    const item = btn.closest('.acc-item');
+                    const open = !item.classList.contains('is-open');
+                    item.classList.toggle('is-open', open);
+                    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                });
+            });
+
+            // Mobile nav
+            const siteNav = document.getElementById('siteNav');
+            const navToggle = document.getElementById('navToggle');
+            navToggle.addEventListener('click', function () {
+                const open = !siteNav.classList.contains('is-open');
+                siteNav.classList.toggle('is-open', open);
+                navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                navToggle.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+            });
+            document.querySelectorAll('[data-nav]').forEach(function (a) {
+                a.addEventListener('click', function () {
+                    siteNav.classList.remove('is-open');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // Language toggle
+            const langToggle = document.getElementById('langToggle');
+            function setLang(lang) {
+                document.documentElement.lang = lang;
+                langToggle.textContent = lang === 'en' ? 'EN | KO' : 'KO | EN';
+                try { localStorage.setItem('moip_lang', lang); } catch (e) {}
+                renderServices();
+            }
+            let savedLang = 'ko';
+            try { savedLang = localStorage.getItem('moip_lang') || 'ko'; } catch (e) {}
+            setLang(savedLang === 'en' ? 'en' : 'ko');
+            langToggle.addEventListener('click', function () {
+                setLang(document.documentElement.lang === 'en' ? 'ko' : 'en');
+            });
+
+            // Scroll reveal
+            if (!reducedMotion && 'IntersectionObserver' in window) {
+                const observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) entry.target.classList.add('visible');
+                    });
+                }, { threshold: 0.12 });
+                document.querySelectorAll('section').forEach(function (sec) { observer.observe(sec); });
+            } else {
+                document.querySelectorAll('section').forEach(function (sec) { sec.classList.add('visible'); });
+            }
+
+            // Particles (optimized)
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let running = true;
+            let rafId = 0;
+
+            function resizeCanvas() {
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                canvas.width = Math.floor(window.innerWidth * dpr);
+                canvas.height = Math.floor(window.innerHeight * dpr);
+                canvas.style.width = window.innerWidth + 'px';
+                canvas.style.height = window.innerHeight + 'px';
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            function createParticles() {
+                const area = window.innerWidth * window.innerHeight;
+                const count = Math.max(40, Math.min(100, Math.floor(area / 18000)));
+                particles = [];
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * window.innerWidth,
+                        y: Math.random() * window.innerHeight,
+                        vx: (Math.random() - 0.5) * 0.45,
+                        vy: (Math.random() - 0.5) * 0.45,
+                        r: Math.random() * 1.8 + 0.4,
+                        hue: Math.random() * 60 + 190
+                    });
+                }
+            }
+
+            function tick() {
+                if (!running) return;
+                ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
+                    if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
+                    ctx.beginPath();
+                    ctx.fillStyle = 'hsla(' + p.hue + ', 70%, 60%, 0.75)';
+                    ctx.shadowColor = 'hsla(' + p.hue + ', 70%, 60%, 0.6)';
+                    ctx.shadowBlur = 8;
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.shadowBlur = 0;
+                if (!reducedMotion) rafId = requestAnimationFrame(tick);
+            }
+
+            resizeCanvas();
+            createParticles();
+            if (reducedMotion) {
+                tick();
+            } else {
+                rafId = requestAnimationFrame(tick);
+            }
+
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) {
+                    running = false;
+                    if (rafId) cancelAnimationFrame(rafId);
+                } else if (!reducedMotion) {
+                    running = true;
+                    rafId = requestAnimationFrame(tick);
+                }
+            });
+
+            window.addEventListener('resize', function () {
+                resizeCanvas();
+                createParticles();
+            });
+        })();
+    </script>
+</body>
+</html>

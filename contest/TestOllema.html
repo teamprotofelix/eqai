@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다마고치 봇 (Ollama 버전)</title>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #00ff00; margin: 0; padding: 20px; }
+        .container { display: flex; max-width: 1200px; margin: auto; gap: 20px; }
+        .left { flex: 1; }
+        .ascii { font-size: 12px; line-height: 1; white-space: pre; margin-bottom: 20px; }
+        .status { background: #333; padding: 15px; border-radius: 10px; }
+        .status h3 { margin: 0 0 10px; }
+        .status div { margin: 5px 0; }
+        .chat { flex: 2; height: 500px; overflow-y: auto; background: #000; padding: 15px; border-radius: 10px; }
+        .input-area { margin-top: 20px; }
+        input[type="text"] { width: 70%; padding: 10px; background: #222; color: #00ff00; border: 1px solid #00ff00; }
+        button { padding: 10px 20px; background: #00ff00; color: #000; border: none; cursor: pointer; margin-left: 5px; }
+        .message { margin: 10px 0; }
+        .user { text-align: right; color: #ffff00; }
+        .tamagotchi { color: #00ff88; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div id="asciiArt" class="ascii"></div>
+            <div id="status" class="status">
+                <h3>상태창 (Ollama 연결)</h3>
+                <div>나이: <span id="age">0</span>일</div>
+                <div>배고픔: <span id="hunger">50</span>%</div>
+                <div>행복: <span id="happiness">50</span>%</div>
+                <div>건강: <span id="health">100</span>%</div>
+                <div>형태: <span id="form">알</span></div>
+                <div>성격: <span id="personality">중립</span></div>
+                <div>기분: <span id="mood">보통</span></div>
+                <div>부족한 점: <span id="needs">-</span></div>
+                <div>지금 필요한 것: <span id="required">-</span></div>
+            </div>
+        </div>
+        <div id="chat" class="chat"></div>
+    </div>
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="다마고치에게 말하거나 명령하세요" onkeypress="if(event.key==='Enter') sendMessage()">
+        <button onclick="sendMessage()">보내기</button>
+        <button onclick="resetTamagotchi()">리셋</button>
+    </div>
+
+    <script>
+        // ==================== Ollama 설정 ====================
+        const OLLAMA_SERVER = "http://protofelix.iptime.org:11434/api"; 
+        let ollamaModel = "qwen3.5:4b";
+
+        // ==================== 다마고치 기본 로직 ====================
+        let tamagotchi = {
+            age: 0, hunger: 50, happiness: 50, health: 100,
+            form: '알', personality: '중립', mood: '보통',
+            isDead: false
+        };
+
+        // ==================== Ollama 호출 함수 ====================
+        async function getOllamaResponse(userMsg, context) {
+            const prompt = `너는 "${tamagotchi.personality}한 ${tamagotchi.form} 다마고치"야. 
+            현재 상태: 나이 ${tamagotchi.age}일, 배고픔 ${tamagotchi.hunger}%, 행복 ${tamagotchi.happiness}%, 건강 ${tamagotchi.health}%.
+            사용자 메시지: ${userMsg}
+            ${context ? `행동 결과: ${context}` : ''}
+            귀엽고 성격에 맞게 짧게 응답해. 한국어로.`;
+
+            try {
+                const response = await fetch(`${OLLAMA_SERVER}/api/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: ollamaModel,
+                        messages: [
+                            { role: "system", content: "너는 귀여운 다마고치야. 성격에 맞게 대답해." },
+                            { role: "user", content: prompt }
+                        ],
+                        stream: false
+                    })
+                });
+
+                if (!response.ok) return `❌ Ollama 에러: ${response.status}`;
+                const data = await response.json();
+                return data.message?.content || '응답 없음';
+            } catch (e) {
+                return `😿 연결 실패: 서버 주소와 CORS 설정을 확인하세요.`;
+            }
+        }
+
+        // ==================== 메시지 전송 ====================
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const msg = input.value.trim();
+            if (!msg || tamagotchi.isDead) return;
+            input.value = '';
+
+            const chat = document.getElementById('chat');
+            chat.innerHTML += `<div class="message user">너: ${msg}</div>`;
+            
+            const botReply = await getOllamaResponse(msg, "");
+            chat.innerHTML += `<div class="message tamagotchi">다마고치: ${botReply}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function resetTamagotchi() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>선행기술 레이더 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="idea-entry.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 컨테스트 스토어</a><span class="badge-off">AI 연결 끊김</span></div>
+<main class="wrap" data-app-id="priorart-radar">
+  <div class="hero">
+    <div class="icon">📡</div>
+    <div>
+      <div class="sub">priorart-radar</div>
+      <h1>선행기술 레이더</h1>
+      <p class="lead">Prior-Art Radar · 검색식·탐색축 보드</p>
+      <p class="lead">기술분야·키워드를 입력하면 탐색 축과 검색식 초안을 보드에 깔아 줍니다. 실제 검색 API는 연결되지 않습니다.</p>
+    </div>
+  </div>
+  <section class="card">
+    <label for="mainInput">기술 키워드 / 요약</label>
+    <textarea id="mainInput" placeholder="예: 배터리, 열관리, 냉각 유로, 전기차 모듈…"></textarea>
+    <div class="checks">
+      <label><input type="checkbox" checked> 키워드 축</label>
+      <label><input type="checkbox" checked> 기능·효과 축</label>
+      <label><input type="checkbox"> 제외어 제안</label>
+    </div>
+    <button type="button" class="btn" id="runBtn">레이더 스캔 (데모)</button>
+    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
+  </section>
+  <section class="card">
+    <h2>출력 패널</h2>
+    <div class="out-grid" id="out">
+      <div class="out-card"><h3>검색식 초안</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>IPC / 키워드 축</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>다음 탐색 액션</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+    </div>
+  </section>
+  <footer>App ID: priorart-radar · <a href="index.html">앱스토어</a> · <a href="../quality.html">허브</a></footer>
+</main>
+<div class="toast" id="toast">AI 연결 끊김 — 데모 골격만 표시합니다.</div>
+<script src="idea-entry.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>심사 일정·대응 코치 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="idea-entry.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 컨테스트 스토어</a><span class="badge-off">AI 연결 끊김</span></div>
+<main class="wrap" data-app-id="office-action-coach">
+  <div class="hero">
+    <div class="icon">🧭</div>
+    <div>
+      <div class="sub">office-action-coach</div>
+      <h1>심사 일정·대응 코치</h1>
+      <p class="lead">Office Action Coach · 기한·체크리스트</p>
+      <p class="lead">통지 유형과 기한을 넣으면 대응 타임라인·체크리스트 초안을 보여 줍니다. 일정 API/알림은 미연결입니다.</p>
+    </div>
+  </div>
+  <section class="card">
+    <label for="mainInput">통지 유형 / 기한</label>
+    <textarea id="mainInput" placeholder="예: 의견제출통지서, 통지일 2026-07-01, 제출기한 2026-09-01"></textarea>
+    <div class="checks">
+      <label><input type="checkbox" checked> 의견서 대응</label>
+      <label><input type="checkbox"> 보정서 병행</label>
+      <label><input type="checkbox" checked> 증거·자료 체크</label>
+    </div>
+    <button type="button" class="btn" id="runBtn">코칭 보드 열기 (데모)</button>
+    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
+  </section>
+  <section class="card">
+    <h2>출력 패널</h2>
+    <div class="out-grid" id="out">
+      <div class="out-card"><h3>D-데이 타임라인</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>대응 체크리스트</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+      <div class="out-card"><h3>첨부·증거 메모</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
+    </div>
+  </section>
+  <footer>App ID: office-action-coach · <a href="index.html">앱스토어</a> · <a href="../quality.html">허브</a></footer>
+</main>
+<div class="toast" id="toast">AI 연결 끊김 — 데모 골격만 표시합니다.</div>
+<script src="idea-entry.js"></script>
+</body>
+</html>
