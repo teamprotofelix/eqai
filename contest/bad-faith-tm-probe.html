@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>악의출원 프로브 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="선사용·유명성·대량출원 패턴 신호로 악의 가설을 프로브합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="bad-faith-tm-probe"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"bad-faith-tm-probe","icon":"🚨","title":"악의출원 프로브","name":"BadFaithProbe","role":"상표 악의적 출원 프로브","mission":"선사용·유명성·대량출원 패턴 신호로 악의 가설을 프로브합니다.","domain":"상표","layout":"stream","accent":"orange","inputLabel":"출원인/표장/정황","placeholder":"예: 유명 캐릭터 유사, 다류 대량 출원…","tools":["선사용","유명성","패턴"],"strategies":[{"detail":"정황 팩터","title":"신호 수집","log":"signals"},{"detail":"시나리오","title":"악의 가설 트리","log":"hyp tree"},{"detail":"입증 난이","title":"증거 우선순위","log":"evidence rank"}],"executions":[{"detail":"스코어 시연","title":"프로브 결과","log":"score"},{"detail":"미션","title":"추가 조사","log":"missions"},{"detail":"거절/의견","title":"대응 옵션","log":"options"}],"deliverables":[{"title":"프로브","sample":"악의 신호 중상\n{{seed}}","hint":"스코어"},{"title":"조사 미션","sample":"선사용 증거 · 출원 이력 패턴","hint":"목록"},{"title":"옵션","sample":"사용의사 소명 요구 검토","hint":"대응"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

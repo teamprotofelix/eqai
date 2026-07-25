@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기능적 청구항 디코더 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="“~하도록 구성된” 등 기능 표현을 구조·알고리즘 후보로 디코딩하고 명확성 리스크를 표시합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="functional-claim-decoder"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"functional-claim-decoder","icon":"🔤","title":"기능적 청구항 디코더","name":"FuncDecode","role":"기능적 표현 해독 에이전트","mission":"“~하도록 구성된” 등 기능 표현을 구조·알고리즘 후보로 디코딩하고 명확성 리스크를 표시합니다.","domain":"특실","layout":"console","accent":"teal","inputLabel":"기능적 청구항 문구","placeholder":"예: 온도를 최적화하도록 구성된 제어 모듈…","tools":["기능→구조","명확성","실시 대응"],"strategies":[{"detail":"동사구·목적어 분리","title":"기능 술어 추출","log":"extract predicates"},{"detail":"가능 구조/알고리듬","title":"구현 가설 생성","log":"hypothesize impl"},{"detail":"과다 기능 표현","title":"불비 리스크 채점","log":"score risk"}],"executions":[{"detail":"구조 후보","title":"디코드 카드","log":"cards"},{"detail":"지지 위치 슬롯","title":"명세서 앵커","log":"anchors"},{"detail":"구조 한정적 문언","title":"보정 제안","log":"amend suggest"}],"deliverables":[{"title":"디코드","sample":"PID 제어 / 룩업테이블 / ML 추론 모듈\n{{seed}}","hint":"후보"},{"title":"리스크","sample":"HIGH: ‘최적화’ 기준 부재","hint":"등급"},{"title":"보정안","sample":"임계온도 Tth 이하로 유지하는 피드백 루프…","hint":"시연"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

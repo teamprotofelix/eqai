@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상표 식별력 보드 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="기술·암시·보통명칭 축으로 식별력 쟁점을 보드에 올립니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="tm-distinct-board"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"tm-distinct-board","icon":"✨","title":"상표 식별력 보드","name":"DistinctBoard","role":"식별력 진단 에이전트","mission":"기술·암시·보통명칭 축으로 식별력 쟁점을 보드에 올립니다.","domain":"상표","layout":"board","accent":"amber","inputLabel":"표장 / 사용 상품","placeholder":"예: FASTCHARGE — 충전기…","tools":["기술표장","암시","보통명칭"],"strategies":[{"detail":"조어/기술/암시","title":"표장 성격 태깅","log":"tag nature"},{"detail":"직접 기술 여부","title":"상품 관련성","log":"goods link"},{"detail":"사용·인식 자료","title":"증거 전략","log":"evidence plan"}],"executions":[{"detail":"보드 기입","title":"축별 판정 슬롯","log":"axis verdict"},{"detail":"상대 척도","title":"종합 스코어 시연","log":"score"},{"detail":"보정·주장","title":"대응 아이디어","log":"response"}],"deliverables":[{"title":"식별력 보드","sample":"기술: 높음 위험\n암시: 중간\n{{seed}}","hint":"축"},{"title":"쟁점 요약","sample":"상품 품질 직접 기술 소지","hint":"한 줄"},{"title":"대응","sample":"조어성 강조 · 사용증거","hint":"아이디어"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

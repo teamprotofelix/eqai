@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>디자인 유사 매트릭스 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="요부·전체관찰 축으로 유사 쟁점을 매트릭스화합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="design-sim-matrix"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"design-sim-matrix","icon":"🔲","title":"디자인 유사 매트릭스","name":"DesSim","role":"디자인 유사 격자 에이전트","mission":"요부·전체관찰 축으로 유사 쟁점을 매트릭스화합니다.","domain":"디자인","layout":"matrix","accent":"violet","inputLabel":"출원/대비 디자인 메모","placeholder":"예: 모서리 R, 측면 라인…","tools":["요부","전체 인상","부분"],"strategies":[{"detail":"라인·면·장식","title":"형태 특징 추출","log":"features"},{"detail":"요부 중심","title":"축 가중치","log":"weights"},{"detail":"동일 시점","title":"대비 정렬","log":"align"}],"executions":[{"detail":"공통점","title":"유사 셀","log":"sim cells"},{"detail":"차이점","title":"비유사 셀","log":"diff cells"},{"detail":"종합","title":"판단 메모","log":"memo"}],"deliverables":[{"title":"유사 포인트","sample":"측면 실루엣\n{{seed}}","hint":"목록"},{"title":"비유사","sample":"정면 패턴","hint":"목록"},{"title":"판단 메모","sample":"요부 동일 시 유사 강화","hint":"가설"}],"sampleSeed":null,"matrixRows":["정면","측면","디테일","전체"],"matrixCols":["유사","비유사","요부성"]};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

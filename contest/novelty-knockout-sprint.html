@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신규성 녹아웃 스프린트 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="독립항을 최소 요소 세트로 압축한 뒤 한 문헌 녹아웃 가능 여부를 빠르게 스프린트합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="novelty-knockout-sprint"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"novelty-knockout-sprint","icon":"🥊","title":"신규성 녹아웃 스프린트","name":"NoveltyKO","role":"신규성 녹아웃 스프린트 에이전트","mission":"독립항을 최소 요소 세트로 압축한 뒤 한 문헌 녹아웃 가능 여부를 빠르게 스프린트합니다.","domain":"특실","layout":"stream","accent":"rose","inputLabel":"독립항 전문","placeholder":"예: A+B+C+D 구성 시스템…","tools":["최소 세트","한 문헌","부분 개시"],"strategies":[{"detail":"삭제 가능 수식","title":"최소 필수 압축","log":"minify"},{"detail":"단일 문헌 커버","title":"녹아웃 가설","log":"ko hyp"},{"detail":"암시·내재","title":"부분개시 처리","log":"implicit"}],"executions":[{"detail":"KO/FAIL","title":"스프린트 결과","log":"result"},{"detail":"차이","title":"잔존 요소","log":"remainder"},{"detail":"진보성 이관","title":"차단계","log":"next"}],"deliverables":[{"title":"스프린트","sample":"KO 실패 — 요소C 미개시\n{{seed}}","hint":"결과"},{"title":"잔존","sample":"C: 학습형 제어 루프","hint":"차이"},{"title":"차단계","sample":"진보성 결합 검토로 이관","hint":"이관"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

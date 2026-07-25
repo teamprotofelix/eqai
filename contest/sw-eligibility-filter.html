@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SW·비즈니스 적격 필터 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="추상적 아이디어 vs 기술적 해결을 단계적으로 걸러 적격성 가설과 보정 힌트를 제시합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="sw-eligibility-filter"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"sw-eligibility-filter","icon":"💻","title":"SW·비즈니스 적격 필터","name":"EligiFilter","role":"컴퓨터·비즈니스 관련 발명 적격 필터","mission":"추상적 아이디어 vs 기술적 해결을 단계적으로 걸러 적격성 가설과 보정 힌트를 제시합니다.","domain":"특실","layout":"console","accent":"cyan","inputLabel":"청구항 요약 (SW/BM)","placeholder":"예: 사용자 행동 점수화 후 광고 매칭…","tools":["추상성","기술 효과","추가 요소"],"strategies":[{"detail":"순수 규칙/기술","title":"청구항 성격 태깅","log":"tag nature"},{"detail":"필터 1단","title":"추상 아이디어 가설","log":"abstract hyp"},{"detail":"기술적 개선","title":"추가 요소 탐색","log":"extra elements"}],"executions":[{"detail":"상대 척도","title":"적격 스코어 시연","log":"score"},{"detail":"기술 한정","title":"보정 힌트","log":"amend"},{"detail":"유형","title":"사례 유사 메모","log":"analog"}],"deliverables":[{"title":"필터 결과","sample":"추상성 위험 중 · 기술 효과 보강 필요\n{{seed}}","hint":"가설"},{"title":"보정 힌트","sample":"구체 데이터 구조·지연 개선 수치","hint":"안"},{"title":"유형 메모","sample":"정보 단순 제시형 주의","hint":"참고"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

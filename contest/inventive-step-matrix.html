@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>진보성 논리 매트릭스 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="결합동기·효과·교시 축으로 긍정/부정 논거를 격자화합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="inventive-step-matrix"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"inventive-step-matrix","icon":"🧮","title":"진보성 논리 매트릭스","name":"IS-Matrix","role":"진보성 논리 격자 에이전트","mission":"결합동기·효과·교시 축으로 긍정/부정 논거를 격자화합니다.","domain":"특실","layout":"matrix","accent":"violet","inputLabel":"과제·수단·효과 요약","placeholder":"예: 과제=누수 / 수단=이중 실링…","tools":["결합 동기","예측 효과","교시 반증"],"strategies":[{"detail":"동기·효과·교시","title":"축 설정","log":"set axes"},{"detail":"주인용/부인용","title":"문헌 역할 배정","log":"assign docs"},{"detail":"긍정·부정 셀","title":"논거 셀 계획","log":"plan cells"}],"executions":[{"detail":"비자명 논거","title":"긍정 채움","log":"fill +"},{"detail":"용이 논거","title":"부정 채움","log":"fill -"},{"detail":"데이터·보정","title":"보강 셀","log":"boost"}],"deliverables":[{"title":"긍정 논거","sample":"결합 동기 약 · 이질 분야\n{{seed}}","hint":"셀"},{"title":"부정 논거","sample":"동일 과제 관용 조합","hint":"셀"},{"title":"보강","sample":"정량 효과 표","hint":"포인트"}],"sampleSeed":null,"matrixRows":["동기","효과","교시","기술상식"],"matrixCols":["긍정","부정","증거"]};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

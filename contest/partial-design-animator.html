@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부분디자인 포커스 애니 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="실선 요부로 시선이 이동하는 경로를 시뮬레이션해 유사 판단 스토리를 만듭니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="partial-design-animator"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"partial-design-animator","icon":"✨","title":"부분디자인 포커스 애니","name":"PartialAnim","role":"부분디자인 시선 유도 에이전트","mission":"실선 요부로 시선이 이동하는 경로를 시뮬레이션해 유사 판단 스토리를 만듭니다.","domain":"디자인","layout":"radar","accent":"amber","inputLabel":"실선 요부 설명","placeholder":"예: 손잡이 곡면만 실선, 본체 파선…","tools":["시선 경로","요부","전체"],"strategies":[{"detail":"실선 영역","title":"요부 마스크","log":"mask"},{"detail":"관찰 순서","title":"시선 경로 계획","log":"gaze path"},{"detail":"요부 중심 판단","title":"유사 스토리","log":"story"}],"executions":[{"detail":"시선","title":"경로 카드","log":"path"},{"detail":"포인트","title":"유사/비유사","log":"sim"},{"detail":"실선 조정","title":"보정 아이디어","log":"amend"}],"deliverables":[{"title":"시선 경로","sample":"손잡이 → 접합부 → 배제 본체\n{{seed}}","hint":"시뮬"},{"title":"판단 스토리","sample":"요부 동일 시 전체 유사 강화","hint":"요부"},{"title":"보정","sample":"요부 실선 더 좁히기","hint":"아이디어"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

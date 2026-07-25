@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유사기술 브릿지 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="다른 분야의 문헌을 끌어올 때 과제 공통성·전용 가능성을 브릿지 논리로 검증합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="analogous-art-bridge"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"analogous-art-bridge","icon":"🌉","title":"유사기술 브릿지","name":"AnalogBridge","role":"유사 기술분야 브릿지 에이전트","mission":"다른 분야의 문헌을 끌어올 때 과제 공통성·전용 가능성을 브릿지 논리로 검증합니다.","domain":"특실","layout":"radar","accent":"cyan","inputLabel":"본 분야 + 후보 분야 문헌","placeholder":"예: 배터리 냉각 ← 항공기 열교환기 문헌","tools":["과제 공통","전용 가능","기술자 접근"],"strategies":[{"detail":"도메인 거리 추정","title":"분야 간극 측정","log":"measure gap"},{"detail":"왜 참조하는가","title":"브릿지 가설","log":"bridge hypothesis"},{"detail":"비유사 논거","title":"반브릿지 시나리오","log":"anti bridge"}],"executions":[{"detail":"연결 고리","title":"브릿지 맵","log":"map"},{"detail":"인용 적격","title":"채택/배제 권고","log":"recommend"},{"detail":"중간 분야 키워드","title":"검색 확장","log":"expand"}],"deliverables":[{"title":"브릿지 맵","sample":"열수송 과제 공유 → 유로 설계 전용 가능?\n{{seed}}","hint":"고리"},{"title":"권고","sample":"조건부 채택: 동일 열유속 조건 확인","hint":"판정"},{"title":"확장 키워드","sample":"파워일렉트로닉스 방열","hint":"중간"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

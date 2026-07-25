@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상표 상품류 분류 도우미 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="지정상품 문구를 분석해 니스 분류·유사군 후보를 제안합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="tm-goods-classifier"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"tm-goods-classifier","icon":"📦","title":"상표 상품류 분류 도우미","name":"GoodsClass","role":"상품류 분류 에이전트","mission":"지정상품 문구를 분석해 니스 분류·유사군 후보를 제안합니다.","domain":"상표","layout":"ops","accent":"violet","inputLabel":"지정상품 / 서비스 설명","placeholder":"예: 모바일 앱 구독, 클라우드 스토리지…","tools":["상품","서비스","유사군 확장"],"strategies":[{"detail":"상품 단위 분리","title":"문구 정규화","log":"normalize"},{"detail":"니스 계층","title":"류 매핑 전략","log":"map class"},{"detail":"인접 상품","title":"유사군 확장","log":"expand"}],"executions":[{"detail":"top-k","title":"류 후보 산출","log":"classes"},{"detail":"모호 표현","title":"주의 상품","log":"warnings"},{"detail":"지정 문구","title":"출원 팁","log":"tips"}],"deliverables":[{"title":"류 후보","sample":"9류 소프트웨어\n42류 SaaS\n{{seed}}","hint":"니스"},{"title":"유사군","sample":"온라인 서비스 인접","hint":"후보"},{"title":"주의점","sample":"서비스/상품 혼용 문구 정제","hint":"메모"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

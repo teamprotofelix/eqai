@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>청구항 번역 QC | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="한·영 청구항 정합과 용어 일관을 QC 체크리스트로 돌립니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="translation-claim-qc"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"translation-claim-qc","icon":"🌐","title":"청구항 번역 QC","name":"ClaimQC","role":"번역 QC 에이전트","mission":"한·영 청구항 정합과 용어 일관을 QC 체크리스트로 돌립니다.","domain":"특실","layout":"console","accent":"teal","inputLabel":"원문 / 번역 청구항","placeholder":"예: comprising vs consisting…","tools":["용어 일관","범위 변화","오역"],"strategies":[{"detail":"문절 대응","title":"페어 정렬","log":"align"},{"detail":"범위 변경 단어","title":"전이 단어 감시","log":"watch words"},{"detail":"일관성","title":"용어집 대조","log":"glossary"}],"executions":[{"detail":"QC 항목 나열","title":"이슈 리포트","log":"issues"},{"detail":"대체 역어","title":"수정 제안","log":"fixes"},{"detail":"종결적 표현 등","title":"범위 리스크 메모","log":"scope risk"}],"deliverables":[{"title":"QC 이슈","sample":"comprising→이루어진 (범위 축소 위험)\n{{seed}}","hint":"목록"},{"title":"권장 수정","sample":"포함하는 / comprising 유지","hint":"안"},{"title":"메모","sample":"종결적 연결어 주의","hint":"리스크"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

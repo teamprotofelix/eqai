@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>교시 반대 파인더 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="선행이 본 발명 방향을 저해·비추천하는지 문장을 찾아 진보성 긍정 재료로 구조화합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="teaching-away-finder"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"teaching-away-finder","icon":"🚫","title":"교시 반대 파인더","name":"TeachAway","role":"교시 반대·저해 탐지 에이전트","mission":"선행이 본 발명 방향을 저해·비추천하는지 문장을 찾아 진보성 긍정 재료로 구조화합니다.","domain":"특실","layout":"stream","accent":"rose","inputLabel":"본 발명 방향 + 문헌 발췌","placeholder":"예: 문헌 “유로는 단순할수록 유리, 미세채널 비권장”…","tools":["비추천 문장","과제 불일치","부작용"],"strategies":[{"detail":"본 발명이 가는 길","title":"방향 벡터 정의","log":"define direction"},{"detail":"비권장·문제 지적","title":"저해 시그널 탐지","log":"detect discourage"},{"detail":"통상의 기술자 관점","title":"결합 방해 논리","log":"block combination"}],"executions":[{"detail":"교시 반대 인용","title":"문장 하이라이트","log":"highlight"},{"detail":"진보성 카드","title":"긍정 논거화","log":"to argument"},{"detail":"약한 교시 반박","title":"반론 대비","log":"counter"}],"deliverables":[{"title":"교시 반대","sample":"‘미세채널 비권장’ 문단\n{{seed}}","hint":"인용"},{"title":"진보성 카드","sample":"문헌이 본 경로 저해 → 결합 동기 약화","hint":"논리"},{"title":"반론 대비","sample":"일반론 vs 구체 조건 구분","hint":"메모"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

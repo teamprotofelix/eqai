@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>계속·분할 전략가 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="남은 개시 범위와 경쟁 동향을 보고 후속 출원 체스 수를 제안합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="continuation-strategist"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"continuation-strategist","icon":"🧬","title":"계속·분할 전략가","name":"ContStragegist","role":"계속·분할·우선심사 포트폴리오 전략가","mission":"남은 개시 범위와 경쟁 동향을 보고 후속 출원 체스 수를 제안합니다.","domain":"실무","layout":"ops","accent":"violet","inputLabel":"모출원 개시 요약 / 목표","placeholder":"예: 청구는 좁힘, 명세서에 대안 구조 다수…","tools":["분할","계속","가출원성"],"strategies":[{"detail":"미청구 실시예","title":"개시 인벤토리","log":"inventory"},{"detail":"타겟 제품","title":"경쟁·시장 신호","log":"signals"},{"detail":"체스 트리","title":"수 순서 설계","log":"move tree"}],"executions":[{"detail":"1~3안","title":"추천 수","log":"moves"},{"detail":"후속 독립항","title":"청구 스케치","log":"claims"},{"detail":"로드맵","title":"일정·비용","log":"roadmap"}],"deliverables":[{"title":"추천 수","sample":"1) 구조B 분할 2) 방법항 계속\n{{seed}}","hint":"전략"},{"title":"청구 스케치","sample":"대안 힌지 중심 독립항","hint":"초안"},{"title":"로드맵","sample":"12개월 내 분할 검토","hint":"일정"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>수단항 대응 맵 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="기능 수단 기재를 명세서 구조에 매핑해 해석 범위와 실시예 공백을 표시합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="means-plus-function-map"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"means-plus-function-map","icon":"🧱","title":"수단항 대응 맵","name":"MPF-Map","role":"수단·기능 청구항 대응 맵 에이전트","mission":"기능 수단 기재를 명세서 구조에 매핑해 해석 범위와 실시예 공백을 표시합니다.","domain":"특실","layout":"matrix","accent":"violet","inputLabel":"수단·기능 문구","placeholder":"예: 데이터를 암호화하는 수단…","tools":["기능","대응 구조","실시예"],"strategies":[{"detail":"수단 절","title":"기능 유닛 분리","log":"units"},{"detail":"대응 요소","title":"명세서 구조 매핑","log":"map structure"},{"detail":"미기재 수단","title":"공백 탐지","log":"gaps"}],"executions":[{"detail":"기능↔구조","title":"대응 표","log":"table"},{"detail":"넓음/좁음","title":"해석 범위","log":"scope"},{"detail":"실시예","title":"보강","log":"emb"}],"deliverables":[{"title":"대응 표","sample":"암호화 수단 ↔ AES 모듈 실시예\n{{seed}}","hint":"맵"},{"title":"해석","sample":"명세서 구조에 한정 가설","hint":"범위"},{"title":"보강","sample":"대안 알고리듬 1건 추가","hint":"실시예"}],"sampleSeed":null,"matrixRows":["암호화","전송","인증"],"matrixCols":["구조","실시예","공백"]};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

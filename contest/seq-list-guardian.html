@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>서열·생물 기재 가디언 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="서열목록·기탁·생물 관련 기재 체크리스트를 가디언 모드로 순회합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="seq-list-guardian"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"seq-list-guardian","icon":"🧬","title":"서열·생물 기재 가디언","name":"BioGuard","role":"생물·서열 기재 가디언 에이전트","mission":"서열목록·기탁·생물 관련 기재 체크리스트를 가디언 모드로 순회합니다.","domain":"특실","layout":"console","accent":"emerald","inputLabel":"생물/서열 관련 메모","placeholder":"예: SEQ ID NO:1 항체 CDR…","tools":["서열목록","기탁","실시가능"],"strategies":[{"detail":"서열/균주/항체","title":"대상 판별","log":"detect type"},{"detail":"규정 체크리스트","title":"필수 기재 맵","log":"req map"},{"detail":"누락 경보","title":"공백 가드","log":"guard gaps"}],"executions":[{"detail":"항목별 pass/fail","title":"체크 순회","log":"walk"},{"detail":"치명/권고","title":"경보 리포트","log":"alerts"},{"detail":"문장 슬롯","title":"보강 템플릿","log":"templates"}],"deliverables":[{"title":"체크 결과","sample":"서열목록 참조 ○ / 기탁 번호 ×\n{{seed}}","hint":"요약"},{"title":"경보","sample":"기탁 정보 공백","hint":"치명"},{"title":"보강","sample":"수탁번호·기탁일 문장","hint":"템플릿"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부분디자인 포커스 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="실선·파선 취지를 해석해 보호 범위 포커스를 잡습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="design-partial-focus"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"design-partial-focus","icon":"🎯","title":"부분디자인 포커스","name":"PartialFocus","role":"부분디자인 범위 에이전트","mission":"실선·파선 취지를 해석해 보호 범위 포커스를 잡습니다.","domain":"디자인","layout":"lab","accent":"orange","inputLabel":"부분 범위 설명","placeholder":"예: 실선=손잡이, 파선=본체…","tools":["실선 요부","파선 참고","물품성"],"strategies":[{"detail":"범위 경계","title":"실·파선 파싱","log":"parse lines"},{"detail":"보호 핵","title":"요부 초점","log":"focus"},{"detail":"용도 결부","title":"물품성 체크","log":"article"}],"executions":[{"detail":"문장화","title":"범위 스케치","log":"scope text"},{"detail":"부분 대비","title":"유사 쟁점","log":"sim issue"},{"detail":"실선 조정","title":"보정 아이디어","log":"amend idea"}],"deliverables":[{"title":"보호 범위","sample":"손잡이 곡면 실선 한정\n{{seed}}","hint":"스케치"},{"title":"유사 쟁점","sample":"동일 곡률 부분 대비","hint":"메모"},{"title":"보정","sample":"요부 실선 축소","hint":"아이디어"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

@@ -5,43 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>기재불비 갭 파인더 | EQAI Contest</title>
 <meta name="theme-color" content="#0a0a23">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="idea-entry.css">
+<meta name="description" content="청구-명세서 정합, 명확성·지지 공백을 탐지 리스트로 올립니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
 </head>
 <body>
-<div class="top"><a href="index.html">← 컨테스트 스토어</a><span class="badge-off">AI 연결 끊김</span></div>
-<main class="wrap" data-app-id="description-gap">
-  <div class="hero">
-    <div class="icon">🔍</div>
-    <div>
-      <div class="sub">description-gap</div>
-      <h1>기재불비 갭 파인더</h1>
-      <p class="lead">Description Gap Finder · 지지·명확성</p>
-      <p class="lead">청구항 용어와 명세서 지지 여부를 체크리스트로 훑으며 기재불비 후보를 표시하는 아이디어 툴입니다.</p>
-    </div>
-  </div>
-  <section class="card">
-    <label for="mainInput">의심 용어 / 청구항 번호 메모</label>
-    <textarea id="mainInput" placeholder="예: ‘실질적으로’ ‘충분한’ 청구항 1,3 용어 불명확 의심…"></textarea>
-    <div class="checks">
-      <label><input type="checkbox" checked> 명확성</label>
-      <label><input type="checkbox" checked> 명세서 지지</label>
-      <label><input type="checkbox"> 실시가능</label>
-    </div>
-    <button type="button" class="btn" id="runBtn">갭 스캔 (데모)</button>
-    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
-  </section>
-  <section class="card">
-    <h2>출력 패널</h2>
-    <div class="out-grid" id="out">
-      <div class="out-card"><h3>명확성 후보</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
-      <div class="out-card"><h3>지지 부족 후보</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
-      <div class="out-card"><h3>정합 메모</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
-    </div>
-  </section>
-  <footer>App ID: description-gap · <a href="index.html">앱스토어</a> · <a href="../quality.html">허브</a></footer>
-</main>
-<div class="toast" id="toast">AI 연결 끊김 — 데모 골격만 표시합니다.</div>
-<script src="idea-entry.js"></script>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="description-gap"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"description-gap","icon":"🔍","title":"기재불비 갭 파인더","name":"GapFinder","role":"기재·지지 감사 에이전트","mission":"청구-명세서 정합, 명확성·지지 공백을 탐지 리스트로 올립니다.","domain":"특실","layout":"console","accent":"emerald","inputLabel":"청구항 / 명세서 발췌","placeholder":"예: 청구 “탄성계수 최적화 모듈” — 명세서 정의 부재…","tools":["명확성","지지","실시가능","용어 일관"],"strategies":[{"detail":"청구 핵심 용어를 목록화합니다.","title":"용어 추출","log":"extract terms"},{"detail":"명세서 출현·정의를 매칭합니다.","title":"지지 매칭","log":"match support"},{"detail":"위험도 순으로 정렬합니다.","title":"갭 스코어링","log":"score gaps"}],"executions":[{"detail":"모호 표현 표시","title":"명확성 플래그","log":"clarity flags"},{"detail":"정의 부재 용어","title":"지지 미약 목록","log":"weak support"},{"detail":"기재 보강 아이디어","title":"보정·보강 제안","log":"fix tips"}],"deliverables":[{"title":"갭 리스트","sample":"1) 미정의 기능 용어\n2) 수치 범위 근거 부재\n{{seed}}","hint":"우선순위"},{"title":"명확성","sample":"· ","hint":"플래그"},{"title":"보강 제안","sample":"정의 문단 추가 · 실시예 수치","hint":"액션"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
 </body>
 </html>

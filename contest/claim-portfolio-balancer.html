@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>청구항 포트폴리오 밸런서 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="넓은 독립항과 좁고 강한 종속항의 레이어를 비용·검출·증명 난이도로 밸런싱합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="claim-portfolio-balancer"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"claim-portfolio-balancer","icon":"🏦","title":"청구항 포트폴리오 밸런서","name":"ClaimBalance","role":"독립·종속 포트폴리오 밸런서","mission":"넓은 독립항과 좁고 강한 종속항의 레이어를 비용·검출·증명 난이도로 밸런싱합니다.","domain":"특실","layout":"board","accent":"amber","inputLabel":"현재 청구항 트리 요약","placeholder":"예: 독립 매우 광범위, 종속 미약…","tools":["광범위","중간","협소 강력"],"strategies":[{"detail":"3층 청구","title":"레이어 모델","log":"layers"},{"detail":"침해 입증","title":"검출·증명 난이","log":"detectability"},{"detail":"항 수 예산","title":"비용 제약","log":"budget"}],"executions":[{"detail":"추가/삭제 항","title":"밸런스 제안","log":"propose"},{"detail":"한정적 가치","title":"종속 아이디어","log":"dep ideas"},{"detail":"과다 광범위","title":"리스크 메모","log":"risk"}],"deliverables":[{"title":"레이어","sample":"L1 광 / L2 구조 / L3 수치\n{{seed}}","hint":"제안"},{"title":"종속 아이디어","sample":"센서 배치 각도 · 임계값","hint":"목록"},{"title":"리스크","sample":"L1만 존재 시 진보성 취약","hint":"메모"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

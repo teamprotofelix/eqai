@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>디자인 물품류 가이드 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="물품 용도·형태로 물품류·유사물품 후보를 안내합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="design-article-class"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"design-article-class","icon":"🪑","title":"디자인 물품류 가이드","name":"ArticleGuide","role":"물품류 가이드 에이전트","mission":"물품 용도·형태로 물품류·유사물품 후보를 안내합니다.","domain":"디자인","layout":"ops","accent":"amber","inputLabel":"물품 설명","placeholder":"예: 접이식 노트북 스탠드…","tools":["주 물품류","유사 물품","세트"],"strategies":[{"detail":"기능 라벨","title":"용도 태깅","log":"use tag"},{"detail":"구조 라벨","title":"형태 태깅","log":"form tag"},{"detail":"물품류 후보","title":"류 매핑","log":"class map"}],"executions":[{"detail":"1순위","title":"주류 선정","log":"primary"},{"detail":"확장","title":"유사 범위","log":"similar"},{"detail":"도면·명칭","title":"출원 팁","log":"tips"}],"deliverables":[{"title":"물품류 후보","sample":"사무용 받침 장치 계열\n{{seed}}","hint":"목록"},{"title":"유사 범위","sample":"거치대·홀더 인접","hint":"메모"},{"title":"출원 팁","sample":"용도 명칭 명확화","hint":"체크"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

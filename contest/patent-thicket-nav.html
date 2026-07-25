@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>특허 덤불 내비게이터 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="다수 권리 밀집 영역에서 클러스터·허브 문헌·흰 공간을 항해 맵으로 제시합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="patent-thicket-nav"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"patent-thicket-nav","icon":"🧭","title":"특허 덤불 내비게이터","name":"ThicketNav","role":"특허 덤불 항해 에이전트","mission":"다수 권리 밀집 영역에서 클러스터·허브 문헌·흰 공간을 항해 맵으로 제시합니다.","domain":"특실","layout":"radar","accent":"violet","inputLabel":"기술 키워드 / 플레이어","placeholder":"예: 폴더블 OLED 힌지, 주요 출원인 3사…","tools":["클러스터","허브","흰 공간"],"strategies":[{"detail":"키워드·분류","title":"덤불 밀도 추정","log":"density"},{"detail":"중심 노드","title":"허브 문헌 가설","log":"hubs"},{"detail":"공백 조합","title":"흰 공간 탐색","log":"white space"}],"executions":[{"detail":"클러스터","title":"항해 맵","log":"map"},{"detail":"회피","title":"위험 항로","log":"danger"},{"detail":"출원 아이디어","title":"기회 항로","log":"opportunity"}],"deliverables":[{"title":"항해 맵","sample":"힌지기어 밀집 / 케이블 라우팅 공백\n{{seed}}","hint":"클러스터"},{"title":"위험 항로","sample":"A사 패밀리 허브 우회","hint":"메모"},{"title":"기회","sample":"방수+힌지 복합 구조","hint":"흰 공간"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

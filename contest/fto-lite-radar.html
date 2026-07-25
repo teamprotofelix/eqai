@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FTO 라이트 레이더 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="제품 특징을 청구항 요소에 투영해 충돌 후보·회피 우선순위를 레이더로 시연합니다. 검색 API 연결 시 실스캔이 붙습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="fto-lite-radar"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"fto-lite-radar","icon":"🛰️","title":"FTO 라이트 레이더","name":"FTO-Lite","role":"실시자유 라이트 스캔 에이전트","mission":"제품 특징을 청구항 요소에 투영해 충돌 후보·회피 우선순위를 레이더로 시연합니다. 검색 API 연결 시 실스캔이 붙습니다.","domain":"특실","layout":"radar","accent":"violet","inputLabel":"제품 특징 목록","placeholder":"예: 무선충전 코일 + 정렬 자석 + 방열판…","tools":["기능 분해","충돌 가설","회피 우선"],"strategies":[{"detail":"청구 언어로 번역","title":"특징→요소 투영","log":"project features"},{"detail":"가상의 독립항 매칭","title":"충돌 시나리오","log":"conflict scenarios"},{"detail":"위험도 정렬","title":"우선 대응 큐","log":"priority queue"}],"executions":[{"detail":"후보 슬롯","title":"레이더 블립","log":"blips"},{"detail":"설계 변경","title":"회피 액션","log":"actions"},{"detail":"검색 미션","title":"추가 조사","log":"missions"}],"deliverables":[{"title":"충돌 블립","sample":"무선정렬 자석 배치 관련 권리 밀집\n{{seed}}","hint":"후보"},{"title":"회피 액션","sample":"자석 배열 피치 변경","hint":"1순위"},{"title":"조사 미션","sample":"wireless charging alignment magnet array","hint":"쿼리"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전문(preamble) 가중 분석 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="전문 기재가 한정인지 단지 용도인지 가중치를 분석해 권리범위 해석을 돕습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="claim-preamble-weighter"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"claim-preamble-weighter","icon":"📏","title":"전문(preamble) 가중 분석","name":"PreambleW","role":"청구항 전문 가중 에이전트","mission":"전문 기재가 한정인지 단지 용도인지 가중치를 분석해 권리범위 해석을 돕습니다.","domain":"특실","layout":"lab","accent":"teal","inputLabel":"전문 + 본문 청구항","placeholder":"예: 전기차용 배터리 팩에 있어서, …","tools":["용도","구조 연계","해석 가중"],"strategies":[{"detail":"용도/구조 단어","title":"전문 토큰 분석","log":"tokenize preamble"},{"detail":"필수 선행 기초","title":"본문 연계성","log":"body link"},{"detail":"한정적/비해석","title":"해석 시나리오","log":"scenarios"}],"executions":[{"detail":"시연","title":"가중 스코어","log":"score"},{"detail":"양설","title":"해석 메모","log":"memo"},{"detail":"본문 흡수","title":"보정 힌트","log":"hint"}],"deliverables":[{"title":"가중","sample":"용도성 0.7 / 구조연계 0.3\n{{seed}}","hint":"스코어"},{"title":"해석 메모","sample":"한정적 용도 vs 분야 표시","hint":"양설"},{"title":"힌트","sample":"핵심 환경을 본문 구조로 이동","hint":"보정"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

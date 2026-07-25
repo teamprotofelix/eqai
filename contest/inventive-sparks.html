@@ -5,43 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>진보성 쟁점 스파크 | EQAI Contest</title>
 <meta name="theme-color" content="#0a0a23">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="idea-entry.css">
+<meta name="description" content="과제·수단·효과를 받아 긍정·부정 스파크를 양방향으로 생성합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
 </head>
 <body>
-<div class="top"><a href="index.html">← 컨테스트 스토어</a><span class="badge-off">AI 연결 끊김</span></div>
-<main class="wrap" data-app-id="inventive-sparks">
-  <div class="hero">
-    <div class="icon">⚡</div>
-    <div>
-      <div class="sub">inventive-sparks</div>
-      <h1>진보성 쟁점 스파크</h1>
-      <p class="lead">Inventiveness Sparks · 과제·수단·효과</p>
-      <p class="lead">과제·수단·효과 입력을 바탕으로 진보성 긍정/부정 논거 스파크를 골격만 제시합니다.</p>
-    </div>
-  </div>
-  <section class="card">
-    <label for="mainInput">해결하려는 과제 / 수단 요약</label>
-    <textarea id="mainInput" placeholder="예: 과제=열폭주 억제, 수단=다층 냉각 유로, 효과=온도 편차 감소…"></textarea>
-    <div class="checks">
-      <label><input type="checkbox" checked> 긍정 논거</label>
-      <label><input type="checkbox" checked> 부정 논거</label>
-      <label><input type="checkbox"> 결합 용이성 메모</label>
-    </div>
-    <button type="button" class="btn" id="runBtn">스파크 생성 (데모)</button>
-    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
-  </section>
-  <section class="card">
-    <h2>출력 패널</h2>
-    <div class="out-grid" id="out">
-      <div class="out-card"><h3>긍정 논거 스파크</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
-      <div class="out-card"><h3>부정 논거 스파크</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
-      <div class="out-card"><h3>추가 확인 질문</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
-    </div>
-  </section>
-  <footer>App ID: inventive-sparks · <a href="index.html">앱스토어</a> · <a href="../quality.html">허브</a></footer>
-</main>
-<div class="toast" id="toast">AI 연결 끊김 — 데모 골격만 표시합니다.</div>
-<script src="idea-entry.js"></script>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="inventive-sparks"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"inventive-sparks","icon":"⚡","title":"진보성 쟁점 스파크","name":"SparkStep","role":"진보성 논거 스파크 에이전트","mission":"과제·수단·효과를 받아 긍정·부정 스파크를 양방향으로 생성합니다.","domain":"특실","layout":"stream","accent":"orange","inputLabel":"과제 · 수단 · 효과","placeholder":"예: 과제=방열 / 수단=마이크로채널 / 효과=ΔT -8℃","tools":["결합 동기","예측 효과","부정적 교시"],"strategies":[{"detail":"과제-수단-효과 정합을 확인합니다.","title":"3요소 정렬","log":"align PSE"},{"detail":"D1+D2 결합 스토리를 만듭니다.","title":"선행 결합 시나리오","log":"combine story"},{"detail":"효과·교시 반박 포인트를 준비합니다.","title":"반박 스파크","log":"counter sparks"}],"executions":[{"detail":"진보성 긍정 스파크","title":"긍정 논거 방출","log":"positive"},{"detail":"진보성 부정 스파크","title":"부정 논거 방출","log":"negative"},{"detail":"데이터 슬롯","title":"보강 실험 제안","log":"data ask"}],"deliverables":[{"title":"긍정 스파크","sample":"· 예상치 못한 방열 시너지\n· 채널 배치의 비범용성\nseed: {{seed}}","hint":"논거"},{"title":"부정 스파크","sample":"· 동일 과제 해결 관용 수단\n· 효과는 예측 범위","hint":"논거"},{"title":"보강 포인트","sample":"비교실험 · 수치 한정 보정","hint":"다음"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
 </body>
 </html>

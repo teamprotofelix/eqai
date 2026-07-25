@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>실시가능 프로브 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="재료·수치·공정 공백을 프로브 시퀀스로 찔러 재현 리스크를 표시합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="enablement-probe"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"enablement-probe","icon":"🔬","title":"실시가능 프로브","name":"EnableProbe","role":"실시가능 검증 에이전트","mission":"재료·수치·공정 공백을 프로브 시퀀스로 찔러 재현 리스크를 표시합니다.","domain":"특실","layout":"console","accent":"teal","inputLabel":"실시예 / 스펙 발췌","placeholder":"예: 촉매 0.1~5wt%, 80~120℃…","tools":["수치 범위","재료 공급","공정 순서"],"strategies":[{"detail":"수치·재료 토큰","title":"파라미터 추출","log":"extract params"},{"detail":"재현 질문 설계","title":"프로브 시퀀스","log":"design probes"},{"detail":"치명 공백 우선","title":"리스크 랭킹","log":"rank risk"}],"executions":[{"detail":"범위 근거","title":"수치 프로브","log":"num probe"},{"detail":"입수·순도","title":"재료 프로브","log":"mat probe"},{"detail":"순서·조건","title":"공정 프로브","log":"proc probe"}],"deliverables":[{"title":"공백 후보","sample":"상한 조건 미기재\n{{seed}}","hint":"리스트"},{"title":"재현 리스크","sample":"HIGH: 촉매 종류 불명","hint":"등급"},{"title":"보강 기재","sample":"구체 실시예 2건 추가","hint":"제안"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

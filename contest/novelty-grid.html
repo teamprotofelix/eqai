@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신규성 대비표 빌더 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="청구항 요소와 문헌 기재를 격자 매칭합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="novelty-grid"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"novelty-grid","icon":"▦","title":"신규성 대비표 빌더","name":"NovGrid","role":"신규성 대비 에이전트","mission":"청구항 요소와 문헌 기재를 격자 매칭합니다.","domain":"특실","layout":"matrix","accent":"cyan","inputLabel":"청구항 요소 / 문헌 메모","placeholder":"예: 요소A — 문헌1 [0032]…","tools":["요소 행","문헌 열","일치 표시"],"strategies":[{"detail":"청구 요소를 행으로","title":"요소 행 생성","log":"rows"},{"detail":"대비 문헌 슬롯","title":"문헌 열 배치","log":"cols"},{"detail":"문언/암시/없음","title":"매칭 규칙","log":"match rules"}],"executions":[{"detail":"대비 기호 기입","title":"셀 채우기","log":"fill cells"},{"detail":"공백 요소 강조","title":"차이점 추출","log":"diff extract"},{"detail":"추가 확인 질문","title":"질문 생성","log":"questions"}],"deliverables":[{"title":"대비표","sample":"미대응 요소 1 · 부분대응 2\n{{seed}}","hint":"요약"},{"title":"차이점","sample":"제어 로직 구체성","hint":"후보"},{"title":"추가 질문","sample":"문헌에 동일 배치 기재 여부?","hint":"리스트"}],"sampleSeed":null,"matrixRows":["하우징","센서","제어기","냉각유로"],"matrixCols":["D1","D2","D3","판단"]};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

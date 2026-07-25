@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>선행 인터뷰 에이전트 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="발명자에게 질문 트리로 인터뷰하며 검색 키워드를 확장합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="prior-art-interview"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"prior-art-interview","icon":"🤝","title":"선행 인터뷰 에이전트","name":"PriorTalk","role":"대화형 선행조사 인터뷰 에이전트","mission":"발명자에게 질문 트리로 인터뷰하며 검색 키워드를 확장합니다.","domain":"특실","layout":"coach","accent":"emerald","inputLabel":"발명 한 줄 / 알고 있는 선행","placeholder":"예: 접이식 헬멧, 알고 있는 특허 없음…","tools":["기능 질문","구조 질문","효과 질문"],"strategies":[{"detail":"질문 순서","title":"인터뷰 스크립트","log":"script"},{"detail":"확장 키워드","title":"답변 반영 검색어","log":"expand kw"},{"detail":"미인지 선행 영역","title":"공백 탐침","log":"blind spots"}],"executions":[{"detail":"다음 질문","title":"질문 카드","log":"ask"},{"detail":"확보 단어","title":"키워드 보드","log":"kw board"},{"detail":"즉시 실행 쿼리","title":"검색 미션","log":"mission"}],"deliverables":[{"title":"다음 질문","sample":"접이식 잠금 구조의 구체 부품은?\n{{seed}}","hint":"카드"},{"title":"키워드","sample":"힌지, 래치, 헬멧 쉘","hint":"보드"},{"title":"검색 미션","sample":"foldable helmet latch","hint":"쿼리"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

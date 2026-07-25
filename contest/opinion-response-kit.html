@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>의견서 대응 키트 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="거절이유 유형별 대응 순서와 주장 템플릿을 조립합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="opinion-response-kit"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"opinion-response-kit","icon":"📨","title":"의견서 대응 키트","name":"OpinionKit","role":"의견서 전략 에이전트","mission":"거절이유 유형별 대응 순서와 주장 템플릿을 조립합니다.","domain":"실무","layout":"coach","accent":"rose","inputLabel":"거절이유 요약","placeholder":"예: 제29조 진보성, D1+D2…","tools":["문언 반박","보정 병행","실험 보강"],"strategies":[{"detail":"조문·문헌","title":"이유 파싱","log":"parse OA"},{"detail":"주장 조합","title":"대응 포트폴리오","log":"portfolio"},{"detail":"보정 vs 반박","title":"리스크 밸런스","log":"balance"}],"executions":[{"detail":"섹션 플랜","title":"주장 순서","log":"order"},{"detail":"키 클레임","title":"핵심 문장 슬롯","log":"key lines"},{"detail":"금기·권고","title":"주의 문구","log":"cautions"}],"deliverables":[{"title":"대응 순서","sample":"1 문헌 구분 2 동기 3 효과 4 보정\n{{seed}}","hint":"플랜"},{"title":"핵심 주장","sample":"D2는 과제 비공유…","hint":"슬롯"},{"title":"주의","sample":"과도한 자백 표현 지양","hint":"문구"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

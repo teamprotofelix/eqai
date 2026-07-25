@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>실용신안 범위 스케치 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="형상·구조·조합 중심으로 보호범위 초안을 스케치합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="utility-scope-sketch"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"utility-scope-sketch","icon":"🔧","title":"실용신안 범위 스케치","name":"UM-Scope","role":"실용신안 범위 에이전트","mission":"형상·구조·조합 중심으로 보호범위 초안을 스케치합니다.","domain":"실용","layout":"lab","accent":"teal","inputLabel":"고안 요약 (형상·구조)","placeholder":"예: 이중 캠 힌지 + 스토퍼…","tools":["형상","구조","조합"],"strategies":[{"detail":"물품성 확인","title":"카테고리 판별","log":"category"},{"detail":"핵심 결합","title":"필수 구조 추출","log":"core structure"},{"detail":"장치/방법 경계","title":"방법 기재 분리","log":"split method"}],"executions":[{"detail":"청구항 스케치","title":"범위 문장 초안","log":"draft"},{"detail":"부가 구조","title":"종속 아이디어","log":"deps"},{"detail":"진보·기재","title":"심사 포인트","log":"exam"}],"deliverables":[{"title":"범위 초안","sample":"…이중 캠과 스토퍼 돌기를 포함하는 힌지…\n{{seed}}","hint":"문장"},{"title":"경계","sample":"사용 방법은 종속 또는 삭제","hint":"메모"},{"title":"심사 포인트","sample":"구조 결합의 작용 효과","hint":"리스트"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

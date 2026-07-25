@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>선행일 포렌식 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="공지·이용·반포·우선권 서류를 타임라인으로 재구성해 인용 적격을 검증합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="prior-date-forensics"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"prior-date-forensics","icon":"🕵️","title":"선행일 포렌식","name":"DateForensics","role":"선행 기준일 포렌식 에이전트","mission":"공지·이용·반포·우선권 서류를 타임라인으로 재구성해 인용 적격을 검증합니다.","domain":"특실","layout":"console","accent":"teal","inputLabel":"문헌/사용 증거 메모","placeholder":"예: 전시회 2022-03, 카탈로그 배포일 불명…","tools":["공지","반포","우선권"],"strategies":[{"detail":"날짜 조각 수집","title":"사건 타임라인","log":"timeline"},{"detail":"1차/2차 자료","title":"증거 신뢰도","log":"reliability"},{"detail":"인용 가능?","title":"적격 판정 트리","log":"eligibility tree"}],"executions":[{"detail":"이벤트","title":"타임라인 렌더","log":"render"},{"detail":"입증 공백","title":"결측 경보","log":"missing"},{"detail":"미션","title":"추가 수집","log":"collect"}],"deliverables":[{"title":"타임라인","sample":"전시 개시 → 카탈로그 → 출원\n{{seed}}","hint":"포렌식"},{"title":"결측","sample":"배포 범위 입증 부족","hint":"경보"},{"title":"수집 미션","sample":"주최측 공지 · 수령 증빙","hint":"목록"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

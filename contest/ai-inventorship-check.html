@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 발명자 이슈 체크 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="AI 도구 사용 구간과 인간 기여를 구분해 발명자 적격·기여 서술 체크리스트를 만듭니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="ai-inventorship-check"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"ai-inventorship-check","icon":"🤖","title":"AI 발명자 이슈 체크","name":"InventorAI","role":"AI 관여 발명 발명자 이슈 에이전트","mission":"AI 도구 사용 구간과 인간 기여를 구분해 발명자 적격·기여 서술 체크리스트를 만듭니다.","domain":"특실","layout":"coach","accent":"violet","inputLabel":"발명 과정 / AI 사용 메모","placeholder":"예: 구조 최적화에 AI 사용, 최종 선택·실험은 연구자…","tools":["인간 기여","AI 구간","기여 서술"],"strategies":[{"detail":"누가 무엇을","title":"기여 타임라인","log":"timeline"},{"detail":"인간 핵심 판단","title":"창작적 기여 테스트","log":"creative test"},{"detail":"발명신고 문구","title":"문서화 전략","log":"doc plan"}],"executions":[{"detail":"AI/인간","title":"구간 라벨링","log":"label"},{"detail":"발명자 누락 등","title":"리스크 플래그","log":"flags"},{"detail":"기여 문단","title":"서술 템플릿","log":"template"}],"deliverables":[{"title":"타임라인","sample":"AI: 후보생성 / 인간: 선정·실험\n{{seed}}","hint":"기여"},{"title":"플래그","sample":"공동발명자 누락 점검","hint":"리스크"},{"title":"템플릿","sample":"최종 기술적 사상은 …에 의해 창작","hint":"문단"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

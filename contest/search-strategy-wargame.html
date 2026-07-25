@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>검색 전략 워게임 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="공격(광역)·수비(정밀)·측면(분류/인용) 플레이어가 턴제 검색 전략을 짜고 다음 쿼리를 확정합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="search-strategy-wargame"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"search-strategy-wargame","icon":"♟️","title":"검색 전략 워게임","name":"SearchWar","role":"선행조사 전략 워게임 에이전트","mission":"공격(광역)·수비(정밀)·측면(분류/인용) 플레이어가 턴제 검색 전략을 짜고 다음 쿼리를 확정합니다.","domain":"특실","layout":"ops","accent":"orange","inputLabel":"기술 요지 / 이미 본 문헌","placeholder":"예: 접이식 배터리 모듈 냉각, D1은 핀 냉각만…","tools":["광역 공격","정밀 수비","인용 측면"],"strategies":[{"detail":"기술 지형·공백 영역을 맵핑합니다.","title":"전장 파악","log":"map battlefield"},{"detail":"광역/정밀/인용 에이전트 소집","title":"플레이어 역할 분배","log":"spawn roles"},{"detail":"3턴 검색 시나리오 수립","title":"턴 계획","log":"plan turns"}],"executions":[{"detail":"키워드 확산 쿼리","title":"턴1 광역 사격","log":"turn1 wide"},{"detail":"수치·구조 한정","title":"턴2 정밀 저격","log":"turn2 narrow"},{"detail":"IPC·패밀리·후방인용","title":"턴3 측면 돌파","log":"turn3 flank"},{"detail":"다음 미션 큐","title":"승패 브리핑","log":"debrief"}],"deliverables":[{"title":"턴 시나리오","sample":"T1 광역 → T2 구조한정 → T3 인용2hop\n{{seed}}","hint":"워게임"},{"title":"확정 쿼리","sample":"(냉각 OR 열관리) AND (접이식 OR 폴더블) AND 모듈","hint":"다음"},{"title":"공백 지역","sample":"상변화 소재 축 미실시","hint":"미탐색"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제법한정 물건항 분석 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="물건항의 제법 한정이 구조 차이에 기여하는지 분석하고 심사 포인트를 정리합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="product-by-process"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"product-by-process","icon":"🏭","title":"제법한정 물건항 분석","name":"PbP-Analyser","role":"제법에 의한 물건 청구항 에이전트","mission":"물건항의 제법 한정이 구조 차이에 기여하는지 분석하고 심사 포인트를 정리합니다.","domain":"특실","layout":"lab","accent":"cyan","inputLabel":"제법한정 청구항","placeholder":"예: 단계 A,B로 제조된 다공질체…","tools":["구조 기여","공정 필수","증명"],"strategies":[{"detail":"한정의 성격","title":"공정 vs 구조 분리","log":"split process structure"},{"detail":"결과물 특징","title":"구조 차이 가설","log":"structure hyp"},{"detail":"분석·비교 데이터","title":"입증 경로","log":"proof path"}],"executions":[{"detail":"심사 쟁점","title":"포인트 카드","log":"points"},{"detail":"출원인 확인","title":"질문 리스트","log":"questions"},{"detail":"구조 문언화","title":"보정 방향","log":"amend dir"}],"deliverables":[{"title":"쟁점","sample":"공정 한정이 기공 분포에 기여?\n{{seed}}","hint":"카드"},{"title":"질문","sample":"동일 구조 타공정 제조 가능 여부","hint":"리스트"},{"title":"보정","sample":"기공 입도 범위 구조 한정","hint":"방향"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

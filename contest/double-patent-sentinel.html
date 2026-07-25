@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이중특허 센티널 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="동일 출원인 패밀리·계속·분할 간 중첩 청구를 감시하고 터미널/보정 옵션을 제시합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="double-patent-sentinel"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"double-patent-sentinel","icon":"👯","title":"이중특허 센티널","name":"DoublePat","role":"동일 발명 이중특허 감시 에이전트","mission":"동일 출원인 패밀리·계속·분할 간 중첩 청구를 감시하고 터미널/보정 옵션을 제시합니다.","domain":"특실","layout":"stream","accent":"amber","inputLabel":"관련 출원 번호/청구항 요약","placeholder":"예: 모출원 독립항 vs 분할 독립항…","tools":["중첩","자명 변형","포기 옵션"],"strategies":[{"detail":"출원 트리","title":"패밀리 정렬","log":"align family"},{"detail":"동일·자명","title":"청구 중첩 탐지","log":"detect overlap"},{"detail":"보정·포기·디스클레이머","title":"해소 전략","log":"resolve plan"}],"executions":[{"detail":"쌍 목록","title":"중첩 리포트","log":"report"},{"detail":"해소안","title":"옵션 카드","log":"options"},{"detail":"만료 연동","title":"일정 리스크","log":"term risk"}],"deliverables":[{"title":"중첩","sample":"모-분할 독립항 실질 동일\n{{seed}}","hint":"쌍"},{"title":"옵션","sample":"한정 보정 / 선택적 포기","hint":"카드"},{"title":"리스크","sample":"존속기간 연동 확인","hint":"메모"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

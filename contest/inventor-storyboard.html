@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>발명 스토리보드 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="문제→시도→해결 컷으로 발명 서사를 만들고 청구 힌트를 뽑습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="inventor-storyboard"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"inventor-storyboard","icon":"🎬","title":"발명 스토리보드","name":"StoryBoard","role":"발명 스토리 에이전트","mission":"문제→시도→해결 컷으로 발명 서사를 만들고 청구 힌트를 뽑습니다.","domain":"특실","layout":"board","accent":"orange","inputLabel":"발명 배경 이야기","placeholder":"예: 현장 누수 → 센서 재배치…","tools":["문제","시도","해결"],"strategies":[{"detail":"3막 구조","title":"서사 분할","log":"3 acts"},{"detail":"수단·효과","title":"기술 요소 태깅","log":"tag tech"},{"detail":"요소 후보","title":"청구 힌트 추출","log":"claim hints"}],"executions":[{"detail":"스토리보드","title":"컷 카드 생성","log":"cuts"},{"detail":"문단 씨앗","title":"실시예 시드","log":"emb seed"},{"detail":"초안 힌트","title":"청구 스케치","log":"claim sketch"}],"deliverables":[{"title":"스토리 컷","sample":"1문제 2실패 3해결\n{{seed}}","hint":"보드"},{"title":"실시예 시드","sample":"현장 조건에서…","hint":"문장"},{"title":"청구 힌트","sample":"센서 배치 각도 한정","hint":"요소"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

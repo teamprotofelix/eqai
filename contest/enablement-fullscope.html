@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전 범위 실시가능 체커 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="상위 개념 청구가 전 범위에서 실시 가능한지 대표점·경계점을 프로브합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="enablement-fullscope"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"enablement-fullscope","icon":"📐","title":"전 범위 실시가능 체커","name":"FullScope","role":"청구 전 범위 실시가능 체커","mission":"상위 개념 청구가 전 범위에서 실시 가능한지 대표점·경계점을 프로브합니다.","domain":"특실","layout":"console","accent":"rose","inputLabel":"넓은 독립항 + 실시예 범위","placeholder":"예: 금속 전부, 실시예는 구리만…","tools":["대표점","경계점","중간점"],"strategies":[{"detail":"속 공간","title":"범위 기하 모델","log":"scope geometry"},{"detail":"대표/경계","title":"프로브 포인트 선정","log":"probe points"},{"detail":"과도 실험","title":"실시 난이 평가","log":"undue experiment"}],"executions":[{"detail":"pass/warn","title":"프로브 결과","log":"results"},{"detail":"범위","title":"축소 보정안","log":"narrow"},{"detail":"제안","title":"실시예 추가","log":"add emb"}],"deliverables":[{"title":"프로브","sample":"경계 금속군 실시 지침 부족\n{{seed}}","hint":"결과"},{"title":"보정","sample":"실시예 금속군으로 한정","hint":"안"},{"title":"추가 실시예","sample":"알루미늄·합금 각 1","hint":"제안"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

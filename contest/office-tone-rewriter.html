@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>통지 문체 리라이터 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="거절 논거는 유지한 채 명료·중립·존중 톤으로 문장을 재구성합니다(품질·민원 리스크 완화).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="office-tone-rewriter"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"office-tone-rewriter","icon":"✒️","title":"통지 문체 리라이터","name":"ToneRewrite","role":"심사 통지 문체 에이전트","mission":"거절 논거는 유지한 채 명료·중립·존중 톤으로 문장을 재구성합니다(품질·민원 리스크 완화).","domain":"실무","layout":"coach","accent":"cyan","inputLabel":"통지 초안 문장","placeholder":"예: 출원인이 오해한 것으로… 명백히 잘못된…","tools":["명료성","중립","존중"],"strategies":[{"detail":"단정·감정·모호","title":"문제 표현 탐지","log":"detect tone"},{"detail":"사실·법리 유지","title":"논거 보존 계획","log":"keep merits"},{"detail":"문장 패턴","title":"리라이트 전략","log":"rewrite strategy"}],"executions":[{"detail":"대조","title":"Before/After","log":"diff"},{"detail":"품질","title":"체크리스트","log":"qa"},{"detail":"재검토","title":"위험 문장","log":"risk lines"}],"deliverables":[{"title":"리라이트","sample":"Before: 명백히 잘못된 → After: 기재와 상이한 전제로 보임\n{{seed}}","hint":"시연"},{"title":"QA","sample":"사실관계 ○ 법리 ○ 존중 ○","hint":"체크"},{"title":"잔여 위험","sample":"단정적 용이 표현 완화 권고","hint":"문장"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

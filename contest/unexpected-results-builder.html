@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>예상밖 효과 빌더 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="정량 효과·비교예·시너지를 카드로 조립해 예상치 못한 효과 스토리를 만드는 진보성 논거 에이전트">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="unexpected-results-builder"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {
+  "id": "unexpected-results-builder",
+  "icon": "✨",
+  "title": "예상밖 효과 빌더",
+  "name": "UnexpectedFX",
+  "role": "진보성 효과 논거 빌더",
+  "mission": "정량 효과·비교예·시너지를 카드로 조립해 예상치 못한 효과 스토리를 만듭니다. API 연결 시 동일 파이프라인에서 실데이터 논거가 가동됩니다.",
+  "domain": "특실",
+  "layout": "board",
+  "accent": "amber",
+  "inputLabel": "과제 / 수단 / 수치 효과",
+  "placeholder": "예: 채널+코팅 조합, ΔT -12℃, 비교예 -3℃",
+  "tools": ["비교예", "시너지", "정량"],
+  "strategies": [
+    {
+      "title": "효과 지표 선정",
+      "detail": "핵심 KPI를 고정하고 비교 가능한 측정 단위를 정합니다.",
+      "log": "pick KPI"
+    },
+    {
+      "title": "비교 프레임 설계",
+      "detail": "단일 수단 대비 조합 수단의 비교 프레임을 만듭니다.",
+      "log": "compare frame"
+    },
+    {
+      "title": "예상 범위 추정",
+      "detail": "기술상식상 예측 가능한 효과 범위를 기준선으로 둡니다.",
+      "log": "baseline expect"
+    }
+  ],
+  "executions": [
+    {
+      "title": "데이터 카드 채움",
+      "detail": "수치 슬롯에 발명예·비교예 값을 배치합니다.",
+      "log": "fill data"
+    },
+    {
+      "title": "시너지 서술",
+      "detail": "단순 합산을 넘는 비선형 효과를 문장화합니다.",
+      "log": "synergy text"
+    },
+    {
+      "title": "진보성 연결",
+      "detail": "예상밖 효과를 진보성 긍정 논거 문장으로 연결합니다.",
+      "log": "link IS"
+    }
+  ],
+  "deliverables": [
+    {
+      "title": "효과 카드",
+      "hint": "수치 요약",
+      "sample": "조합 -12℃ / 단독 합 -5℃ → 시너지\n입력 반영: {{seed}}"
+    },
+    {
+      "title": "비교 프레임",
+      "hint": "실험 표",
+      "sample": "예1 채널만 · 예2 코팅만 · 예3 조합\n입력 반영: {{seed}}"
+    },
+    {
+      "title": "논거 문장",
+      "hint": "진보성 연결",
+      "sample": "합산 예측을 상회하는 방열 시너지가 인정될 여지가 있음.\n입력 반영: {{seed}}"
+    }
+  ],
+  "sampleSeed": "채널+코팅 조합 방열 시나리오"
+};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

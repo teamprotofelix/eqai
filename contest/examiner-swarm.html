@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>심사 스웜 시뮬 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="신규성·진보성·기재 페르소나가 동시에 이견을 내고 합의 메모를 만듭니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="examiner-swarm"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"examiner-swarm","icon":"🐝","title":"심사 스웜 시뮬","name":"ExamSwarm","role":"멀티 페르소나 심사 스웜","mission":"신규성·진보성·기재 페르소나가 동시에 이견을 내고 합의 메모를 만듭니다.","domain":"특실","layout":"ops","accent":"orange","inputLabel":"사건 요약 / 독립항","placeholder":"예: AI 기반 열관리 밸브…","tools":["신규성 페르소나","진보성 페르소나","기재 페르소나"],"strategies":[{"detail":"역할 에이전트 기동","title":"스웜 소집","log":"spawn agents"},{"detail":"축별 이견 수집","title":"병렬 검토","log":"parallel review"},{"detail":"충돌 조정","title":"합의 프로토콜","log":"consensus"}],"executions":[{"detail":"이견 카드","title":"페르소나 발언","log":"voices"},{"detail":"우선 쟁점","title":"충돌 해소","log":"resolve"},{"detail":"한 장 요약","title":"통합 메모","log":"merge"}],"deliverables":[{"title":"스웜 이견","sample":"신규성: 보류 / 진보성: 부정 우세\n{{seed}}","hint":"보드"},{"title":"합의 쟁점","sample":"결합 동기","hint":"1순위"},{"title":"통합 메모","sample":"한정 보정 + 효과 데이터","hint":"액션"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

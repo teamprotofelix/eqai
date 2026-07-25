@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>수수료·기한 보드 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="통지·수수료 항목을 보드에 올려 누락을 차단합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="fee-deadline-board"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"fee-deadline-board","icon":"📅","title":"수수료·기한 보드","name":"FeeBoard","role":"기한·수수료 보드 에이전트","mission":"통지·수수료 항목을 보드에 올려 누락을 차단합니다.","domain":"실무","layout":"board","accent":"amber","inputLabel":"통지·사건 메모","placeholder":"예: 의견제출 2026-07-01…","tools":["응답 기한","수수료","연장"],"strategies":[{"detail":"통지 유형","title":"이벤트 파싱","log":"parse event"},{"detail":"만료일","title":"기한 계산","log":"calc due"},{"detail":"항목 테이블","title":"수수료 매핑","log":"map fees"}],"executions":[{"detail":"기한/수수료","title":"보드 카드 생성","log":"cards"},{"detail":"임박순","title":"알림 우선순위","log":"priority"},{"detail":"가능 여부","title":"연장 옵션","log":"extend"}],"deliverables":[{"title":"기한 카드","sample":"응답 마감 D-18\n{{seed}}","hint":"일정"},{"title":"수수료","sample":"의견 제출 관련 비용 슬롯","hint":"목록"},{"title":"알림","sample":"내부 리뷰 D-10","hint":"메모"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

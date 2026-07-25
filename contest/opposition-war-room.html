@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이의·무효 워룸 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="공격·수비 시나리오를 워룸 보드에 전개하고 증거 우선순위를 정합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="opposition-war-room"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"opposition-war-room","icon":"🛡️","title":"이의·무효 워룸","name":"WarRoom","role":"이의·무효 전쟁실 에이전트","mission":"공격·수비 시나리오를 워룸 보드에 전개하고 증거 우선순위를 정합니다.","domain":"특실·상표","layout":"board","accent":"rose","inputLabel":"사건 유형 / 쟁점","placeholder":"예: 무효심판 진보성, 주요 문헌 3건…","tools":["공격","수비","증거"],"strategies":[{"detail":"쟁점 지형","title":"전장 파악","log":"terrain"},{"detail":"승/패 분기","title":"시나리오 트리","log":"scenarios"},{"detail":"킬샷 자료","title":"증거 우선순위","log":"evidence rank"}],"executions":[{"detail":"무효 논거","title":"공격 카드","log":"attack"},{"detail":"유지 논거","title":"수비 카드","log":"defense"},{"detail":"요약","title":"전쟁실 브리핑","log":"brief"}],"deliverables":[{"title":"공격","sample":"D1+D2 결합 · 효과 예측\n{{seed}}","hint":"카드"},{"title":"수비","sample":"교시 반대 · 상업적 성공","hint":"카드"},{"title":"브리핑","sample":"증거A 먼저 · 보정 최후","hint":"1분"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

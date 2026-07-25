@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>발명의 단일성 체커 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="청구항 군 간 공통 특별기술특징(STF) 후보를 찾아 분할 리스크를 표시합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="unity-of-invention"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"unity-of-invention","icon":"🔗","title":"발명의 단일성 체커","name":"UnityCheck","role":"단일성 판단 에이전트","mission":"청구항 군 간 공통 특별기술특징(STF) 후보를 찾아 분할 리스크를 표시합니다.","domain":"특실","layout":"ops","accent":"violet","inputLabel":"청구항 군 요약","placeholder":"예: 군1=장치항, 군2=방법항…","tools":["공통 특징","STF","분할 리스크"],"strategies":[{"detail":"독립항 그룹핑","title":"군 분리","log":"group claims"},{"detail":"공통 기술특징","title":"특징 교집합","log":"intersect"},{"detail":"특별성 가설","title":"STF 테스트","log":"stf test"}],"executions":[{"detail":"판단 슬롯","title":"단일성 메모","log":"unity note"},{"detail":"군 재편","title":"분할 제안","log":"split suggest"},{"detail":"확인 질의","title":"심사 질문","log":"questions"}],"deliverables":[{"title":"단일성 메모","sample":"공통 STF 후보: 센서-제어 루프\n{{seed}}","hint":"가설"},{"title":"분할 제안","sample":"방법항 별도 군 검토","hint":"안"},{"title":"질문","sample":"두 군의 필수 동일 특징은?","hint":"리스트"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

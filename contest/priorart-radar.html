@@ -5,43 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>선행기술 레이더 | EQAI Contest</title>
 <meta name="theme-color" content="#0a0a23">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="idea-entry.css">
+<meta name="description" content="기술 키워드를 받아 탐색 축·검색식·다음 액션을 레이더처럼 전개합니다. 검색 API 연결 시 동일 파이프라인으로 실검색이 붙습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
 </head>
 <body>
-<div class="top"><a href="index.html">← 컨테스트 스토어</a><span class="badge-off">AI 연결 끊김</span></div>
-<main class="wrap" data-app-id="priorart-radar">
-  <div class="hero">
-    <div class="icon">📡</div>
-    <div>
-      <div class="sub">priorart-radar</div>
-      <h1>선행기술 레이더</h1>
-      <p class="lead">Prior-Art Radar · 검색식·탐색축 보드</p>
-      <p class="lead">기술분야·키워드를 입력하면 탐색 축과 검색식 초안을 보드에 깔아 줍니다. 실제 검색 API는 연결되지 않습니다.</p>
-    </div>
-  </div>
-  <section class="card">
-    <label for="mainInput">기술 키워드 / 요약</label>
-    <textarea id="mainInput" placeholder="예: 배터리, 열관리, 냉각 유로, 전기차 모듈…"></textarea>
-    <div class="checks">
-      <label><input type="checkbox" checked> 키워드 축</label>
-      <label><input type="checkbox" checked> 기능·효과 축</label>
-      <label><input type="checkbox"> 제외어 제안</label>
-    </div>
-    <button type="button" class="btn" id="runBtn">레이더 스캔 (데모)</button>
-    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
-  </section>
-  <section class="card">
-    <h2>출력 패널</h2>
-    <div class="out-grid" id="out">
-      <div class="out-card"><h3>검색식 초안</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
-      <div class="out-card"><h3>IPC / 키워드 축</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
-      <div class="out-card"><h3>다음 탐색 액션</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
-    </div>
-  </section>
-  <footer>App ID: priorart-radar · <a href="index.html">앱스토어</a> · <a href="../quality.html">허브</a></footer>
-</main>
-<div class="toast" id="toast">AI 연결 끊김 — 데모 골격만 표시합니다.</div>
-<script src="idea-entry.js"></script>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="priorart-radar"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"priorart-radar","icon":"📡","title":"선행기술 레이더","name":"PriorRadar","role":"선행조사 오케스트레이션 에이전트","mission":"기술 키워드를 받아 탐색 축·검색식·다음 액션을 레이더처럼 전개합니다. 검색 API 연결 시 동일 파이프라인으로 실검색이 붙습니다.","domain":"특실","layout":"radar","accent":"teal","inputLabel":"기술 키워드 / 요약","placeholder":"예: 배터리 열관리, 냉각 유로, 전기차 모듈…","tools":["키워드 축","기능·효과 축","IPC 힌트","제외어"],"strategies":[{"detail":"입력 문장을 기능·구조·효과 토큰으로 분해합니다.","title":"기술 분해","log":"decompose tech"},{"detail":"키워드·분류·인용 네트워크 축을 고릅니다.","title":"탐색 축 선정","log":"pick axes"},{"detail":"불리언 검색식 초안을 조립합니다.","title":"검색식 템플릿","log":"build query"}],"executions":[{"detail":"광역 키워드 스캔 순서를 정합니다.","title":"1차 스캔 플랜","log":"wide scan"},{"detail":"효과·수치 한정으로 좁힙니다.","title":"정밀 스캔 플랜","log":"narrow scan"},{"detail":"패밀리·인용 확장 액션을 큐잉합니다.","title":"다음 액션 큐","log":"queue actions"}],"deliverables":[{"title":"검색식 초안","sample":"(배터리 OR 이차전지) AND (열관리 OR 냉각) AND (유로 OR 채널)\nseed: {{seed}}","hint":"불리언"},{"title":"IPC / 축","sample":"H01M 10/61 · 열관리\nB60L · 전기차 탑재\n기능축: 냉각 효율","hint":"후보"},{"title":"다음 액션","sample":"1) 패밀리 확장\n2) 후방 인용 2-hop\n3) 제외어: 의료용","hint":"큐"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
 </body>
 </html>

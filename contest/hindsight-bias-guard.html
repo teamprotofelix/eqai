@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>후지 편향 가디언 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="선행기술 이해 시점을 출원일로 고정하고, 결과 역추적 편향 문장을 탐지·교정하는 심사 품질 에이전트입니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="hindsight-bias-guard"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"hindsight-bias-guard","icon":"🛡️","title":"후지 편향 가디언","name":"HindsightGuard","role":"후지 편향 차단 에이전트","mission":"선행기술 이해 시점을 출원일로 고정하고, 결과 역추적 편향 문장을 탐지·교정하는 심사 품질 에이전트입니다.","domain":"특실","layout":"console","accent":"rose","inputLabel":"청구항 요지 + 거절/인용 초안","placeholder":"예: D1+D2 결합으로 용이… (효과는 사후적으로 자명)","tools":["시점 고정","역추적 문장","교시 재구성"],"strategies":[{"detail":"출원일·우선일을 분석 기준 시각으로 고정하고 사후 지식을 격리합니다.","title":"기준시점 락","log":"lock critical date"},{"detail":"“결과적으로 당연” 등 후지 표현 패턴을 탐지합니다.","title":"편향 문장 스캔","log":"scan hindsight phrases"},{"detail":"문헌 자체 교시만으로 결합 동기를 다시 씁니다.","title":"교시 재구성 전략","log":"rebuild teaching"}],"executions":[{"detail":"기준일·공지 상태 표","title":"시점 카드 발행","log":"date card"},{"detail":"수정 권고 문장","title":"편향 플래그 목록","log":"flag list"},{"detail":"편향 제거 버전","title":"교정 문안 시연","log":"rewrite"}],"deliverables":[{"title":"기준시점","sample":"분석 기준: 우선일 고정\n사후 지식 격리 ON\n{{seed}}","hint":"락"},{"title":"편향 플래그","sample":"· ‘결과적으로 자명’ 표현\n· 효과 역추적 서술","hint":"탐지"},{"title":"교정 문안","sample":"문헌 교시 범위 내에서만 동기를 서술…","hint":"시연"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

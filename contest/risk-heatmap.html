@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>권리화 리스크 히트맵 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="신규성·진보성·기재·단일성 온도를 히트맵으로 시연합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="risk-heatmap"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"risk-heatmap","icon":"🌡️","title":"권리화 리스크 히트맵","name":"RiskHeat","role":"권리화 리스크 에이전트","mission":"신규성·진보성·기재·단일성 온도를 히트맵으로 시연합니다.","domain":"특실","layout":"radar","accent":"rose","inputLabel":"사건 한 줄 요약","placeholder":"예: 광범위 독립항, 선행 밀집…","tools":["신규성","진보성","기재","단일성"],"strategies":[{"detail":"키워드 온도","title":"축 스코어 휴리스틱","log":"score axes"},{"detail":"종합 리스크","title":"가중 합성","log":"combine"},{"detail":"핫스팟 먼저","title":"대응 우선순위","log":"priority"}],"executions":[{"detail":"온도 표시","title":"히트맵 셀","log":"cells"},{"detail":"액션","title":"우선 대응","log":"actions"},{"detail":"추적 항목","title":"모니터링","log":"monitor"}],"deliverables":[{"title":"히트맵","sample":"진보성 🔥 / 기재 따뜻\n{{seed}}","hint":"시연"},{"title":"우선 대응","sample":"독립항 한정 + 검색 보강","hint":"1순위"},{"title":"모니터링","sample":"후행 문헌 알림","hint":"항목"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

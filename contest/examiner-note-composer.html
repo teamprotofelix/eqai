@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>심사 메모 컴포저 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="검색 히스토리·쟁점·잠정 결론을 동료 인수인계 가능한 메모로 컴포즈합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="examiner-note-composer"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"examiner-note-composer","icon":"📝","title":"심사 메모 컴포저","name":"NoteComposer","role":"심사 내부 메모 컴포저","mission":"검색 히스토리·쟁점·잠정 결론을 동료 인수인계 가능한 메모로 컴포즈합니다.","domain":"실무","layout":"coach","accent":"emerald","inputLabel":"오늘 작업 로그","placeholder":"예: 키워드A 실패, D3 유력, 진보성 잠정…","tools":["검색","쟁점","결론","TODO"],"strategies":[{"detail":"타임스탬프 블록","title":"로그 정규화","log":"normalize"},{"detail":"왜 이 결론","title":"결정 트리 요약","log":"decision tree"},{"detail":"표준 템플릿","title":"인수인계 포맷","log":"handoff"}],"executions":[{"detail":"본문","title":"메모 초안","log":"draft"},{"detail":"검색성","title":"태그","log":"tags"},{"detail":"리스트","title":"다음 심사관 TODO","log":"todos"}],"deliverables":[{"title":"메모","sample":"검색: … / 쟁점: 진보성 / 잠정: 거절 방향\n{{seed}}","hint":"초안"},{"title":"태그","sample":"#열관리 #D3","hint":"목록"},{"title":"TODO","sample":"□ 패밀리 □ 효과 재평가","hint":"다음"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

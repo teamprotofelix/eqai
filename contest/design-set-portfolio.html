@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>디자인 세트 포트폴리오 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="세트 물품의 통일감·물품 연결을 보고 출원 단위 분할 전략을 제안합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="design-set-portfolio"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"design-set-portfolio","icon":"📦","title":"디자인 세트 포트폴리오","name":"DesignSet","role":"한 벌 물품·세트 디자인 전략","mission":"세트 물품의 통일감·물품 연결을 보고 출원 단위 분할 전략을 제안합니다.","domain":"디자인","layout":"board","accent":"violet","inputLabel":"세트 구성 물품","placeholder":"예: 주전자+컵+트레이 동일 패턴…","tools":["통일감","물품성","분할"],"strategies":[{"detail":"형태·문양","title":"통일 요소 추출","log":"unity cues"},{"detail":"한 벌 요건","title":"물품 연결성","log":"set nexus"},{"detail":"1건/분할","title":"출원 단위 전략","log":"filing units"}],"executions":[{"detail":"구성","title":"세트 맵","log":"map"},{"detail":"출원안","title":"전략 카드","log":"strategy"},{"detail":"거절 유형","title":"리스크","log":"risks"}],"deliverables":[{"title":"세트 맵","sample":"주전자-컵 문양 공유 / 트레이 약\n{{seed}}","hint":"구성"},{"title":"전략","sample":"핵심 2점 세트 + 트레이 별도","hint":"카드"},{"title":"리스크","sample":"연결성 약 시 분할 권고","hint":"메모"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

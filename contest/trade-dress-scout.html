@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>트레이드 드레스 스카우트 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="패키지·UI·장식 요소를 상표·디자인 경계에서 스카우팅합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="trade-dress-scout"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"trade-dress-scout","icon":"👗","title":"트레이드 드레스 스카우트","name":"DressScout","role":"상품외장·장식 유사 스카우트","mission":"패키지·UI·장식 요소를 상표·디자인 경계에서 스카우팅합니다.","domain":"상표·디자인","layout":"board","accent":"rose","inputLabel":"외장/패키지/UI 설명","placeholder":"예: 네온 시안 패키지 + 대각 스트라이프…","tools":["색채","배치","장식 모티프"],"strategies":[{"detail":"색·형·배치","title":"요소 분해","log":"decompose"},{"detail":"상표/디자인 갈림","title":"권리 경계","log":"boundary"},{"detail":"시장 혼동 가설","title":"유사 시나리오","log":"confusion"}],"executions":[{"detail":"리스크 맵","title":"스카우트 리포트","log":"report"},{"detail":"대안","title":"회피 디자인","log":"avoid"},{"detail":"사용·인지도","title":"증거 체크","log":"evidence"}],"deliverables":[{"title":"리스크 맵","sample":"색채 조합 중간 · 배치 높음\n{{seed}}","hint":"요약"},{"title":"회피안","sample":"스트라이프 각도 변경","hint":"아이디어"},{"title":"증거","sample":"판매 사진 시계열","hint":"체크"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

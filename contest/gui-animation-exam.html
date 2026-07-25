@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUI 애니메이션 심사 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="마이크로 인터랙션·화면 전이의 창작·유사 포인트를 프레임 단위로 리뷰합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="gui-animation-exam"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"gui-animation-exam","icon":"🎞️","title":"GUI 애니메이션 심사","name":"GUI-Motion","role":"화면 전이·애니메이션 디자인 심사","mission":"마이크로 인터랙션·화면 전이의 창작·유사 포인트를 프레임 단위로 리뷰합니다.","domain":"디자인","layout":"ops","accent":"cyan","inputLabel":"전이 설명 / 키프레임","placeholder":"예: 카드가 하단에서 spring 상승, 300ms…","tools":["키프레임","이징","전체 인상"],"strategies":[{"detail":"상태 시퀀스","title":"키프레임 분해","log":"keyframes"},{"detail":"모션 시그니처","title":"창작 포인트","log":"signature"},{"detail":"흔한 패턴","title":"관용 모션 필터","log":"common filter"}],"executions":[{"detail":"0/50/100%","title":"프레임 리포트","log":"report"},{"detail":"패턴","title":"유사 리스크","log":"risk"},{"detail":"도면 세트","title":"출원 팁","log":"tips"}],"deliverables":[{"title":"프레임","sample":"0% 하단 50% 오버슈트 100% 정착\n{{seed}}","hint":"리포트"},{"title":"창작 포인트","sample":"이중 바운스+페이드","hint":"시그니처"},{"title":"출원 팁","sample":"중간 프레임 도면 추가","hint":"세트"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

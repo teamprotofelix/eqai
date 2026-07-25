@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이의·무효 타임라인 시뮬 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="제기 기한·답변·증거 제출 창을 시뮬레이션하고 전투 일정을 짭니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="opposition-timeline-sim"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"opposition-timeline-sim","icon":"⏳","title":"이의·무효 타임라인 시뮬","name":"OppTimeSim","role":"이의·무효 절차 타임라인 시뮬레이터","mission":"제기 기한·답변·증거 제출 창을 시뮬레이션하고 전투 일정을 짭니다.","domain":"실무","layout":"stream","accent":"orange","inputLabel":"사건 유형 / 기준일","placeholder":"예: 등록공고 후 이의, 기준일 2026-01-10…","tools":["제기","답변","증거","구술"],"strategies":[{"detail":"이의/무효","title":"절차 템플릿 로드","log":"load template"},{"detail":"크리티컬 패스","title":"기한 역산","log":"backschedule"},{"detail":"증거·감정","title":"전투 자원 배치","log":"resources"}],"executions":[{"detail":"마일스톤","title":"타임라인","log":"timeline"},{"detail":"위험","title":"병목","log":"bottleneck"},{"detail":"D-day","title":"준비 체크","log":"checklist"}],"deliverables":[{"title":"타임라인","sample":"D0 제기 D+30 보강 D+60 답변창\n{{seed}}","hint":"시뮬"},{"title":"병목","sample":"실험 감정 6주","hint":"위험"},{"title":"체크","sample":"□ 선행세트 □ 선언서","hint":"목록"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

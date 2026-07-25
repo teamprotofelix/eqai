@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>청구범위 해석 모의심문 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="권리자·상대·심판 페르소나가 용어 해석을 공방하고 내재 모순을 드러냅니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="claim-construction-moot"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"claim-construction-moot","icon":"🏛️","title":"청구범위 해석 모의심문","name":"ConstrueMoot","role":"청구항 해석 모의 심문 에이전트","mission":"권리자·상대·심판 페르소나가 용어 해석을 공방하고 내재 모순을 드러냅니다.","domain":"특실","layout":"ops","accent":"amber","inputLabel":"쟁점 용어 + 명세서 발췌","placeholder":"예: “실질적으로 평행”의 범위…","tools":["권리자","상대방","심판관"],"strategies":[{"detail":"해석 대상 선정","title":"쟁점 용어 고정","log":"fix terms"},{"detail":"명세서·도면·경과","title":"내재 증거 수집","log":"intrinsic"},{"detail":"넓음 vs 좁음","title":"공방 시나리오","log":"moot plan"}],"executions":[{"detail":"넓은 해석","title":"권리자 주장","log":"patentee"},{"detail":"좁은 해석","title":"상대 주장","log":"opponent"},{"detail":"잠정 해석","title":"중간 정리","log":"panel"}],"deliverables":[{"title":"공방 요약","sample":"권리자: 오차 ±15% / 상대: 실시예 ±2%\n{{seed}}","hint":"모의"},{"title":"잠정 해석","sample":"명세서 임계 기재 우선","hint":"슬롯"},{"title":"후속","sample":"경과서류 추가 검색","hint":"액션"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

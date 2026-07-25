@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>면담심사 준비 노트 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="안건·예상 질문·자료를 면담 스크립트로 컴파일합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="office-interview-prep"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"office-interview-prep","icon":"🎙️","title":"면담심사 준비 노트","name":"InterviewPrep","role":"면담 준비 에이전트","mission":"안건·예상 질문·자료를 면담 스크립트로 컴파일합니다.","domain":"실무","layout":"coach","accent":"cyan","inputLabel":"안건 / 쟁점","placeholder":"예: 진보성 결합 동기, 실험 데이터…","tools":["쟁점","자료","시간 배분"],"strategies":[{"detail":"시간 배분","title":"안건 우선순위","log":"prioritize"},{"detail":"예상 질문","title":"Q\u0026A 트리","log":"qa tree"},{"detail":"입증 패키지","title":"자료 체크","log":"exhibits"}],"executions":[{"detail":"30초","title":"오프닝 스크립트","log":"opening"},{"detail":"2분","title":"핵심 반박","log":"core"},{"detail":"액션","title":"클로징·후속","log":"closing"}],"deliverables":[{"title":"스크립트","sample":"인사→쟁점1→데이터→요청\n{{seed}}","hint":"스크립트 플랜"},{"title":"Q\u0026A","sample":"Q. 결합 동기? A. 이질 과제…","hint":"예상"},{"title":"후속","sample":"추가 실험 제출 일정","hint":"조치"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

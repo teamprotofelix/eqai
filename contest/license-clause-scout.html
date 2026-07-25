@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>라이선스 조항 스카우트 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="실시·독점·개량발명 귀속 조항을 스카우팅해 분쟁 포인트를 표시합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="license-clause-scout"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"license-clause-scout","icon":"📜","title":"라이선스 조항 스카우트","name":"LicenseScout","role":"라이선스·FRAND 조항 스카우트","mission":"실시·독점·개량발명 귀속 조항을 스카우팅해 분쟁 포인트를 표시합니다.","domain":"실무","layout":"coach","accent":"teal","inputLabel":"계약 조항 발췌","placeholder":"예: 개량발명 자동 양도, 감사 권한…","tools":["범위","개량","종료","감사"],"strategies":[{"detail":"리스크 태그","title":"조항 분류","log":"classify"},{"detail":"일방 유리","title":"비대칭성 탐지","log":"asymmetry"},{"detail":"문안 옵션","title":"협상 대안","log":"alts"}],"executions":[{"detail":"조항","title":"리스크 카드","log":"risks"},{"detail":"시연","title":"대안 문안","log":"alts text"},{"detail":"사인 전","title":"체크리스트","log":"pre-sign"}],"deliverables":[{"title":"리스크","sample":"개량 자동양도 과다\n{{seed}}","hint":"카드"},{"title":"대안","sample":"공동개량 · 옵션 협의","hint":"문안"},{"title":"사인 전","sample":"□ 필드오브유즈 □ 감사 범위","hint":"체크"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

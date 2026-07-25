@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>표준필수 후보 레이더 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="청구항과 표준 규격 절을 대조해 SEP 후보·필수성 가설을 레이더에 표시합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="standard-essential-radar"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"standard-essential-radar","icon":"📡","title":"표준필수 후보 레이더","name":"SEP-Radar","role":"표준필수특허 후보 스캔 에이전트","mission":"청구항과 표준 규격 절을 대조해 SEP 후보·필수성 가설을 레이더에 표시합니다.","domain":"특실","layout":"radar","accent":"rose","inputLabel":"청구항 요지 + 표준명","placeholder":"예: 5G NR 핸드오버, TS 38.xxx…","tools":["규격 매핑","필수성","FRAND 메모"],"strategies":[{"detail":"매핑 전략","title":"표준 절 후보","log":"map sections"},{"detail":"구현 불가피성","title":"필수성 테스트","log":"essential test"},{"detail":"정책 슬롯","title":"선언·라이선스 메모","log":"policy note"}],"executions":[{"detail":"청구항↔규격","title":"절 대조 표","log":"table"},{"detail":"강/중/약","title":"필수성 가설","log":"hyp"},{"detail":"규격 버전","title":"후속 조사","log":"follow"}],"deliverables":[{"title":"매핑","sample":"요소A ↔ TS §x.y\n{{seed}}","hint":"표"},{"title":"필수성","sample":"중간: 선택 구현 여지 존재","hint":"가설"},{"title":"후속","sample":"버전 이력 대비","hint":"액션"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>실험 프로토콜 아키텍트 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="진보성·실시가능 보강을 위한 비교실험 프로토콜을 단계적으로 설계합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="experimental-protocol-architect"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"experimental-protocol-architect","icon":"🧫","title":"실험 프로토콜 아키텍트","name":"ExpArchitect","role":"명세서 실험 설계 아키텍트","mission":"진보성·실시가능 보강을 위한 비교실험 프로토콜을 단계적으로 설계합니다.","domain":"특실","layout":"ops","accent":"emerald","inputLabel":"주장 효과 / 가용 장비","placeholder":"예: 방열 8℃ 개선 주장, 열화상·열전대 가능…","tools":["비교예","조건 통제","측정"],"strategies":[{"detail":"기각 가능 가설","title":"가설 정식화","log":"hypothesis"},{"detail":"독립/종속 변수","title":"변수 통제 계획","log":"controls"},{"detail":"런 순서","title":"프로토콜 스케줄","log":"schedule"}],"executions":[{"detail":"실험표","title":"런 시트","log":"run sheet"},{"detail":"기록 양식","title":"데이터 슬롯","log":"data slots"},{"detail":"기재 포인트","title":"명세서 반영","log":"spec points"}],"deliverables":[{"title":"프로토콜","sample":"n=3 반복, 동일 열부하, 채널 vs 조합\n{{seed}}","hint":"요약"},{"title":"런 시트","sample":"Run1 비교예 Run2 발명예…","hint":"표"},{"title":"명세서 포인트","sample":"조건·오차·평균 명시","hint":"기재"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

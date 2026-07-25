@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>심사 데일리 메모 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="오늘의 쟁점·검색어를 태그 카드로 정리하고 내일 액션을 남깁니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="exam-daily-memo"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"exam-daily-memo","icon":"🗒️","title":"심사 데일리 메모","name":"DailyMemo","role":"심사 일지 에이전트","mission":"오늘의 쟁점·검색어를 태그 카드로 정리하고 내일 액션을 남깁니다.","domain":"일상","layout":"stream","accent":"emerald","inputLabel":"오늘의 메모","placeholder":"예: A사건 결합 동기 약함…","tools":["쟁점","검색어","To-do"],"strategies":[{"detail":"불릿 분리","title":"메모 파싱","log":"parse"},{"detail":"사건·이슈","title":"태그 부여","log":"tag"},{"detail":"내일 할 일","title":"팔로업 생성","log":"followup"}],"executions":[{"detail":"3줄","title":"요약 카드","log":"summary"},{"detail":"키워드","title":"태그 클라우드","log":"tags"},{"detail":"체크","title":"팔로업","log":"todos"}],"deliverables":[{"title":"요약","sample":"쟁점1 · 검색보강 · 보정아이디어\n{{seed}}","hint":"카드"},{"title":"태그","sample":"#진보성 #D1D2","hint":"목록"},{"title":"팔로업","sample":"□ 패밀리 확인 □ 수치 재검토","hint":"To-do"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

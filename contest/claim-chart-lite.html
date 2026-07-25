@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>클레임 차트 라이트 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="권리 요소와 제품·문헌 요소를 1:1 매핑합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="claim-chart-lite"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"claim-chart-lite","icon":"📊","title":"클레임 차트 라이트","name":"ChartLite","role":"클레임 차트 에이전트","mission":"권리 요소와 제품·문헌 요소를 1:1 매핑합니다.","domain":"특실","layout":"matrix","accent":"rose","inputLabel":"청구항 + 대상 제품/문헌","placeholder":"예: 구성요소1 ↔ 모듈 X…","tools":["문언 대응","균등 메모","비대응"],"strategies":[{"detail":"차트 행 준비","title":"요소 분해","log":"rows"},{"detail":"제품/문헌 특징","title":"대상 파싱","log":"target parse"},{"detail":"문언/균등/없음","title":"매핑 규칙","log":"map rules"}],"executions":[{"detail":"1:1 셀","title":"차트 기입","log":"write chart"},{"detail":"미대응 강조","title":"공백 표시","log":"gaps"},{"detail":"증거 수집","title":"후속 액션","log":"next"}],"deliverables":[{"title":"차트 초안","sample":"E1→모듈X 문언\nE2→미발견\n{{seed}}","hint":"맵"},{"title":"공백 요소","sample":"E2 센서 배치","hint":"리스트"},{"title":"후속","sample":"분해 사진 · 스펙 시트","hint":"액션"}],"sampleSeed":null,"matrixRows":["E1","E2","E3","E4"],"matrixCols":["문언","균등","증거","메모"]};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

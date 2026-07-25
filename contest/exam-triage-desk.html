@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>심사 트리아지 데스크 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="독립항 폭·선행 밀집·기재 상태를 보고 심사 공수·우선 액션을 트리아지합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="exam-triage-desk"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"exam-triage-desk","icon":"🏥","title":"심사 트리아지 데스크","name":"TriageDesk","role":"사건 난이도 트리아지 에이전트","mission":"독립항 폭·선행 밀집·기재 상태를 보고 심사 공수·우선 액션을 트리아지합니다.","domain":"실무","layout":"ops","accent":"orange","inputLabel":"사건 한 줄 + 청구항 수","placeholder":"예: 독립 2 종속 15, SW+하드웨어, 선행 다수…","tools":["난이도","공수","우선 액션"],"strategies":[{"detail":"폭·분야·문헌","title":"신호 수집","log":"signals"},{"detail":"S/A/B/C","title":"난이도 등급","log":"grade"},{"detail":"오늘/이번주","title":"액션 큐","log":"queue"}],"executions":[{"detail":"라벨","title":"트리아지 태그","log":"tags"},{"detail":"시연","title":"공수 추정","log":"effort"},{"detail":"권고","title":"첫 수","log":"first move"}],"deliverables":[{"title":"등급","sample":"A: 진보성 중심 고난이\n{{seed}}","hint":"트리아지"},{"title":"공수","sample":"검색 0.5d · 통지 0.5d","hint":"추정"},{"title":"첫 수","sample":"핵심 요소 대비표부터","hint":"권고"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

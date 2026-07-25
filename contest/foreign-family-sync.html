@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>해외 패밀리 동기화 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="해외 OA·보정·인용을 끌어와 국내 심사 전략에 동기화합니다. 패밀리 API 연결 시 실데이터가 붙습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="foreign-family-sync"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"foreign-family-sync","icon":"🌍","title":"해외 패밀리 동기화","name":"FamilySync","role":"패밀리·심사경과 동기화 에이전트","mission":"해외 OA·보정·인용을 끌어와 국내 심사 전략에 동기화합니다. 패밀리 API 연결 시 실데이터가 붙습니다.","domain":"실무","layout":"stream","accent":"cyan","inputLabel":"패밀리 번호 / 국가 메모","placeholder":"예: US 거절 진보성, EP 한정 보정 완료…","tools":["US","EP","CN","JP"],"strategies":[{"detail":"국가 사건","title":"패밀리 노드 수집","log":"collect nodes"},{"detail":"공통/상이 쟁점","title":"쟁점 정렬","log":"align issues"},{"detail":"선제 보정·반박","title":"국내 반영 전략","log":"local strategy"}],"executions":[{"detail":"국가×쟁점","title":"동기화 표","log":"sync table"},{"detail":"국내","title":"추천 액션","log":"actions"},{"detail":"문헌 이관","title":"인용 공유","log":"cites"}],"deliverables":[{"title":"동기화 표","sample":"US 진보성=국내 공유 / EP 한정≠\n{{seed}}","hint":"요약"},{"title":"국내 액션","sample":"EP 보정문 선반영 검토","hint":"추천"},{"title":"공유 문헌","sample":"D2 패밀리 확장","hint":"목록"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

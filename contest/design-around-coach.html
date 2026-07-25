@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회피설계 코치 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="청구항을 읽고 비침해 회피 경로와 동시에 보정으로 막을 구멍을 코칭합니다(심사·자문 양용).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="design-around-coach"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"design-around-coach","icon":"🔄","title":"회피설계 코치","name":"DesignAround","role":"회피설계·권리범위 코치","mission":"청구항을 읽고 비침해 회피 경로와 동시에 보정으로 막을 구멍을 코칭합니다(심사·자문 양용).","domain":"특실","layout":"coach","accent":"orange","inputLabel":"독립항 + 제품 아이디어","placeholder":"예: 청구 힌지 이중캠 / 제품 단일캠+토션스프링","tools":["문언 회피","균등 리스크","보정 구멍"],"strategies":[{"detail":"회피 불가 핵","title":"필수 요소 잠금","log":"lock essentials"},{"detail":"삭제·치환·우회","title":"회피 경로 브레인","log":"brainstorm paths"},{"detail":"여전히 위험한가","title":"균등 잔존 평가","log":"equiv residual"}],"executions":[{"detail":"설계 카드","title":"회피 옵션 3안","log":"options"},{"detail":"구멍 봉쇄","title":"심사 보정 제안","log":"amend seal"},{"detail":"한 장","title":"코칭 요약","log":"summary"}],"deliverables":[{"title":"회피 3안","sample":"A 요소삭제 B 치환 C 배치변경\n{{seed}}","hint":"카드"},{"title":"보정 봉쇄","sample":"치환 수단을 실시예 수준으로 한정 청구","hint":"안"},{"title":"코칭","sample":"문언 회피 가능하나 균등 모니터링","hint":"요약"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

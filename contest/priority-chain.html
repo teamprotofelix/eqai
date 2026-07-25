@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>우선권·계속출원 체인 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="우선·분할·계속 관계를 타임라인 체인으로 검증합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="priority-chain"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"priority-chain","icon":"⏱️","title":"우선권·계속출원 체인","name":"PrioChain","role":"우선권 체인 에이전트","mission":"우선·분할·계속 관계를 타임라인 체인으로 검증합니다.","domain":"실무","layout":"stream","accent":"violet","inputLabel":"출원 이력 메모","placeholder":"예: 우선 2023-03-01 / 본출원…","tools":["우선 기간","동일성","중간 공지"],"strategies":[{"detail":"타임스탬프","title":"날짜 정규화","log":"normalize dates"},{"detail":"우선-본-분할","title":"체인 링크","log":"link chain"},{"detail":"기간·동일성","title":"리스크 스캔","log":"risk scan"}],"executions":[{"detail":"이벤트","title":"타임라인 렌더","log":"timeline"},{"detail":"경고","title":"리스크 카드","log":"risks"},{"detail":"추가 확인","title":"확인 체크","log":"checks"}],"deliverables":[{"title":"타임라인","sample":"P→PCT→KR 진입→분할\n{{seed}}","hint":"체인"},{"title":"리스크","sample":"우선기간 임박 여부","hint":"목록"},{"title":"체크","sample":"동일성 명세서 대조","hint":"리스트"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

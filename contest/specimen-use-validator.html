@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사용표본 검증 에이전트 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="제출 사용 증거의 표장 일치·상품 연결·날짜를 검증 체크리스트로 돌립니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="specimen-use-validator"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"specimen-use-validator","icon":"🏷️","title":"사용표본 검증 에이전트","name":"SpecimenQA","role":"상표 사용표본 검증 에이전트","mission":"제출 사용 증거의 표장 일치·상품 연결·날짜를 검증 체크리스트로 돌립니다.","domain":"상표","layout":"console","accent":"rose","inputLabel":"표장 + 사용 증거 설명","placeholder":"예: 웹 캡처, 포장 사진, 2019 판매…","tools":["표장 일치","상품 연결","날짜"],"strategies":[{"detail":"등록/사용 동일성","title":"표장 대조","log":"mark match"},{"detail":"지정 상품 연결","title":"상품 넥서스","log":"goods nexus"},{"detail":"사용 기간","title":"시점 검증","log":"date proof"}],"executions":[{"detail":"pass/fail","title":"검증 리포트","log":"report"},{"detail":"추가 증거","title":"보완 목록","log":"supplements"},{"detail":"예상 이유","title":"거절 대비","log":"refusal"}],"deliverables":[{"title":"검증","sample":"표장○ 상품△ 날짜○\n{{seed}}","hint":"결과"},{"title":"보완","sample":"실물 포장 전개도","hint":"목록"},{"title":"대비","sample":"장식적 사용 주장 가능","hint":"이유"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

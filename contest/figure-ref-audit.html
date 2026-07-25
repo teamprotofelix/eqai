@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>도면 부호 정합 감사 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="명세서 부호와 도면 라벨 불일치·누락을 감사합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="figure-ref-audit"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"figure-ref-audit","icon":"🖼️","title":"도면 부호 정합 감사","name":"FigRef","role":"도면 부호 정합 에이전트","mission":"명세서 부호와 도면 라벨 불일치·누락을 감사합니다.","domain":"특실","layout":"stream","accent":"amber","inputLabel":"부호 목록 / 설명 발췌","placeholder":"예: 10 하우징, 20 센서…","tools":["미사용 부호","미설명 부호","중복"],"strategies":[{"detail":"텍스트 부호 추출","title":"부호 집합 구축","log":"set build"},{"detail":"라벨 차집합","title":"도면 집합 대조","log":"diff sets"},{"detail":"동일 부호 다의","title":"중복·충돌 탐지","log":"dup detect"}],"executions":[{"detail":"목록화","title":"불일치 리포트","log":"report"},{"detail":"부호 재부여","title":"수정 패치 제안","log":"patch"},{"detail":"수정 지시","title":"도면 메모","log":"fig notes"}],"deliverables":[{"title":"불일치","sample":"30 도면만 존재 / 설명 없음\n{{seed}}","hint":"목록"},{"title":"수정 제안","sample":"30→냉각핀 설명 추가","hint":"패치"},{"title":"도면 메모","sample":"도3 라벨 정렬","hint":"지시"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

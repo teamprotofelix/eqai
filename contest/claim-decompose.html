@@ -5,43 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>청구항 요소 분해기 | EQAI Contest</title>
 <meta name="theme-color" content="#0a0a23">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="idea-entry.css">
+<meta name="description" content="독립항을 파싱해 구성요소·한정을 카드 단위로 쪼개고, 종속 관계를 추적하는 심사 에이전트입니다. API 연결 시 자동 번호 매기기·트리 동기화가 가동됩니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
 </head>
 <body>
-<div class="top"><a href="index.html">← 컨테스트 스토어</a><span class="badge-off">AI 연결 끊김</span></div>
-<main class="wrap" data-app-id="claim-decompose">
-  <div class="hero">
-    <div class="icon">🧩</div>
-    <div>
-      <div class="sub">claim-decompose</div>
-      <h1>청구항 요소 분해기</h1>
-      <p class="lead">Claim Element Decomposer · 특실 심사 브레인스토밍</p>
-      <p class="lead">독립항을 붙여 넣으면 구성요소·한정을 카드로 쪼개 보는 아이디어 툴. API 연결 시 자동 분해·번호 매기기를 붙일 수 있습니다.</p>
-    </div>
-  </div>
-  <section class="card">
-    <label for="mainInput">독립항 / 청구항 텍스트</label>
-    <textarea id="mainInput" placeholder="예: 1. 하우징; 상기 하우징 내부에 배치된 센서; 상기 센서와 연결된 제어기…"></textarea>
-    <div class="checks">
-      <label><input type="checkbox" checked> 구성요소 단위 카드</label>
-      <label><input type="checkbox" checked> 한정 사항 분리</label>
-      <label><input type="checkbox"> 종속항 관계 메모</label>
-    </div>
-    <button type="button" class="btn" id="runBtn">요소 분해 (데모)</button>
-    <button type="button" class="btn btn-ghost" id="clearBtn">초기화</button>
-  </section>
-  <section class="card">
-    <h2>출력 패널</h2>
-    <div class="out-grid" id="out">
-      <div class="out-card"><h3>구성요소 목록</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
-      <div class="out-card"><h3>한정 사항</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
-      <div class="out-card"><h3>심사 메모</h3><p class="placeholder">실행 후 데모 결과가 표시됩니다. (AI 미연결)</p></div>
-    </div>
-  </section>
-  <footer>App ID: claim-decompose · <a href="index.html">앱스토어</a> · <a href="../quality.html">허브</a></footer>
-</main>
-<div class="toast" id="toast">AI 연결 끊김 — 데모 골격만 표시합니다.</div>
-<script src="idea-entry.js"></script>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="claim-decompose"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"claim-decompose","icon":"🧩","title":"청구항 요소 분해기","name":"ClaimForge","role":"청구항 구조 분해 에이전트","mission":"독립항을 파싱해 구성요소·한정을 카드 단위로 쪼개고, 종속 관계를 추적하는 심사 에이전트입니다. API 연결 시 자동 번호 매기기·트리 동기화가 가동됩니다.","domain":"특실","layout":"lab","accent":"cyan","inputLabel":"독립항 / 청구항 텍스트","placeholder":"예: 1. 하우징; 상기 하우징 내부에 배치된 센서; 상기 센서와 연결된 제어기…","tools":["구성요소 카드","한정 분리","종속항 추적","번호 매기기"],"strategies":[{"detail":"청구항 텍스트를 연결어·구두점 기준으로 토큰화하고 구성요소 후보를 추출합니다.","title":"문장 경계·세미콜론 파싱","log":"tokenize claim · detect elements"},{"detail":"「상기」「포함하는」 등 한정 표현을 요소에 바인딩해 계층 트리를 만듭니다.","title":"한정 계층 매핑","log":"bind limitations"},{"detail":"필수 요소 vs 선택 한정을 구분해 신규성·진보성 메모 슬롯을 준비합니다.","title":"심사 포인트 가설","log":"prep exam notes"}],"executions":[{"detail":"각 구성요소를 ID와 함께 카드로 출력합니다.","title":"요소 카드 생성","bullets":["E1 하우징","E2 센서","E3 제어기"],"log":"emit element cards"},{"detail":"한정을 요소별로 묶어 누락 여부를 점검합니다.","title":"한정 리스트 정렬","log":"group limitations"},{"detail":"종속항이 있으면 부모 링크를 표시합니다.","title":"종속 관계 스케치","log":"link dependents"}],"deliverables":[{"title":"구성요소 맵","sample":"E1 하우징 — 구조 본체\nE2 센서 — 감지 모듈\nE3 제어기 — 신호 처리\n(입력 반영: {{seed}})","hint":"요소 ID·문구·역할"},{"title":"한정 사항","sample":"· E1: 내부 공간 한정\n· E2: 하우징 내부 배치\n· E3: 센서 연결 관계\n※ API 연결 시 자동 추출","hint":"요소별 한정 묶음"},{"title":"심사 메모","sample":"· 필수 요소 최소 구성 검토\n· 기능적 표현 명확성 체크\n· 종속항 추가 한정 후보","hint":"다음 액션"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
 </body>
 </html>

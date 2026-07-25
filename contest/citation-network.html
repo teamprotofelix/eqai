@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>인용 네트워크 스케치 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="인용·피인용 노드를 깔아 선행 클러스터를 스케치합니다. 문헌 API 연결 시 실그래프가 붙습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="citation-network"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"citation-network","icon":"🕸️","title":"인용 네트워크 스케치","name":"CiteNet","role":"인용 네트워크 에이전트","mission":"인용·피인용 노드를 깔아 선행 클러스터를 스케치합니다. 문헌 API 연결 시 실그래프가 붙습니다.","domain":"특실","layout":"radar","accent":"violet","inputLabel":"문헌 번호·관계 메모","placeholder":"예: D1←D2, D1+D3 결합…","tools":["직접 인용","패밀리","동일 발명자"],"strategies":[{"detail":"문헌 엔티티","title":"노드 생성","log":"nodes"},{"detail":"인용 방향","title":"엣지 추론","log":"edges"},{"detail":"핵심 문헌","title":"클러스터링","log":"cluster"}],"executions":[{"detail":"그래프 데이터","title":"네트워크 슬롯","log":"graph"},{"detail":"허브","title":"핵심 문헌","log":"hubs"},{"detail":"미탐색 영역","title":"탐색 공백","log":"voids"}],"deliverables":[{"title":"네트워크","sample":"D1 hub · D2→D1 · D3 side\n{{seed}}","hint":"슬롯"},{"title":"핵심 문헌","sample":"D1, D2","hint":"top"},{"title":"탐색 공백","sample":"후방 2-hop 미실시","hint":"영역"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>심사품질 AI 컨테스트 | Idea App Store</title>
-    <meta name="description" content="심사품질연구회 AI 컨테스트 — 브레인스토밍용 아이디어 앱스토어. AI 연결 끊김 상태의 정적 프로토타입.">
+    <title>심사품질 AI 컨테스트 | Idea Bank</title>
+    <meta name="description" content="심사품질연구회 AI 컨테스트 — IP 심사 AI 에이전트 아이디어 뱅크. API 연결 끊김 상태의 브레인스토밍 모드.">
     <meta name="theme-color" content="#0a0a23">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,11 +57,23 @@
             background: linear-gradient(90deg, var(--cyan), var(--violet));
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .nav-links { display: flex; gap: 0.35rem; list-style: none; flex-wrap: wrap; }
+        .nav-links {
+            display: flex; align-items: center; gap: 0.35rem;
+            list-style: none; flex-wrap: wrap; margin: 0; padding: 0;
+        }
+        .nav-links li {
+            display: flex; align-items: center; margin: 0; padding: 0;
+            line-height: 1;
+        }
         .nav-links a, .nav-links button {
-            font: inherit; font-size: 0.88rem; font-weight: 700;
-            color: #cbd5e1; text-decoration: none; background: transparent; border: 0;
-            padding: 0.45rem 0.75rem; border-radius: 999px; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center;
+            box-sizing: border-box;
+            font: inherit; font-size: 0.88rem; font-weight: 700; line-height: 1.2;
+            color: #cbd5e1; text-decoration: none;
+            background: transparent; border: 0; margin: 0;
+            min-height: 36px; padding: 0.45rem 0.75rem; border-radius: 999px;
+            cursor: pointer; appearance: none; -webkit-appearance: none;
+            vertical-align: middle;
         }
         .nav-links a:hover, .nav-links button:hover,
         .nav-links button[aria-pressed="true"] {
@@ -176,8 +188,8 @@
         }
         .search:focus { outline: 2px solid var(--cyan); outline-offset: 2px; }
 
-        /* App Store grid */
-        .store-grid {
+        /* Idea Bank grid */
+        .bank-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.1rem;
@@ -292,16 +304,16 @@
     </style>
 </head>
 <body>
-    <a class="skip" href="#store">출품작 목록으로 건너뛰기</a>
+    <a class="skip" href="#bank">출품작 목록으로 건너뛰기</a>
     <canvas id="fx" aria-hidden="true"></canvas>
 
-    <nav class="nav" aria-label="컨테스트 메뉴">
+    <nav class="nav" aria-label="아이디어 뱅크 메뉴">
         <a class="nav-brand" href="#top">
-            <i class="fas fa-store" aria-hidden="true"></i>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
             <span>EQAI Contest</span>
         </a>
         <ul class="nav-links">
-            <li><a href="#store">앱 스토어</a></li>
+            <li><a href="#bank">아이디어 뱅크</a></li>
             <li><button type="button" data-filter-jump="new">신규 아이디어</button></li>
             <li><button type="button" data-filter-jump="archive">기존 출품</button></li>
         </ul>
@@ -312,25 +324,26 @@
 
     <header class="hero" id="top">
         <div class="hero-box">
-            <img class="logo" src="contest.jpg" alt="심사품질연구회 AI 컨테스트" onclick="document.getElementById('store').scrollIntoView({behavior:'smooth'})">
-            <h1>AI Contest Idea Store</h1>
+            <img class="logo" src="contest.jpg" alt="심사품질연구회 AI 컨테스트" onclick="document.getElementById('bank').scrollIntoView({behavior:'smooth'})">
+            <h1>AI Contest Idea Bank</h1>
             <p>
-                심사품질·지식재산 심사와 일상을 잇는 아이디어 프로토타입 모음입니다.<br>
-                현재는 <strong style="color:#fecaca">AI 연결 끊김</strong> 상태의 브레인스토밍용 정적 앱입니다.
+                특허·실용신안·상표·디자인 심사를 위한 <strong>아이디어 뱅크</strong>입니다.<br>
+                현재는 <strong style="color:#fecaca">AI 연결 끊김</strong> 상태 — API 연결이 끊긴 채로 용도를 공유하는 브레인스토밍 모드입니다. 연결되면 동일 UI에서 즉시 가동됩니다.
             </p>
             <div class="hero-meta">
-                <span class="pill gold">App Store </span>
+                <span class="pill gold">Idea Bank</span>
                 <span class="pill warn"><i class="fas fa-plug-circle-xmark" aria-hidden="true"></i> AI 연결 끊김</span>
+                <span class="pill">특실 · 상표 · 디자인</span>
                 <span class="pill">API 재연결 준비중</span>
             </div>
-            <a class="btn btn-primary" href="#store"><i class="fas fa-grip" aria-hidden="true"></i> 출품작 둘러보기</a>
+            <a class="btn btn-primary" href="#bank"><i class="fas fa-grip" aria-hidden="true"></i> 출품작 둘러보기</a>
         </div>
     </header>
 
-    <section id="store" aria-labelledby="store-title">
+    <section id="bank" aria-labelledby="bank-title">
         <div class="section-head">
-            <h2 id="store-title"><i class="fas fa-th-large" aria-hidden="true"></i> 출품작 앱스토어</h2>
-            <p>신규 심사 아이디어를 먼저 배치하고, 이어서 기존 출품작을 보관합니다. 각 앱은 용도를 알 수 있는 UI 골격만 제공합니다.</p>
+            <h2 id="bank-title"><i class="fas fa-th-large" aria-hidden="true"></i> 출품작 아이디어 뱅크</h2>
+            <p>신규 IP 심사 아이디어를 상단에, 기존 출품작은 아카이브로 보관합니다. 각 에이전트는 전략 수립·실행 파이프라인을 갖춘 에이전트 UI이며, API만 연결되면 같은 흐름으로 실제 추론이 붙습니다.</p>
         </div>
 
         <div class="toolbar">
@@ -339,24 +352,25 @@
                 <button type="button" class="filter-btn" data-filter="new" aria-pressed="false">신규 아이디어</button>
                 <button type="button" class="filter-btn" data-filter="archive" aria-pressed="false">기존 출품</button>
                 <button type="button" class="filter-btn" data-filter="exam" aria-pressed="false">심사 관련</button>
+                <button type="button" class="filter-btn" data-filter="fun" aria-pressed="false">일상·기타</button>
             </div>
-            <input class="search" id="q" type="search" placeholder="앱 이름·키워드 검색…" autocomplete="off">
+            <input class="search" id="q" type="search" placeholder="아이디어·에이전트 검색…" autocomplete="off">
         </div>
 
-        <div class="store-grid" id="grid"></div>
+        <div class="bank-grid" id="grid"></div>
         <p class="empty" id="empty">검색 결과가 없습니다.</p>
 
         <div class="note">
             <strong style="color:#67e8f9">안내</strong> —
-            모든 출품작은 정적 HTML로 동작하며 LLM/이미지 API를 호출하지 않습니다.
-            카드·화면의 <span class="tag tag-off" style="display:inline;">AI 연결 끊김</span> 표시는 브레인스토밍 모드를 의미합니다.
-            API가 연결되면 동일 UI에 기능을 붙일 수 있도록 입·출력 형태를 유지했습니다.
+            모든 출품작은 정적 HTML로 동작하며 지금은 LLM/이미지 API를 호출하지 않습니다.
+            카드·화면의 <span class="tag tag-off" style="display:inline;">AI 연결 끊김</span> 표시는 API 미연결 브레인스토밍 모드를 의미합니다.
+            에이전트 기동 시 전략·실행 단계가 시연되며, API가 연결되면 동일 파이프라인에서 즉시 실추론이 가동되도록 설계했습니다.
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 심사품질연구회 AI 컨테스트 · Idea App Store</p>
-        <p style="margin-top:0.45rem;">현재 등록 <span class="count" id="count">0</span> 앱 ·
+        <p>&copy; 2026 심사품질연구회 AI 컨테스트 · Idea Bank</p>
+        <p style="margin-top:0.45rem;">현재 등록 <span class="count" id="count">0</span> 아이디어 ·
             <a href="https://eqai.moip.ai.kr/">서비스 허브</a> ·
             <a href="../index.html?opening=1">오프닝</a>
         </p>
@@ -370,81 +384,791 @@
          * href: relative path under /contest/
          */
         const APPS = [
-            // ===== NEW (먼저 배치) =====
+            // ===== IDEA BANK agents (newest first) =====
+            {
+                id: 'hindsight-bias-guard',
+                href: 'hindsight-bias-guard.html',
+                icon: '🛡️',
+                title: '후지 편향 가디언',
+                blurb: '선행기술 이해 시점을 출원일로 고정하고, 결과 역추적 편향 문장을 탐지·교정하는 심사 품질 에이전트입니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'hindsight-bias-guard 후지 편향 가디언 HindsightGuard 특실 후지 편향 차단 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'search-strategy-wargame',
+                href: 'search-strategy-wargame.html',
+                icon: '♟️',
+                title: '검색 전략 워게임',
+                blurb: '공격(광역)·수비(정밀)·측면(분류/인용) 플레이어가 턴제 검색 전략을 짜고 다음 쿼리를 확정합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'search-strategy-wargame 검색 전략 워게임 SearchWar 특실 선행조사 전략 워게임 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'doctrine-equivalents-lab',
+                href: 'doctrine-equivalents-lab.html',
+                icon: '⚖️',
+                title: '균등론 실험실',
+                blurb: '문언 비침해 구간에서 치환 가능성·동일 작용효과·용이 도출을 실험 슬롯으로 돌립니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'doctrine-equivalents-lab 균등론 실험실 EquivLab 특실 균등론 실험 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'functional-claim-decoder',
+                href: 'functional-claim-decoder.html',
+                icon: '🔤',
+                title: '기능적 청구항 디코더',
+                blurb: '“~하도록 구성된” 등 기능 표현을 구조·알고리즘 후보로 디코딩하고 명확성 리스크를 표시합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'functional-claim-decoder 기능적 청구항 디코더 FuncDecode 특실 기능적 표현 해독 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'unexpected-results-builder',
+                href: 'unexpected-results-builder.html',
+                icon: '✨',
+                title: '예상밖 효과 빌더',
+                blurb: '정량 효과·비교예·시너지를 카드로 조립해 예상치 못한 효과 스토리를 만드는 진보성 논거 에이전트.',
+                group: 'new', domain: 'exam',
+                keywords: 'unexpected-results-builder 예상밖 효과 빌더 UnexpectedFX 예상치 진보성 효과 논거 빌더 에이전트 아이디어'
+            },
+            {
+                id: 'teaching-away-finder',
+                href: 'teaching-away-finder.html',
+                icon: '🚫',
+                title: '교시 반대 파인더',
+                blurb: '선행이 본 발명 방향을 저해·비추천하는지 문장을 찾아 진보성 긍정 재료로 구조화합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'teaching-away-finder 교시 반대 파인더 TeachAway 특실 교시 반대·저해 탐지 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'analogous-art-bridge',
+                href: 'analogous-art-bridge.html',
+                icon: '🌉',
+                title: '유사기술 브릿지',
+                blurb: '다른 분야의 문헌을 끌어올 때 과제 공통성·전용 가능성을 브릿지 논리로 검증합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'analogous-art-bridge 유사기술 브릿지 AnalogBridge 특실 유사 기술분야 브릿지 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'secondary-considerations',
+                href: 'secondary-considerations.html',
+                icon: '📈',
+                title: '2차 고려요소 수집기',
+                blurb: '상업적 성공·장기 욕구·타사 모방 등 2차 고려 요소를 증거 보드로 수집·채점합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'secondary-considerations 2차 고려요소 수집기 SecondaryKit 특실 진보성 2차 고려 수집 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'design-around-coach',
+                href: 'design-around-coach.html',
+                icon: '🔄',
+                title: '회피설계 코치',
+                blurb: '청구항을 읽고 비침해 회피 경로와 동시에 보정으로 막을 구멍을 코칭합니다(심사·자문 양용).',
+                group: 'new', domain: 'exam',
+                keywords: 'design-around-coach 회피설계 코치 DesignAround 특실 회피설계·권리범위 코치 에이전트 아이디어'
+            },
+            {
+                id: 'fto-lite-radar',
+                href: 'fto-lite-radar.html',
+                icon: '🛰️',
+                title: 'FTO 라이트 레이더',
+                blurb: '제품 특징을 청구항 요소에 투영해 충돌 후보·회피 우선순위를 레이더로 시연합니다. 검색 API 연결 시 실스캔이 붙습니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'fto-lite-radar FTO 라이트 레이더 FTO-Lite 특실 실시자유 라이트 스캔 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'claim-construction-moot',
+                href: 'claim-construction-moot.html',
+                icon: '🏛️',
+                title: '청구범위 해석 모의심문',
+                blurb: '권리자·상대·심판 페르소나가 용어 해석을 공방하고 내재 모순을 드러냅니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'claim-construction-moot 청구범위 해석 모의심문 ConstrueMoot 특실 청구항 해석 모의 심문 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'markush-expander',
+                href: 'markush-expander.html',
+                icon: '🧪',
+                title: '마르쿠시 전개 에이전트',
+                blurb: '화학·선택 구성 마르쿠시 구조를 전개해 지원·신규성 공백을 점검합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'markush-expander 마르쿠시 전개 에이전트 MarkushX 특실 마르쿠시·선택지 전개 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'product-by-process',
+                href: 'product-by-process.html',
+                icon: '🏭',
+                title: '제법한정 물건항 분석',
+                blurb: '물건항의 제법 한정이 구조 차이에 기여하는지 분석하고 심사 포인트를 정리합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'product-by-process 제법한정 물건항 분석 PbP-Analyser 특실 제법에 의한 물건 청구항 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'ai-inventorship-check',
+                href: 'ai-inventorship-check.html',
+                icon: '🤖',
+                title: 'AI 발명자 이슈 체크',
+                blurb: 'AI 도구 사용 구간과 인간 기여를 구분해 발명자 적격·기여 서술 체크리스트를 만듭니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'ai-inventorship-check AI 발명자 이슈 체크 InventorAI 특실 AI 관여 발명 발명자 이슈 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'sw-eligibility-filter',
+                href: 'sw-eligibility-filter.html',
+                icon: '💻',
+                title: 'SW·비즈니스 적격 필터',
+                blurb: '추상적 아이디어 vs 기술적 해결을 단계적으로 걸러 적격성 가설과 보정 힌트를 제시합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'sw-eligibility-filter SW·비즈니스 적격 필터 EligiFilter 특실 컴퓨터·비즈니스 관련 발명 적격 필터 에이전트 아이디어'
+            },
+            {
+                id: 'green-fasttrack-coach',
+                href: 'green-fasttrack-coach.html',
+                icon: '🌱',
+                title: '그린기술 우선심사 코치',
+                blurb: '그린 기술 해당성·입증 자료·청구 포인트를 우선심사 관점으로 정리합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'green-fasttrack-coach 그린기술 우선심사 코치 GreenTrack 특실 탄소·환경 기술 우선심사 코치 에이전트 아이디어'
+            },
+            {
+                id: 'standard-essential-radar',
+                href: 'standard-essential-radar.html',
+                icon: '📡',
+                title: '표준필수 후보 레이더',
+                blurb: '청구항과 표준 규격 절을 대조해 SEP 후보·필수성 가설을 레이더에 표시합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'standard-essential-radar 표준필수 후보 레이더 SEP-Radar 특실 표준필수특허 후보 스캔 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'double-patent-sentinel',
+                href: 'double-patent-sentinel.html',
+                icon: '👯',
+                title: '이중특허 센티널',
+                blurb: '동일 출원인 패밀리·계속·분할 간 중첩 청구를 감시하고 터미널/보정 옵션을 제시합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'double-patent-sentinel 이중특허 센티널 DoublePat 특실 동일 발명 이중특허 감시 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'prior-date-forensics',
+                href: 'prior-date-forensics.html',
+                icon: '🕵️',
+                title: '선행일 포렌식',
+                blurb: '공지·이용·반포·우선권 서류를 타임라인으로 재구성해 인용 적격을 검증합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'prior-date-forensics 선행일 포렌식 DateForensics 특실 선행 기준일 포렌식 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'office-tone-rewriter',
+                href: 'office-tone-rewriter.html',
+                icon: '✒️',
+                title: '통지 문체 리라이터',
+                blurb: '거절 논거는 유지한 채 명료·중립·존중 톤으로 문장을 재구성합니다(품질·민원 리스크 완화).',
+                group: 'new', domain: 'exam',
+                keywords: 'office-tone-rewriter 통지 문체 리라이터 ToneRewrite 실무 심사 통지 문체 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'continuation-strategist',
+                href: 'continuation-strategist.html',
+                icon: '🧬',
+                title: '계속·분할 전략가',
+                blurb: '남은 개시 범위와 경쟁 동향을 보고 후속 출원 체스 수를 제안합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'continuation-strategist 계속·분할 전략가 ContStragegist 실무 계속·분할·우선심사 포트폴리오 전략가 에이전트 아이디어'
+            },
+            {
+                id: 'trade-secret-boundary',
+                href: 'trade-secret-boundary.html',
+                icon: '🔒',
+                title: '영업비밀·특허 경계',
+                blurb: '무엇은 특허로 공개하고 무엇은 영업비밀로 남길지 경계와 유출 리스크를 설계합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'trade-secret-boundary 영업비밀·특허 경계 TS-Boundary 실무 공개/비공개 경계 설계 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'exam-triage-desk',
+                href: 'exam-triage-desk.html',
+                icon: '🏥',
+                title: '심사 트리아지 데스크',
+                blurb: '독립항 폭·선행 밀집·기재 상태를 보고 심사 공수·우선 액션을 트리아지합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'exam-triage-desk 심사 트리아지 데스크 TriageDesk 실무 사건 난이도 트리아지 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'claim-preamble-weighter',
+                href: 'claim-preamble-weighter.html',
+                icon: '📏',
+                title: '전문(preamble) 가중 분석',
+                blurb: '전문 기재가 한정인지 단지 용도인지 가중치를 분석해 권리범위 해석을 돕습니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'claim-preamble-weighter 전문(preamble) 가중 분석 PreambleW 특실 청구항 전문 가중 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'jepson-claim-studio',
+                href: 'jepson-claim-studio.html',
+                icon: '🎼',
+                title: '제프슨 청구항 스튜디오',
+                blurb: '공지 부분과 개선 부분을 분리해 제프슨 형식 초안과 리스크를 만듭니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'jepson-claim-studio 제프슨 청구항 스튜디오 JepsonStudio 특실 제프슨(개선) 청구항 스튜디오 에이전트 아이디어'
+            },
+            {
+                id: 'patent-thicket-nav',
+                href: 'patent-thicket-nav.html',
+                icon: '🧭',
+                title: '특허 덤불 내비게이터',
+                blurb: '다수 권리 밀집 영역에서 클러스터·허브 문헌·흰 공간을 항해 맵으로 제시합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'patent-thicket-nav 특허 덤불 내비게이터 ThicketNav 특실 특허 덤불 항해 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'specimen-use-validator',
+                href: 'specimen-use-validator.html',
+                icon: '🏷️',
+                title: '사용표본 검증 에이전트',
+                blurb: '제출 사용 증거의 표장 일치·상품 연결·날짜를 검증 체크리스트로 돌립니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'specimen-use-validator 사용표본 검증 에이전트 SpecimenQA 상표 상표 사용표본 검증 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'bad-faith-tm-probe',
+                href: 'bad-faith-tm-probe.html',
+                icon: '🚨',
+                title: '악의출원 프로브',
+                blurb: '선사용·유명성·대량출원 패턴 신호로 악의 가설을 프로브합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'bad-faith-tm-probe 악의출원 프로브 BadFaithProbe 상표 상표 악의적 출원 프로브 에이전트 아이디어'
+            },
+            {
+                id: 'gui-animation-exam',
+                href: 'gui-animation-exam.html',
+                icon: '🎞️',
+                title: 'GUI 애니메이션 심사',
+                blurb: '마이크로 인터랙션·화면 전이의 창작·유사 포인트를 프레임 단위로 리뷰합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'gui-animation-exam GUI 애니메이션 심사 GUI-Motion 디자인 화면 전이·애니메이션 디자인 심사 에이전트 아이디어'
+            },
+            {
+                id: 'partial-design-animator',
+                href: 'partial-design-animator.html',
+                icon: '✨',
+                title: '부분디자인 포커스 애니',
+                blurb: '실선 요부로 시선이 이동하는 경로를 시뮬레이션해 유사 판단 스토리를 만듭니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'partial-design-animator 부분디자인 포커스 애니 PartialAnim 디자인 부분디자인 시선 유도 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'design-set-portfolio',
+                href: 'design-set-portfolio.html',
+                icon: '📦',
+                title: '디자인 세트 포트폴리오',
+                blurb: '세트 물품의 통일감·물품 연결을 보고 출원 단위 분할 전략을 제안합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'design-set-portfolio 디자인 세트 포트폴리오 DesignSet 디자인 한 벌 물품·세트 디자인 전략 에이전트 아이디어'
+            },
+            {
+                id: 'experimental-protocol-architect',
+                href: 'experimental-protocol-architect.html',
+                icon: '🧫',
+                title: '실험 프로토콜 아키텍트',
+                blurb: '진보성·실시가능 보강을 위한 비교실험 프로토콜을 단계적으로 설계합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'experimental-protocol-architect 실험 프로토콜 아키텍트 ExpArchitect 특실 명세서 실험 설계 아키텍트 에이전트 아이디어'
+            },
+            {
+                id: 'foreign-family-sync',
+                href: 'foreign-family-sync.html',
+                icon: '🌍',
+                title: '해외 패밀리 동기화',
+                blurb: '해외 OA·보정·인용을 끌어와 국내 심사 전략에 동기화합니다. 패밀리 API 연결 시 실데이터가 붙습니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'foreign-family-sync 해외 패밀리 동기화 FamilySync 실무 패밀리·심사경과 동기화 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'claim-portfolio-balancer',
+                href: 'claim-portfolio-balancer.html',
+                icon: '🏦',
+                title: '청구항 포트폴리오 밸런서',
+                blurb: '넓은 독립항과 좁고 강한 종속항의 레이어를 비용·검출·증명 난이도로 밸런싱합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'claim-portfolio-balancer 청구항 포트폴리오 밸런서 ClaimBalance 특실 독립·종속 포트폴리오 밸런서 에이전트 아이디어'
+            },
+            {
+                id: 'means-plus-function-map',
+                href: 'means-plus-function-map.html',
+                icon: '🧱',
+                title: '수단항 대응 맵',
+                blurb: '기능 수단 기재를 명세서 구조에 매핑해 해석 범위와 실시예 공백을 표시합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'means-plus-function-map 수단항 대응 맵 MPF-Map 특실 수단·기능 청구항 대응 맵 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'enablement-fullscope',
+                href: 'enablement-fullscope.html',
+                icon: '📐',
+                title: '전 범위 실시가능 체커',
+                blurb: '상위 개념 청구가 전 범위에서 실시 가능한지 대표점·경계점을 프로브합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'enablement-fullscope 전 범위 실시가능 체커 FullScope 특실 청구 전 범위 실시가능 체커 에이전트 아이디어'
+            },
+            {
+                id: 'opposition-timeline-sim',
+                href: 'opposition-timeline-sim.html',
+                icon: '⏳',
+                title: '이의·무효 타임라인 시뮬',
+                blurb: '제기 기한·답변·증거 제출 창을 시뮬레이션하고 전투 일정을 짭니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'opposition-timeline-sim 이의·무효 타임라인 시뮬 OppTimeSim 실무 이의·무효 절차 타임라인 시뮬레이터 에이전트 아이디어'
+            },
+            {
+                id: 'license-clause-scout',
+                href: 'license-clause-scout.html',
+                icon: '📜',
+                title: '라이선스 조항 스카우트',
+                blurb: '실시·독점·개량발명 귀속 조항을 스카우팅해 분쟁 포인트를 표시합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'license-clause-scout 라이선스 조항 스카우트 LicenseScout 실무 라이선스·FRAND 조항 스카우트 에이전트 아이디어'
+            },
+            {
+                id: 'claim-chart-auto-draft',
+                href: 'claim-chart-auto-draft.html',
+                icon: '📋',
+                title: '침해 차트 오토드래프트',
+                blurb: '제품 매뉴얼·사진을 요소에 붙여 차트 초안과 증거 공백을 만듭니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'claim-chart-auto-draft 침해 차트 오토드래프트 ChartAuto 특실 침해/무효 차트 오토드래프트 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'novelty-knockout-sprint',
+                href: 'novelty-knockout-sprint.html',
+                icon: '🥊',
+                title: '신규성 녹아웃 스프린트',
+                blurb: '독립항을 최소 요소 세트로 압축한 뒤 한 문헌 녹아웃 가능 여부를 빠르게 스프린트합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'novelty-knockout-sprint 신규성 녹아웃 스프린트 NoveltyKO 특실 신규성 녹아웃 스프린트 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'examiner-note-composer',
+                href: 'examiner-note-composer.html',
+                icon: '📝',
+                title: '심사 메모 컴포저',
+                blurb: '검색 히스토리·쟁점·잠정 결론을 동료 인수인계 가능한 메모로 컴포즈합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'examiner-note-composer 심사 메모 컴포저 NoteComposer 실무 심사 내부 메모 컴포저 에이전트 아이디어'
+            },
+            {
+                id: 'claim-diff-surgeon',
+                href: 'claim-diff-surgeon.html',
+                icon: '🩺',
+                title: '청구항 디프 서전',
+                blurb: '두 버전 청구항을 수술 집도처럼 디프해 추가·삭제·이동을 하이라이트합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'claim-diff-surgeon 청구항 디프 서전 DiffSurgeon 특실 청구항 비교 수술 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'examiner-swarm',
+                href: 'examiner-swarm.html',
+                icon: '🐝',
+                title: '심사 스웜 시뮬',
+                blurb: '신규성·진보성·기재 페르소나가 동시에 이견을 내고 합의 메모를 만듭니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'examiner-swarm 심사 스웜 시뮬 ExamSwarm 특실 멀티 페르소나 심사 스웜 에이전트 아이디어'
+            },
+            {
+                id: 'trade-dress-scout',
+                href: 'trade-dress-scout.html',
+                icon: '👗',
+                title: '트레이드 드레스 스카우트',
+                blurb: '패키지·UI·장식 요소를 상표·디자인 경계에서 스카우팅합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'trade-dress-scout 트레이드 드레스 스카우트 DressScout 상표·디자인 상품외장·장식 유사 스카우트 에이전트 아이디어'
+            },
+            {
+                id: 'seq-list-guardian',
+                href: 'seq-list-guardian.html',
+                icon: '🧬',
+                title: '서열·생물 기재 가디언',
+                blurb: '서열목록·기탁·생물 관련 기재 체크리스트를 가디언 모드로 순회합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'seq-list-guardian 서열·생물 기재 가디언 BioGuard 특실 생물·서열 기재 가디언 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'drawing-storyboard-ai',
+                href: 'drawing-storyboard-ai.html',
+                icon: '🖌️',
+                title: '도면 스토리보드 AI',
+                blurb: '청구항 흐름을 도1~도n 스토리보드로 쪼개 이미지 생성 프롬프트 슬롯까지 연결합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'drawing-storyboard-ai 도면 스토리보드 AI DrawStory 특실 도면 구성 스토리보드 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'opposition-war-room',
+                href: 'opposition-war-room.html',
+                icon: '🛡️',
+                title: '이의·무효 워룸',
+                blurb: '공격·수비 시나리오를 워룸 보드에 전개하고 증거 우선순위를 정합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'opposition-war-room 이의·무효 워룸 WarRoom 특실·상표 이의·무효 전쟁실 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'korean-office-action-translator',
+                href: 'korean-office-action-translator.html',
+                icon: '📄',
+                title: '통지서 구조 번역기',
+                blurb: '긴 의견제출통지 텍스트를 섹션·쟁점·인용으로 구조화합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'korean-office-action-translator 통지서 구조 번역기 OA-Struct 실무 통지서 구조화 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'design-gui-reviewer',
+                href: 'design-gui-reviewer.html',
+                icon: '📱',
+                title: 'GUI 디자인 심사 뷰어',
+                blurb: 'GUI·아이콘 디자인의 변화 화면·전이 상태를 심사 관점으로 리뷰합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'design-gui-reviewer GUI 디자인 심사 뷰어 GUI-View 디자인 화면 디자인 심사 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'prior-art-interview',
+                href: 'prior-art-interview.html',
+                icon: '🤝',
+                title: '선행 인터뷰 에이전트',
+                blurb: '발명자에게 질문 트리로 인터뷰하며 검색 키워드를 확장합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'prior-art-interview 선행 인터뷰 에이전트 PriorTalk 특실 대화형 선행조사 인터뷰 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'fee-strategy-optimizer',
+                href: 'fee-strategy-optimizer.html',
+                icon: '💹',
+                title: '비용·청구범위 최적화',
+                blurb: '청구항 수·해외 진입·심사 히스토리를 보고 비용 시나리오를 비교합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'fee-strategy-optimizer 비용·청구범위 최적화 CostScope 실무 비용 대비 청구범위 최적화 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'claim-tree-map',
+                href: 'claim-tree-map.html',
+                icon: '🌳',
+                title: '청구항 종속 트리',
+                blurb: '독립·종속 관계를 트리로 전개하고 한정 누적을 추적합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'claim-tree-map 청구항 종속 트리 DepTree 특실 청구항 트리 구축 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'novelty-grid',
+                href: 'novelty-grid.html',
+                icon: '▦',
+                title: '신규성 대비표 빌더',
+                blurb: '청구항 요소와 문헌 기재를 격자 매칭합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'novelty-grid 신규성 대비표 빌더 NovGrid 특실 신규성 대비 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'inventive-step-matrix',
+                href: 'inventive-step-matrix.html',
+                icon: '🧮',
+                title: '진보성 논리 매트릭스',
+                blurb: '결합동기·효과·교시 축으로 긍정/부정 논거를 격자화합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'inventive-step-matrix 진보성 논리 매트릭스 IS-Matrix 특실 진보성 논리 격자 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'enablement-probe',
+                href: 'enablement-probe.html',
+                icon: '🔬',
+                title: '실시가능 프로브',
+                blurb: '재료·수치·공정 공백을 프로브 시퀀스로 찔러 재현 리스크를 표시합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'enablement-probe 실시가능 프로브 EnableProbe 특실 실시가능 검증 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'amendment-sandbox',
+                href: 'amendment-sandbox.html',
+                icon: '✏️',
+                title: '보정안 샌드박스',
+                blurb: '보정 전후를 샌드박스에서 비교하고 신규사항·범위 리스크를 플래그합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'amendment-sandbox 보정안 샌드박스 AmendBox 특실 보정 시뮬레이션 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'ipc-cpc-suggester',
+                href: 'ipc-cpc-suggester.html',
+                icon: '🏷️',
+                title: 'IPC·CPC 분류 제안',
+                blurb: '기술 요지를 읽어 후보 분류와 검색 축을 제안합니다. 분류 API 연결 시 동일 엔드포인트로 확장됩니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'ipc-cpc-suggester IPC·CPC 분류 제안 ClassPilot 특실 분류 추천 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'unity-of-invention',
+                href: 'unity-of-invention.html',
+                icon: '🔗',
+                title: '발명의 단일성 체커',
+                blurb: '청구항 군 간 공통 특별기술특징(STF) 후보를 찾아 분할 리스크를 표시합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'unity-of-invention 발명의 단일성 체커 UnityCheck 특실 단일성 판단 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'claim-chart-lite',
+                href: 'claim-chart-lite.html',
+                icon: '📊',
+                title: '클레임 차트 라이트',
+                blurb: '권리 요소와 제품·문헌 요소를 1:1 매핑합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'claim-chart-lite 클레임 차트 라이트 ChartLite 특실 클레임 차트 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'spec-support-audit',
+                href: 'spec-support-audit.html',
+                icon: '📑',
+                title: '명세서 지지 감사',
+                blurb: '청구 용어 단위로 명세서·도면 지지를 감사 트레일처럼 남깁니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'spec-support-audit 명세서 지지 감사 SupportAudit 특실 지지 감사 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'figure-ref-audit',
+                href: 'figure-ref-audit.html',
+                icon: '🖼️',
+                title: '도면 부호 정합 감사',
+                blurb: '명세서 부호와 도면 라벨 불일치·누락을 감사합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'figure-ref-audit 도면 부호 정합 감사 FigRef 특실 도면 부호 정합 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'tm-goods-classifier',
+                href: 'tm-goods-classifier.html',
+                icon: '📦',
+                title: '상표 상품류 분류 도우미',
+                blurb: '지정상품 문구를 분석해 니스 분류·유사군 후보를 제안합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'tm-goods-classifier 상표 상품류 분류 도우미 GoodsClass 상표 상품류 분류 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'tm-distinct-board',
+                href: 'tm-distinct-board.html',
+                icon: '✨',
+                title: '상표 식별력 보드',
+                blurb: '기술·암시·보통명칭 축으로 식별력 쟁점을 보드에 올립니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'tm-distinct-board 상표 식별력 보드 DistinctBoard 상표 식별력 진단 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'tm-conflict-scan',
+                href: 'tm-conflict-scan.html',
+                icon: '🚨',
+                title: '상표 충돌 스캔',
+                blurb: '출원 표장 기준으로 선등록·저명 충돌 체크 파이프라인을 돌립니다. 검색 API 연결 시 실데이터 스캔이 붙습니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'tm-conflict-scan 상표 충돌 스캔 ConflictScan 상표 상표 충돌 스캔 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'tm-use-evidence',
+                href: 'tm-use-evidence.html',
+                icon: '📁',
+                title: '상표 사용증거 로커',
+                blurb: '사용의사·불사용 대비 증거를 유형별로 로킹합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'tm-use-evidence 상표 사용증거 로커 UseLocker 상표 사용증거 정리 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'design-sim-matrix',
+                href: 'design-sim-matrix.html',
+                icon: '🔲',
+                title: '디자인 유사 매트릭스',
+                blurb: '요부·전체관찰 축으로 유사 쟁점을 매트릭스화합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'design-sim-matrix 디자인 유사 매트릭스 DesSim 디자인 디자인 유사 격자 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'design-partial-focus',
+                href: 'design-partial-focus.html',
+                icon: '🎯',
+                title: '부분디자인 포커스',
+                blurb: '실선·파선 취지를 해석해 보호 범위 포커스를 잡습니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'design-partial-focus 부분디자인 포커스 PartialFocus 디자인 부분디자인 범위 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'design-article-class',
+                href: 'design-article-class.html',
+                icon: '🪑',
+                title: '디자인 물품류 가이드',
+                blurb: '물품 용도·형태로 물품류·유사물품 후보를 안내합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'design-article-class 디자인 물품류 가이드 ArticleGuide 디자인 물품류 가이드 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'utility-scope-sketch',
+                href: 'utility-scope-sketch.html',
+                icon: '🔧',
+                title: '실용신안 범위 스케치',
+                blurb: '형상·구조·조합 중심으로 보호범위 초안을 스케치합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'utility-scope-sketch 실용신안 범위 스케치 UM-Scope 실용 실용신안 범위 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'office-interview-prep',
+                href: 'office-interview-prep.html',
+                icon: '🎙️',
+                title: '면담심사 준비 노트',
+                blurb: '안건·예상 질문·자료를 면담 스크립트로 컴파일합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'office-interview-prep 면담심사 준비 노트 InterviewPrep 실무 면담 준비 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'opinion-response-kit',
+                href: 'opinion-response-kit.html',
+                icon: '📨',
+                title: '의견서 대응 키트',
+                blurb: '거절이유 유형별 대응 순서와 주장 템플릿을 조립합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'opinion-response-kit 의견서 대응 키트 OpinionKit 실무 의견서 전략 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'priority-chain',
+                href: 'priority-chain.html',
+                icon: '⏱️',
+                title: '우선권·계속출원 체인',
+                blurb: '우선·분할·계속 관계를 타임라인 체인으로 검증합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'priority-chain 우선권·계속출원 체인 PrioChain 실무 우선권 체인 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'fee-deadline-board',
+                href: 'fee-deadline-board.html',
+                icon: '📅',
+                title: '수수료·기한 보드',
+                blurb: '통지·수수료 항목을 보드에 올려 누락을 차단합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'fee-deadline-board 수수료·기한 보드 FeeBoard 실무 기한·수수료 보드 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'risk-heatmap',
+                href: 'risk-heatmap.html',
+                icon: '🌡️',
+                title: '권리화 리스크 히트맵',
+                blurb: '신규성·진보성·기재·단일성 온도를 히트맵으로 시연합니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'risk-heatmap 권리화 리스크 히트맵 RiskHeat 특실 권리화 리스크 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'glossary-ip-quick',
+                href: 'glossary-ip-quick.html',
+                icon: '📖',
+                title: 'IP 용어 퀵 글로서리',
+                blurb: '심사 용어를 맥락에 맞게 풀어 주고 연관어를 연결합니다. 용어 DB API 연결 시 즉시 확장됩니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'glossary-ip-quick IP 용어 퀵 글로서리 GlossQuick 공통 IP 용어 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'inventor-storyboard',
+                href: 'inventor-storyboard.html',
+                icon: '🎬',
+                title: '발명 스토리보드',
+                blurb: '문제→시도→해결 컷으로 발명 서사를 만들고 청구 힌트를 뽑습니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'inventor-storyboard 발명 스토리보드 StoryBoard 특실 발명 스토리 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'exam-daily-memo',
+                href: 'exam-daily-memo.html',
+                icon: '🗒️',
+                title: '심사 데일리 메모',
+                blurb: '오늘의 쟁점·검색어를 태그 카드로 정리하고 내일 액션을 남깁니다.',
+                group: 'new', domain: 'fun',
+                keywords: 'exam-daily-memo 심사 데일리 메모 DailyMemo 일상 심사 일지 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'translation-claim-qc',
+                href: 'translation-claim-qc.html',
+                icon: '🌐',
+                title: '청구항 번역 QC',
+                blurb: '한·영 청구항 정합과 용어 일관을 QC 체크리스트로 돌립니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'translation-claim-qc 청구항 번역 QC ClaimQC 특실 번역 QC 에이전트 에이전트 아이디어'
+            },
+            {
+                id: 'citation-network',
+                href: 'citation-network.html',
+                icon: '🕸️',
+                title: '인용 네트워크 스케치',
+                blurb: '인용·피인용 노드를 깔아 선행 클러스터를 스케치합니다. 문헌 API 연결 시 실그래프가 붙습니다.',
+                group: 'new', domain: 'exam',
+                keywords: 'citation-network 인용 네트워크 스케치 CiteNet 특실 인용 네트워크 에이전트 에이전트 아이디어'
+            },
             {
                 id: 'claim-decompose',
                 href: 'claim-decompose.html',
                 icon: '🧩',
                 title: '청구항 요소 분해기',
-                blurb: '독립항을 붙여 넣으면 구성요소·한정을 카드로 쪼개 보는 심사 브레인스토밍 툴.',
+                blurb: '독립항을 파싱해 구성요소·한정을 카드 단위로 쪼개고, 종속 관계를 추적하는 심사 에이전트입니다. API 연결 시 자동 번호 매기기·트리 동기화가 가동됩니다.',
                 group: 'new', domain: 'exam',
-                keywords: '청구항 claim 요소 분해 특실'
+                keywords: 'claim-decompose 청구항 요소 분해기 ClaimForge 특실 청구항 구조 분해 에이전트 에이전트 아이디어'
             },
             {
                 id: 'rejection-sketch',
                 href: 'rejection-sketch.html',
                 icon: '📝',
                 title: '거절이유 초안 스케치',
-                blurb: '쟁점 체크만으로 거절이유 뼈대 문장을 스케치. 의견제출통지서 구상용.',
+                blurb: '쟁점을 선택하면 법조문 축·논거 순서를 스스로 짜고 의견제출통지 뼈대를 시연합니다.',
                 group: 'new', domain: 'exam',
-                keywords: '거절이유 의견서 통지서 심사'
+                keywords: 'rejection-sketch 거절이유 초안 스케치 RejectDraft 특실 거절이유 전략 에이전트 에이전트 아이디어'
             },
             {
                 id: 'priorart-radar',
                 href: 'priorart-radar.html',
                 icon: '📡',
                 title: '선행기술 레이더',
-                blurb: '키워드·기술분야를 찍으면 탐색 축과 검색식을 제안하는 선행조사 아이디어 보드.',
+                blurb: '기술 키워드를 받아 탐색 축·검색식·다음 액션을 레이더처럼 전개합니다. 검색 API 연결 시 동일 파이프라인으로 실검색이 붙습니다.',
                 group: 'new', domain: 'exam',
-                keywords: '선행기술 검색 특실 prior art'
+                keywords: 'priorart-radar 선행기술 레이더 PriorRadar 특실 선행조사 오케스트레이션 에이전트 에이전트 아이디어'
             },
             {
                 id: 'tm-similarity-board',
                 href: 'tm-similarity-board.html',
                 icon: '⚖️',
                 title: '상표 유사 체크 보드',
-                blurb: '외관·호칭·관념 3축 체크리스트로 상표 유사 쟁점을 빠르게 정리.',
+                blurb: '외관·호칭·관념 3축을 병렬로 평가하고 종합 메모를 만듭니다.',
                 group: 'new', domain: 'exam',
-                keywords: '상표 유사 호칭 관념 표장'
+                keywords: 'tm-similarity-board 상표 유사 체크 보드 MarkBalance 상표 상표 유사 판단 에이전트 에이전트 아이디어'
             },
             {
                 id: 'design-view-notes',
                 href: 'design-view-notes.html',
                 icon: '📐',
                 title: '디자인 도면 포인트 노트',
-                blurb: '6면도·사시도 관점 메모 칸으로 창작·유사 디자인 심사 포인트를 기록.',
+                blurb: '6면도·사시도 관점으로 창작·유사 포인트를 순회 기록합니다.',
                 group: 'new', domain: 'exam',
-                keywords: '디자인 도면 창작 유사'
+                keywords: 'design-view-notes 디자인 도면 포인트 노트 ViewNote 디자인 디자인 도면 관찰 에이전트 에이전트 아이디어'
             },
             {
                 id: 'inventive-sparks',
                 href: 'inventive-sparks.html',
                 icon: '⚡',
                 title: '진보성 쟁점 스파크',
-                blurb: '과제·수단·효과 프롬프트로 진보성 긍정·부정 논거 스파크를 생성(골격).',
+                blurb: '과제·수단·효과를 받아 긍정·부정 스파크를 양방향으로 생성합니다.',
                 group: 'new', domain: 'exam',
-                keywords: '진보성 비자명 특실 효과'
+                keywords: 'inventive-sparks 진보성 쟁점 스파크 SparkStep 특실 진보성 논거 스파크 에이전트 에이전트 아이디어'
             },
             {
                 id: 'description-gap',
                 href: 'description-gap.html',
                 icon: '🔍',
                 title: '기재불비 갭 파인더',
-                blurb: '명세서·청구 정합, 지지·명확성 체크 항목으로 기재불비 후보를 표시.',
+                blurb: '청구-명세서 정합, 명확성·지지 공백을 탐지 리스트로 올립니다.',
                 group: 'new', domain: 'exam',
-                keywords: '기재불비 명확성 지지 명세서'
+                keywords: 'description-gap 기재불비 갭 파인더 GapFinder 특실 기재·지지 감사 에이전트 에이전트 아이디어'
             },
             {
                 id: 'office-action-coach',
                 href: 'office-action-coach.html',
                 icon: '🧭',
                 title: '심사 일정·대응 코치',
-                blurb: '통지 유형·기한을 입력하면 대응 체크리스트와 타임라인 초안을 보여줌.',
+                blurb: '통지 유형과 기한을 받아 대응 체크리스트와 타임라인을 조립합니다.',
                 group: 'new', domain: 'exam',
-                keywords: '일정 의견서 대응 코치 기한'
+                keywords: 'office-action-coach 심사 일정·대응 코치 OA-Coach 실무 일정·대응 코칭 에이전트 에이전트 아이디어'
             },
-
-            // ===== ARCHIVE (기존 출품) =====
+            // ===== ARCHIVE =====
             {
                 id: 'sinnaerim',
                 href: '신내림.html',
@@ -570,8 +1294,19 @@
                 blurb: '따뜻한 문장으로 응원하던 프로토타입.',
                 group: 'archive', domain: 'fun',
                 keywords: '좋은말'
-            }
+            },
+            {
+                id: 'test-ollema',
+                href: 'TestOllema.html',
+                icon: '🧪',
+                title: 'Test Ollema',
+                blurb: '컨테스트 아카이브 출품작 (TestOllema).',
+                group: 'archive', domain: 'fun',
+                keywords: 'ollema test 테스트'
+            },
         ];
+
+
 
         const grid = document.getElementById('grid');
         const empty = document.getElementById('empty');
@@ -606,7 +1341,7 @@
                     '<div class="app-body">' +
                     '<p>' + app.blurb + '</p>' +
                     '<div class="app-cta">' +
-                    '<span class="rating">' + (isNew ? 'Idea · 브레인스토밍' : '보관 · 레거시') + '</span>' +
+                    '<span class="rating">' + (isNew ? 'Agent · API 대기' : '보관 · 레거시') + '</span>' +
                     '<span class="get-btn">열기</span>' +
                     '</div></div></a>'
                 );
@@ -624,6 +1359,7 @@
                 if (filter === 'new') ok = g === 'new';
                 else if (filter === 'archive') ok = g === 'archive';
                 else if (filter === 'exam') ok = d === 'exam';
+                else if (filter === 'fun') ok = d === 'fun';
                 if (query && kw.indexOf(query) === -1) ok = false;
                 card.classList.toggle('is-hidden', !ok);
                 if (ok) n++;
@@ -645,7 +1381,7 @@
                 const f = btn.getAttribute('data-filter-jump');
                 const target = document.querySelector('.filter-btn[data-filter="' + f + '"]');
                 if (target) target.click();
-                document.getElementById('store').scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('bank').scrollIntoView({ behavior: 'smooth' });
             });
         });
         document.getElementById('q').addEventListener('input', function (e) {

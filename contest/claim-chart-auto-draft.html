@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>침해 차트 오토드래프트 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="제품 매뉴얼·사진을 요소에 붙여 차트 초안과 증거 공백을 만듭니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="claim-chart-auto-draft"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"claim-chart-auto-draft","icon":"📋","title":"침해 차트 오토드래프트","name":"ChartAuto","role":"침해/무효 차트 오토드래프트 에이전트","mission":"제품 매뉴얼·사진을 요소에 붙여 차트 초안과 증거 공백을 만듭니다.","domain":"특실","layout":"matrix","accent":"cyan","inputLabel":"독립항 + 제품 설명","placeholder":"예: 매뉴얼 p.12 분해도, 모듈 X…","tools":["문언","균등","증거"],"strategies":[{"detail":"차트 스키마","title":"요소 행 생성","log":"schema"},{"detail":"매뉴얼 위치","title":"증거 스니펫 배치","log":"snippets"},{"detail":"미확인","title":"공백·추정 표시","log":"unknowns"}],"executions":[{"detail":"셀 기입","title":"차트 초안","log":"draft"},{"detail":"추가 자료","title":"증거 요청","log":"rfis"},{"detail":"행별","title":"신뢰도","log":"confidence"}],"deliverables":[{"title":"차트","sample":"E1 문언대응 / E2 증거요청\n{{seed}}","hint":"초안"},{"title":"RFI","sample":"내부 기판 사진","hint":"요청"},{"title":"신뢰도","sample":"중: 분해도 기반 추정 포함","hint":"요약"}],"sampleSeed":null,"matrixRows":["E1","E2","E3"],"matrixCols":["제품","증거","신뢰도"]};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>

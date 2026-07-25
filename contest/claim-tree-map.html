@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>청구항 종속 트리 | EQAI Contest</title>
+<meta name="theme-color" content="#0a0a23">
+<meta name="description" content="독립·종속 관계를 트리로 전개하고 한정 누적을 추적합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Orbitron:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agent-shell.css">
+</head>
+<body>
+<div class="top"><a href="index.html">← 아이디어 뱅크</a><span class="badge-off">AI 연결 끊김</span></div>
+<main id="app" data-app-id="claim-tree-map"></main>
+<div class="toast" id="toast">AI 연결 끊김 — 로컬 시연 모드로 전략·실행 플로우를 표시합니다. API 연결 시 동일 UI에서 즉시 가동됩니다.</div>
+<script>
+window.AGENT_CONFIG = {"id":"claim-tree-map","icon":"🌳","title":"청구항 종속 트리","name":"DepTree","role":"청구항 트리 구축 에이전트","mission":"독립·종속 관계를 트리로 전개하고 한정 누적을 추적합니다.","domain":"특실","layout":"lab","accent":"emerald","inputLabel":"청구항 전문","placeholder":"예: 1.… 2. 제1항에 있어서…","tools":["독립항 루트","종속 체인","한정 누적"],"strategies":[{"detail":"항 경계를 분리합니다.","title":"항 번호 인식","log":"split claims"},{"detail":"「제n항에 있어서」 파싱","title":"의존 링크 해석","log":"parse deps"},{"detail":"루트까지 한정 합집합","title":"누적 한정 롤업","log":"rollup"}],"executions":[{"detail":"노드·엣지 생성","title":"트리 렌더 데이터","log":"build graph"},{"detail":"과도 종속 탐지","title":"깊이·분기 분석","log":"depth analysis"},{"detail":"단일성·명확성 힌트","title":"심사 메모","log":"exam notes"}],"deliverables":[{"title":"트리 개요","sample":"1\n├─2\n│ └─4\n└─3\n{{seed}}","hint":"구조"},{"title":"종속 경로","sample":"4→2→1 한정 누적 3건","hint":"path"},{"title":"메모","sample":"과도 종속 시 독립항 재작성 검토","hint":"힌트"}],"sampleSeed":null};
+</script>
+<script src="agent-shell.js"></script>
+</body>
+</html>
