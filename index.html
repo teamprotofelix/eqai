@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>심사품질 AI센터 | Examination Quality AI</title>
-    <meta name="description" content="특허·상표·디자인 심사품질 진단을 위한 AI 허브. 서비스 바로가기, 이용 가이드, Vector RAG·Rule·Knowledge Graph 기반 EQAI.">
+    <meta name="description" content="특허·상표·디자인 심사품질 진단을 위한 근거 기반 Agentic AI 허브. 서비스 바로가기, 이용 가이드, Hybrid Retrieval·Agentic Orchestration·평가(HITL) 기반 EQAI.">
     <meta name="theme-color" content="#0a0a23">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="심사품질 AI센터 | Examination Quality AI">
-    <meta property="og:description" content="심사품질 진단의 객관성·정확성·일관성을 위한 AI 동반자">
+    <meta property="og:description" content="심사품질 진단의 객관성·정확성·일관성을 위한 근거 기반 Agentic AI 센터 — 검색·검증·인용·거절">
     <meta property="og:image" content="https://eqai.moip.ai.kr/QAlogo.jpg">
     <meta property="og:url" content="https://eqai.moip.ai.kr/quality.html">
     <meta name="twitter:card" content="summary_large_image">
@@ -740,6 +740,121 @@
         }
         .empty-state.is-visible { display: block; }
 
+        /* Hero badges */
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.32rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            background: rgba(0, 229, 255, 0.08);
+            color: #a5f3fc;
+        }
+        .hero-badge i { font-size: 0.85rem; }
+
+        /* Approach (numbered) list */
+        .approach-list {
+            list-style: none;
+            counter-reset: approach;
+            padding: 0;
+            margin: 0.65rem 0 0;
+        }
+        .approach-list li {
+            counter-increment: approach;
+            position: relative;
+            padding-left: 2.3rem;
+            margin: 0.55rem 0;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+        .approach-list li::before {
+            content: counter(approach, decimal-leading-zero);
+            position: absolute;
+            left: 0;
+            top: 0.05rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--cyan);
+        }
+
+        /* Agent pipeline + role groups */
+        .pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            align-items: center;
+            justify-content: center;
+            margin: 0.85rem 0;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .pipeline .node {
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 999px;
+            padding: 0.32rem 0.75rem;
+            color: #a5f3fc;
+        }
+        .pipeline .node.hitl {
+            background: rgba(255, 107, 107, 0.1);
+            border-color: rgba(255, 107, 107, 0.4);
+            color: #fecaca;
+        }
+        .pipeline .arrow { color: var(--cyan); }
+
+        .agent-roles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.85rem;
+        }
+        .agent-group {
+            border: 1px solid rgba(0, 229, 255, 0.22);
+            border-radius: 12px;
+            padding: 0.85rem 0.95rem;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .agent-group h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.35rem;
+            color: #a5f3fc;
+        }
+        .agent-group p {
+            font-size: 0.86rem;
+            color: #cbd5e1;
+        }
+
+        /* Roadmap groups */
+        .roadmap-group {
+            margin: 0.85rem 0 0.3rem;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+        .roadmap-group .tag {
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.68rem;
+            padding: 0.18rem 0.55rem;
+            border-radius: 999px;
+            margin-right: 0.45rem;
+            vertical-align: 1px;
+        }
+        .tag-near { background: rgba(0, 229, 255, 0.12); color: #67e8f9; border: 1px solid rgba(0, 229, 255, 0.35); }
+        .tag-mid { background: rgba(167, 139, 250, 0.14); color: #c4b5fd; border: 1px solid rgba(167, 139, 250, 0.4); }
+        .tag-long { background: rgba(255, 215, 0, 0.12); color: #fde047; border: 1px solid rgba(255, 215, 0, 0.4); }
+
         /* i18n helpers */
         .i18n-block-en { display: none !important; }
         html[lang="en"] .i18n-block-ko { display: none !important; }
@@ -806,14 +921,29 @@
             <h1 class="main-title">Examination Quality AI</h1>
             <p class="header-subtitle">
                 <span class="i18n-block-ko">
-                    특허·상표·디자인 심사품질 진단의<br>
-                    객관성·정확성·일관성을 위한 <strong>AI 동반자</strong>
+                    특허·상표·디자인 심사품질 진단을 위한<br>
+                    <strong>근거 기반 Agentic AI 센터</strong> —<br>
+                    검색하고, 검증하고, 인용하며, 확신이 없으면 자제합니다.
                 </span>
                 <span class="i18n-block-en">
-                    An AI companion for objective, accurate, and consistent<br>
-                    examination quality in patents, trademarks, and designs.
+                    An <strong>evidence-grounded Agentic AI center</strong> for examination quality —<br>
+                    retrieve, verify, cite, and abstain when unsure.
                 </span>
             </p>
+            <div class="hero-badges" aria-label="EQAI core principles">
+                <span class="hero-badge"><i class="fas fa-quote-right" aria-hidden="true"></i>
+                    <span class="i18n-block-ko">근거 기반 · 인용 우선</span>
+                    <span class="i18n-block-en">Evidence-grounded · citation-first</span>
+                </span>
+                <span class="hero-badge"><i class="fas fa-chart-simple" aria-hidden="true"></i>
+                    <span class="i18n-block-ko">측정 가능한 품질</span>
+                    <span class="i18n-block-en">Measurable quality</span>
+                </span>
+                <span class="hero-badge"><i class="fas fa-user-check" aria-hidden="true"></i>
+                    <span class="i18n-block-ko">Human-in-the-Loop</span>
+                    <span class="i18n-block-en">Human-in-the-Loop</span>
+                </span>
+            </div>
             <div class="hero-ctas">
                 <a class="btn btn-primary" href="#services">
                     <i class="fas fa-rocket" aria-hidden="true"></i>
@@ -983,8 +1113,8 @@
                 <span class="i18n-block-en">EQAI at a Glance</span>
             </h2>
             <p class="section-lead">
-                <span class="i18n-block-ko">목적·배경·핵심 기술·다음 단계를 접어서 정리했습니다. 필요한 항목만 펼쳐 보세요.</span>
-                <span class="i18n-block-en">Purpose, background, core stack, and roadmap—expand only what you need.</span>
+                <span class="i18n-block-ko">목적·접근 방식·에이전트 역할·품질 기준·로드맵을 정리했습니다. 필요한 항목만 펼쳐 보세요.</span>
+                <span class="i18n-block-en">Purpose, approach, agent roles, quality metrics, and roadmap—expand only what you need.</span>
             </p>
         </div>
 
@@ -1008,19 +1138,151 @@
 
             <div class="acc-item">
                 <button type="button" class="acc-btn" aria-expanded="false">
-                    <span><span class="i18n-block-ko">개발 배경 & 솔루션</span><span class="i18n-block-en">Background & solution</span></span>
+                    <span><span class="i18n-block-ko">개발 배경 & 접근 방식</span><span class="i18n-block-en">Background & approach</span></span>
                     <i class="fas fa-chevron-down chev" aria-hidden="true"></i>
                 </button>
                 <div class="acc-panel">
-                    <p class="i18n-block-ko"><strong>과제</strong>: 판례·심사기준·진단사례 등 방대한 자료 종합, 일반 LLM의 학습 한계·확증 편향·환각·미세 뉘앙스 이해 부족.</p>
-                    <p class="i18n-block-en"><strong>Challenges</strong>: massive multi-source materials; generic LLMs face limited domain data, bias, hallucination, and weak nuance.</p>
+                    <p class="i18n-block-ko">
+                        <strong>과제</strong> — 판례·심사기준·진단사례·청구범위 등 이질적 자료를 종합해야 하며,
+                        일반 LLM은 도메인 지식 부족·확증 편향·환각·미세 뉘앙스 오해·<strong>근거 없는 단정</strong>에 취약합니다.
+                    </p>
+                    <p class="i18n-block-en">
+                        <strong>Challenge</strong> — we must synthesize heterogeneous sources (case law, guidelines, diagnosis records, claims),
+                        while generic LLMs are prone to domain gaps, confirmation bias, hallucination, and <strong>unsupported assertions</strong>.
+                    </p>
+                    <p class="i18n-block-ko" style="margin-top:0.6rem"><strong>EQAI 접근 (2026)</strong></p>
+                    <p class="i18n-block-en" style="margin-top:0.6rem"><strong>The EQAI approach (2026)</strong></p>
+                    <ol class="approach-list">
+                        <li class="i18n-block-ko"><strong>Hybrid Retrieval</strong> — 키워드(FTS) + 벡터 + 지식그래프/계층 검색을 결합한 고정밀 검색</li>
+                        <li class="i18n-block-en"><strong>Hybrid Retrieval</strong> — keyword (FTS) + vector + graph/hierarchical retrieval</li>
+                        <li class="i18n-block-ko"><strong>Agentic 워크플로</strong> — 질의 분해 → 검색 → 근거 검증 → 논리 점검 → 초안 → (필요 시) 재검색</li>
+                        <li class="i18n-block-en"><strong>Agentic workflow</strong> — query decomposition → retrieval → evidence check → logic review → draft → re-retrieval as needed</li>
+                        <li class="i18n-block-ko"><strong>규칙·심볼릭 가드레일</strong> — 법·심사기준 위반과 필수 체크리스트 누락을 차단</li>
+                        <li class="i18n-block-en"><strong>Rule &amp; symbolic guardrails</strong> — block violations of law/guidelines and missed checklists</li>
+                        <li class="i18n-block-ko"><strong>인용 우선 응답</strong> — 주장마다 조항·판례·사례 ID를 연결하고 링크·스냅샷을 검증</li>
+                        <li class="i18n-block-en"><strong>Citation-first answers</strong> — every claim links to article/case IDs with verified links &amp; snapshots</li>
+                        <li class="i18n-block-ko"><strong>Human-in-the-Loop</strong> — 낮은 신뢰도·충돌 근거·고위험 판단은 진단관 검토로</li>
+                        <li class="i18n-block-en"><strong>Human-in-the-Loop</strong> — low confidence, conflicting evidence, or high-risk calls go to human review</li>
+                        <li class="i18n-block-ko"><strong>지속 평가 (LLMOps)</strong> — 오프라인 골든셋 + 온라인 지표로 회귀 방지</li>
+                        <li class="i18n-block-en"><strong>Continuous evaluation (LLMOps)</strong> — offline golden sets + online metrics prevent regressions</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="acc-item">
+                <button type="button" class="acc-btn" aria-expanded="false">
+                    <span><span class="i18n-block-ko">에이전트 역할 맵</span><span class="i18n-block-en">Agent roles</span></span>
+                    <i class="fas fa-chevron-down chev" aria-hidden="true"></i>
+                </button>
+                <div class="acc-panel">
+                    <p class="i18n-block-ko">
+                        13종 에이전트가 역할을 나눠 한 건의 답변을 함께 만듭니다. 누가 무엇을 검색·검증·작성했는지
+                        로그로 추적하며, <strong>검증을 통과하지 못하거나 근거를 찾지 못하면 추측하지 않고
+                        “근거 없음”으로 답하거나 진단관 검토로 넘깁니다.</strong>
+                    </p>
+                    <p class="i18n-block-en">
+                        Thirteen agents divide roles to build each answer together. Who searched, verified, and drafted is logged —
+                        and <strong>anything that fails verification or lacks evidence is not guessed at:
+                        we answer “no basis” or escalate to human review.</strong>
+                    </p>
+                    <div class="pipeline" aria-label="Agent pipeline">
+                        <span class="node">Researcher</span>
+                        <span class="arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                        <span class="node">Auditor</span>
+                        <span class="arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                        <span class="node">Adjudicator</span>
+                        <span class="arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                        <span class="node"><span class="i18n-block-ko">인용 · 거절 정책</span><span class="i18n-block-en">Cite or abstain</span></span>
+                        <span class="arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                        <span class="node hitl">HITL</span>
+                    </div>
+                    <div class="agent-roles">
+                        <div class="agent-group">
+                            <h4><i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+                                <span class="i18n-block-ko"> 검색 그룹</span>
+                                <span class="i18n-block-en"> Retrieval group</span>
+                            </h4>
+                            <p>
+                                <span class="i18n-block-ko">하이브리드 검색 실행·질의 분해·재검색으로 필요한 자료를 수집합니다.</span>
+                                <span class="i18n-block-en">Run hybrid search, decompose queries, and re-retrieve until materials are covered.</span>
+                            </p>
+                        </div>
+                        <div class="agent-group">
+                            <h4><i class="fas fa-shield-halved" aria-hidden="true"></i>
+                                <span class="i18n-block-ko"> 검증 그룹</span>
+                                <span class="i18n-block-en"> Audit group</span>
+                            </h4>
+                            <p>
+                                <span class="i18n-block-ko">근거 정합성·인용 유효성·논리 모순을 탐지해 근거 없는 주장을 차단합니다.</span>
+                                <span class="i18n-block-en">Check grounding, citation validity, and logical contradictions.</span>
+                            </p>
+                        </div>
+                        <div class="agent-group">
+                            <h4><i class="fas fa-pen-nib" aria-hidden="true"></i>
+                                <span class="i18n-block-ko"> 작성·판단 그룹</span>
+                                <span class="i18n-block-en"> Draft &amp; decide group</span>
+                            </h4>
+                            <p>
+                                <span class="i18n-block-ko">요약·청구항 분해·초안 작성·최종 판단 제안을 인용과 함께 구성합니다.</span>
+                                <span class="i18n-block-en">Summarize, decompose claims, draft, and propose judgments with citations.</span>
+                            </p>
+                        </div>
+                        <div class="agent-group">
+                            <h4><i class="fas fa-clipboard-check" aria-hidden="true"></i>
+                                <span class="i18n-block-ko"> 지원 그룹</span>
+                                <span class="i18n-block-en"> Support group</span>
+                            </h4>
+                            <p>
+                                <span class="i18n-block-ko">서식·체크리스트·법령 개정 감지로 심사 기준 준수를 보조합니다.</span>
+                                <span class="i18n-block-en">Assist with format, checklists, and statute-amendment detection.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acc-item">
+                <button type="button" class="acc-btn" aria-expanded="false">
+                    <span><span class="i18n-block-ko">품질과 신뢰</span><span class="i18n-block-en">Quality &amp; trust</span></span>
+                    <i class="fas fa-chevron-down chev" aria-hidden="true"></i>
+                </button>
+                <div class="acc-panel">
+                    <p class="i18n-block-ko">
+                        EQAI는 “좋은 AI”라는 주장 대신 <strong>측정 가능한 지표</strong>로 품질을 관리합니다.
+                        지표는 내부 평가셋(골든셋)과 온라인 로그로 주기적으로 측정하며, 공개 가능한 요약 대시보드를 준비하고 있습니다.
+                    </p>
+                    <p class="i18n-block-en">
+                        Instead of claiming to be “good AI”, EQAI manages quality with <strong>measurable metrics</strong>,
+                        measured periodically against internal golden sets and online logs. A public summary dashboard is in preparation.
+                    </p>
                     <ul class="effect-list">
-                        <li>Vector DB RAG</li>
-                        <li>Rule Based System</li>
-                        <li>Knowledge Graph</li>
-                        <li>Hybrid FTS</li>
-                        <li>Multi Agents</li>
+                        <li><strong>Groundedness / Faithfulness</strong>
+                            <span class="i18n-block-ko"> — 답변이 검색된 근거에 충실한지</span>
+                            <span class="i18n-block-en"> — whether answers stay faithful to retrieved evidence</span>
+                        </li>
+                        <li><strong>Citation Precision · Recall · Faithfulness</strong>
+                            <span class="i18n-block-ko"> — 인용이 정확하고 빠짐없으며 내용과 일치하는지</span>
+                            <span class="i18n-block-en"> — whether citations are precise, complete, and faithful</span>
+                        </li>
+                        <li><strong><span class="i18n-block-ko">거절률</span><span class="i18n-block-en">Abstention rate</span></strong>
+                            <span class="i18n-block-ko"> — 확신이 없을 때 답 대신 거절하는 비율</span>
+                            <span class="i18n-block-en"> — how often uncertain cases abstain instead of answering</span>
+                        </li>
+                        <li><strong><span class="i18n-block-ko">HITL 회수율</span><span class="i18n-block-en">HITL catch rate</span></strong>
+                            <span class="i18n-block-ko"> — 신뢰도 임계값 미만 건이 진단관 검토로 넘어가는 비율</span>
+                            <span class="i18n-block-en"> — share of below-threshold cases routed to human review</span>
+                        </li>
+                        <li><strong><span class="i18n-block-ko">업무 완수율 · 응답시간</span><span class="i18n-block-en">Task success · latency</span></strong>
+                            <span class="i18n-block-ko"> — 업무 완수율과 평균 응답 시간</span>
+                            <span class="i18n-block-en"> — task success and average response time</span>
+                        </li>
                     </ul>
+                    <p class="i18n-block-ko" style="margin-top:0.6rem">
+                        모든 답변·검색에는 <strong>기준일·법령 버전·지식베이스 스냅샷</strong>을 함께 표기해 낡은 정보의 위험을 줄입니다.
+                    </p>
+                    <p class="i18n-block-en" style="margin-top:0.6rem">
+                        Every answer and search shows its <strong>as-of date, statute version, and knowledge-base snapshot</strong> to reduce stale-information risk.
+                    </p>
                 </div>
             </div>
 
@@ -1030,13 +1292,36 @@
                     <i class="fas fa-chevron-down chev" aria-hidden="true"></i>
                 </button>
                 <div class="acc-panel">
+                    <p class="roadmap-group"><span class="tag tag-near">NEAR</span><span class="i18n-block-ko">지금 ~ 분기 내</span><span class="i18n-block-en">Now ~ this quarter</span></p>
                     <ul class="effect-list">
-                        <li class="i18n-block-ko"><strong>LoRA</strong> — 도메인 특화 정확도 향상, 법령 개정 시 경량 교체</li>
-                        <li class="i18n-block-en"><strong>LoRA</strong> — domain accuracy gains; lightweight swaps on law updates</li>
-                        <li class="i18n-block-ko"><strong>LLM 체이닝</strong> — 요약 → NER → 논리 검증 → 최종 판단</li>
-                        <li class="i18n-block-en"><strong>LLM chaining</strong> — summary → NER → logic check → judgment</li>
-                        <li class="i18n-block-ko"><strong>NeuroSymbolic (개발 중)</strong> — 설명 가능한 AI, 논리 모순·누락 탐지</li>
-                        <li class="i18n-block-en"><strong>NeuroSymbolic (in progress)</strong> — explainable AI; contradiction/gap detection</li>
+                        <li class="i18n-block-ko">인용 강제 UI + 링크 무결성 검사</li>
+                        <li class="i18n-block-en">Citation-enforced UI + link integrity checks</li>
+                        <li class="i18n-block-ko">Retrieval / Groundedness / Citation 지표 대시보드</li>
+                        <li class="i18n-block-en">Retrieval / Groundedness / Citation metrics dashboard</li>
+                        <li class="i18n-block-ko">신뢰도 임계값 기반 HITL 큐</li>
+                        <li class="i18n-block-en">Confidence-threshold HITL queue</li>
+                        <li class="i18n-block-ko">지식베이스 기준일·버전 표기</li>
+                        <li class="i18n-block-en">Knowledge-base as-of date &amp; version labels</li>
+                    </ul>
+                    <p class="roadmap-group"><span class="tag tag-mid">MID</span><span class="i18n-block-ko">중기</span><span class="i18n-block-en">Mid-term</span></p>
+                    <ul class="effect-list">
+                        <li class="i18n-block-ko">Hierarchical / Graph RAG — 법령·심사기준·사례 계층 검색</li>
+                        <li class="i18n-block-en">Hierarchical / Graph RAG — statute, guideline, and case hierarchies</li>
+                        <li class="i18n-block-ko">Researcher–Auditor–Adjudicator 패턴 공식화</li>
+                        <li class="i18n-block-en">Formalize the Researcher–Auditor–Adjudicator pattern</li>
+                        <li class="i18n-block-ko">도메인 평가셋 확장 + 공개 요약 리포트</li>
+                        <li class="i18n-block-en">Grow domain eval sets + public summary reports</li>
+                        <li class="i18n-block-ko">상표·디자인 비교봇 재개 (멀티모달 비교 평가 포함)</li>
+                        <li class="i18n-block-en">Relaunch Trademark &amp; Design Compare (incl. multimodal comparison)</li>
+                    </ul>
+                    <p class="roadmap-group"><span class="tag tag-long">LONG</span><span class="i18n-block-ko">장기</span><span class="i18n-block-en">Long-term</span></p>
+                    <ul class="effect-list">
+                        <li class="i18n-block-ko">Neuro-symbolic 모순·누락 탐지의 설명 가능 리포트 제품화</li>
+                        <li class="i18n-block-en">Productize explainable reports from neuro-symbolic contradiction/gap detection</li>
+                        <li class="i18n-block-ko">조직 단위 AI 거버넌스(권한·감사·모델 카드)와 연동</li>
+                        <li class="i18n-block-en">Integrate org-level AI governance (permissions, audits, model cards)</li>
+                        <li class="i18n-block-ko">경량 도메인 적응(LoRA 등)은 평가 통과 시에만 배포</li>
+                        <li class="i18n-block-en">Lightweight domain adaptation (LoRA etc.) ships only after passing evaluation</li>
                     </ul>
                 </div>
             </div>
@@ -1048,11 +1333,12 @@
                 </button>
                 <div class="acc-panel">
                     <p class="i18n-block-ko">
-                        단순 보조 도구가 아닌, <strong>살아있는 업무 동반자</strong>이자
-                        존재론적 스케일의 지능 시스템으로 진화합니다.
+                        EQAI는 심사품질 업무의 <strong>검증 가능한 동반자</strong>입니다.
+                        빠르게 초안을 만들되, <strong>근거·인용·거절·사람 검토</strong>로 품질을 지킵니다.
                     </p>
                     <p class="i18n-block-en">
-                        Beyond a simple assistant—an evolving, living work companion at the scale of intelligence itself.
+                        EQAI is a <strong>verifiable companion</strong> for examination-quality work —
+                        draft fast, and protect quality with <strong>evidence, citations, abstention, and human review</strong>.
                     </p>
                 </div>
             </div>
@@ -1060,54 +1346,51 @@
 
         <div class="feature-grid" style="margin-top: 2rem;">
             <article class="card">
-                <div class="icon-box"><i class="fas fa-database" aria-hidden="true"></i></div>
-                <h3>Vector DB RAG</h3>
+                <div class="icon-box"><i class="fas fa-magnifying-glass-plus" aria-hidden="true"></i></div>
+                <h3>Hybrid Retrieval</h3>
                 <ul class="effect-list">
-                    <li class="i18n-block-ko">고정밀 검색 · 정확성 향상</li>
-                    <li class="i18n-block-en">High-precision retrieval</li>
+                    <li class="i18n-block-ko">키워드(FTS)·벡터·그래프를 결합한 고정밀 검색</li>
+                    <li class="i18n-block-en">Keyword (FTS) + vector + graph precision search</li>
                 </ul>
             </article>
             <article class="card">
-                <div class="icon-box"><i class="fas fa-cogs" aria-hidden="true"></i></div>
-                <h3>Rule Based System</h3>
+                <div class="icon-box"><i class="fas fa-robot" aria-hidden="true"></i></div>
+                <h3>Agentic Orchestration</h3>
                 <ul class="effect-list">
-                    <li class="i18n-block-ko">환각 방지 · 법적 기준 준수</li>
-                    <li class="i18n-block-en">Anti-hallucination · legal rules</li>
+                    <li class="i18n-block-ko">다단계 계획·도구 사용·재검색이 가능한 에이전트 루프</li>
+                    <li class="i18n-block-en">Agent loops with multi-step planning, tools, re-retrieval</li>
+                </ul>
+            </article>
+            <article class="card">
+                <div class="icon-box"><i class="fas fa-user-shield" aria-hidden="true"></i></div>
+                <h3>Evidence Auditor</h3>
+                <ul class="effect-list">
+                    <li class="i18n-block-ko">검색 결과·초안의 정합성과 인용 유효성 검증</li>
+                    <li class="i18n-block-en">Verifies grounding and citation validity</li>
+                </ul>
+            </article>
+            <article class="card">
+                <div class="icon-box"><i class="fas fa-gavel" aria-hidden="true"></i></div>
+                <h3>Rule &amp; Policy Guardrails</h3>
+                <ul class="effect-list">
+                    <li class="i18n-block-ko">심사기준·형식 요건을 규칙으로 강제</li>
+                    <li class="i18n-block-en">Guidelines &amp; format rules enforced as rules</li>
                 </ul>
             </article>
             <article class="card">
                 <div class="icon-box"><i class="fas fa-project-diagram" aria-hidden="true"></i></div>
-                <h3>Knowledge Graph</h3>
+                <h3>Knowledge Graph / Legal Hierarchy</h3>
                 <ul class="effect-list">
-                    <li class="i18n-block-ko">판례·기준 관계 추론</li>
-                    <li class="i18n-block-en">Case–rule relationship reasoning</li>
+                    <li class="i18n-block-ko">판례–기준–사례 관계와 추상화 수준별 검색</li>
+                    <li class="i18n-block-en">Case–rule relations, abstraction-aware search</li>
                 </ul>
             </article>
             <article class="card">
-                <div class="icon-box"><i class="fas fa-search" aria-hidden="true"></i></div>
-                <h3>Hybrid FTS</h3>
+                <div class="icon-box"><i class="fas fa-square-poll-vertical" aria-hidden="true"></i></div>
+                <h3>Evaluation &amp; HITL</h3>
                 <ul class="effect-list">
-                    <li class="i18n-block-ko">키워드 + 벡터 하이브리드</li>
-                    <li class="i18n-block-en">Keyword + vector hybrid search</li>
-                </ul>
-            </article>
-            <article class="card">
-                <div class="icon-box"><i class="fas fa-users-cog" aria-hidden="true"></i></div>
-                <h3>Multi Agents</h3>
-                <ul class="effect-list">
-                    <li class="i18n-block-ko">13종 에이전트 협업</li>
-                    <li class="i18n-block-en">13 specialized agents</li>
-                </ul>
-            </article>
-            <article class="card">
-                <div class="icon-box"><i class="fas fa-sliders-h" aria-hidden="true"></i></div>
-                <h3>
-                    <span class="i18n-block-ko">학습 & 제어</span>
-                    <span class="i18n-block-en">Learning & control</span>
-                </h3>
-                <ul class="effect-list">
-                    <li class="i18n-block-ko">자동 chunking · 파라미터 조절</li>
-                    <li class="i18n-block-en">Auto-chunking · parameter control</li>
+                    <li class="i18n-block-ko">Groundedness·Citation·거절률 측정 + 사람 검토 루프</li>
+                    <li class="i18n-block-en">Groundedness, citation &amp; abstention metrics + human review</li>
                 </ul>
             </article>
         </div>
@@ -1129,9 +1412,9 @@
                     <h3 class="i18n-block-en">Faster search</h3>
                 </div>
                 <div>
-                    <i class="fas fa-brain fa-2x" aria-hidden="true"></i>
-                    <h3 class="i18n-block-ko">집단 지능화</h3>
-                    <h3 class="i18n-block-en">Collective intelligence</h3>
+                    <i class="fas fa-quote-right fa-2x" aria-hidden="true"></i>
+                    <h3 class="i18n-block-ko">근거·인용 신뢰 ↑</h3>
+                    <h3 class="i18n-block-en">Evidence & citation trust</h3>
                 </div>
                 <div>
                     <i class="fas fa-users fa-2x" aria-hidden="true"></i>
@@ -1416,8 +1699,8 @@
                     titleKo: '상표·디자인 비교봇',
                     titleEn: 'Trademark & Design Compare',
                     enLabel: 'TM / Design',
-                    descKo: '상표·디자인 심사 비교 분석 서비스. 현재 일시정지 상태입니다.',
-                    descEn: 'Trademark & design comparison for examination—currently paused.',
+                    descKo: '상표·디자인 심사 비교 분석 서비스. 공개망 제약으로 일시정지 — 멀티모달 비교 평가와 함께 재개를 준비 중입니다.',
+                    descEn: 'Trademark & design comparison for examination—paused by public-network policy; relaunch planned with multimodal comparison.',
                     audienceKo: '상표·디자인',
                     audienceEn: 'TM & Design',
                     keywords: 'trademark design 상표 디자인 비교봇 일시정지'
