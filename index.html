@@ -624,6 +624,43 @@
         }
         .service-card:hover .service-thumb img { transform: scale(1.06); }
 
+        .service-thumb--cafe-bara {
+            display: grid;
+            grid-template-columns: 55% 45%;
+            align-items: center;
+            background: #f5ead8;
+            color: #4b2d1e;
+            container-type: inline-size;
+        }
+        .service-thumb--cafe-bara img {
+            display: block;
+            object-fit: contain;
+        }
+        .service-card:hover .service-thumb--cafe-bara img { transform: none; }
+        .cafe-bara-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.4rem;
+            padding: 1.75rem 0.65rem 0 0.45rem;
+        }
+        .cafe-bara-brand::before {
+            content: '';
+            width: 1.8rem;
+            height: 3px;
+            border-radius: 2px;
+            background: #b58a47;
+        }
+        .cafe-bara-brand strong {
+            font-size: clamp(0.95rem, 5cqi, 1.4rem);
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+        .cafe-bara-brand small {
+            font-size: clamp(0.65rem, 3.2cqi, 0.85rem);
+            line-height: 1.4;
+        }
+
         .badge {
             position: absolute;
             top: 10px;
@@ -1770,7 +1807,7 @@
             let currentLang = 'ko';
             let theme = 'dark';
 
-            // 배지 정렬: 운영 중 → 베타 → 이벤트(컨테스트) → 휴면/일시정지
+            // 배지 정렬: 운영 중 → 베타 → 신규/이벤트 → 휴면/일시정지
             // (요청: 특실 검색 에이전트 다음에 컨테스트 배치)
             const BADGE_ORDER = { live: 0, beta: 1, event: 2, new: 2, paused: 3 };
 
@@ -1989,28 +2026,29 @@
                     audienceJa: '研究・学習',
                     keywords: 'contest ai 컨테스트 실험 아이디어 앱스토어 뱅크'
                 },
-                // ----- 휴면 / 일시정지 -----
+                // ----- 신규 -----
                 {
-                    id: 'welcomebot',
+                    id: 'cafe-bara',
                     category: 'daily',
-                    href: 'https://eqai.moip.ai.kr/welcomebot',
-                    img: 'welcomebotlogo.jpg',
-                    badge: 'paused',
-                    badgeKo: '휴면',
-                    badgeEn: 'Paused',
-                    badgeJa: '休眠',
-                    titleKo: '안녕봇',
-                    titleEn: 'Welcome Bot',
-                    titleJa: 'アンニョンボット',
-                    enLabel: 'Internal Notice',
-                    descKo: '심사품질 안내 챗봇. 현재 내부망으로 이전되어 공개망에서는 휴면 상태입니다.',
-                    descEn: 'Quality welcome bot—migrated to internal network (public pause).',
-                    descJa: '審査品質案内チャットボット。内部ネットワークへ移行し、公開網では休眠状態です。',
-                    audienceKo: '전체',
-                    audienceEn: 'Everyone',
-                    audienceJa: '全員',
-                    keywords: 'welcome 안녕봇 휴면 내부망'
+                    href: 'https://cafe-bara.inwardis.chatgpt.site/cafe-bara',
+                    img: 'cafe-bara-card.jpg',
+                    badge: 'new',
+                    badgeKo: '신규',
+                    badgeEn: 'New',
+                    badgeJa: '新規',
+                    titleKo: 'Cafe-BARA',
+                    titleEn: 'Cafe-BARA',
+                    titleJa: 'Cafe-BARA',
+                    enLabel: 'AI Work Café',
+                    descKo: '카피바라 집사 ‘바라’와 함께하는 AI 업무 카페. 심사·행정 도구부터 문서 첨삭·번역·메모까지 한곳에서 이용하세요.',
+                    descEn: 'An AI work café with Bara, your capybara butler. Explore examination and administrative tools, document editing, translation, and notes in one place.',
+                    descJa: 'カピバラ執事「バラ」と過ごすAIワークカフェ。審査・行政ツールから文書の添削・翻訳・メモまで、一か所で利用できます。',
+                    audienceKo: '심사·행정·일상',
+                    audienceEn: 'Examination · Office · Everyday',
+                    audienceJa: '審査・行政・日常',
+                    keywords: 'cafe-bara cafe bara 카페바라 카페 바라 카피바라 집사 AI 업무 심사 행정 문서 첨삭 빨간펜 번역 메모 바이브 코딩 カフェ バラ カピバラ 執事 翻訳 メモ'
                 },
+                // ----- 휴면 / 일시정지 -----
                 {
                     id: 'trademarkbot',
                     category: 'diagnosis',
@@ -2070,15 +2108,17 @@
                     const rel = external ? 'noopener noreferrer' : '';
                     const target = external ? '_blank' : '_self';
                     const extIcon = external ? ' <i class="fas fa-external-link-alt" aria-hidden="true" style="font-size:0.75em"></i>' : '';
+                    const isCafeBara = s.id === 'cafe-bara';
                     return (
                         '<a class="service-card" href="' + s.href + '" target="' + target + '" rel="' + rel + '"' +
                         ' data-category="' + s.category + '" data-status="' + s.badge + '"' +
                         ' data-keywords="' + s.keywords.toLowerCase() + ' ' + s.titleKo.toLowerCase() + ' ' + s.titleEn.toLowerCase() + ' ' + s.titleJa.toLowerCase() + '"' +
                         ' aria-label="' + title + ' · ' + badge + (external ? newTab : '') + '">' +
-                        '<div class="service-thumb">' +
+                        '<div class="service-thumb' + (isCafeBara ? ' service-thumb--cafe-bara' : '') + '">' +
                         '<span class="badge ' + (badgeClass[s.badge] || 'badge-live') + '">' + badge + '</span>' +
-                        '<img src="' + s.img + '" alt="" width="640" height="360" loading="lazy" decoding="async"' +
+                        '<img src="' + s.img + '" alt="" width="640" height="' + (isCafeBara ? '640' : '360') + '" loading="lazy" decoding="async"' +
                         ' onerror="this.style.opacity=0.2">' +
+                        (isCafeBara ? '<div class="cafe-bara-brand" aria-hidden="true"><strong>Cafe-BARA</strong><small>☕ AI Work Café</small></div>' : '') +
                         '</div>' +
                         '<div class="service-body">' +
                         '<div class="en">' + s.enLabel + '</div>' +
