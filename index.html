@@ -97,6 +97,7 @@
             --tag-long-text: #fde047;
             --tag-long-border: rgba(255, 215, 0, 0.4);
             --skip-text: #041016;
+            --thumb-contain-bg: #e8f4fb;
         }
 
         html[data-theme="light"] {
@@ -171,6 +172,7 @@
             --tag-long-text: #b45309;
             --tag-long-border: rgba(217, 119, 6, 0.35);
             --skip-text: #ffffff;
+            --thumb-contain-bg: #f2faff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -681,6 +683,58 @@
             color: #f8fafc;
             border: 1px solid rgba(226, 232, 240, 0.35);
         }
+        .badge-experimental {
+            background: rgba(251, 146, 60, 0.95);
+            color: #1c1917;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+        }
+        .badge--bottom {
+            top: auto;
+            bottom: 10px;
+        }
+        .service-thumb--contain {
+            background: var(--thumb-contain-bg);
+        }
+        .service-thumb--contain img {
+            object-fit: contain;
+        }
+        .service-card:hover .service-thumb--contain img { transform: none; }
+        .card-note {
+            font-size: 0.78rem;
+            color: var(--muted);
+            border-top: 1px dashed var(--border);
+            padding-top: 0.5rem;
+            margin-top: 0.15rem;
+        }
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+        @media (max-width: 1023px) {
+            .research-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 639px) {
+            .research-grid { grid-template-columns: 1fr; }
+        }
+        .research-label {
+            background: rgba(167, 139, 250, 0.14);
+            border-color: rgba(167, 139, 250, 0.4);
+            color: #c4b5fd;
+        }
+        html[data-theme="light"] .research-label {
+            background: rgba(124, 58, 237, 0.1);
+            border-color: rgba(124, 58, 237, 0.35);
+            color: #6d28d9;
+        }
+        .research-note {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+            max-width: 760px;
+            margin: 1.75rem auto 0;
+        }
+        .is-hidden { display: none !important; }
         .service-card[data-status="paused"] {
             opacity: 0.92;
         }
@@ -1103,6 +1157,7 @@
 
         <ul class="nav-links" id="navLinks">
             <li><a href="#services" data-nav><span class="i18n-block-ko">서비스</span><span class="i18n-block-en">Services</span><span class="i18n-block-ja">サービス</span></a></li>
+            <li><a href="#research" data-nav data-nav-section="research"><span class="i18n-block-ko">연구·전시</span><span class="i18n-block-en">Research</span><span class="i18n-block-ja">研究・展示</span></a></li>
             <li><a href="#guide" data-nav><span class="i18n-block-ko">이용 안내</span><span class="i18n-block-en">Guide</span><span class="i18n-block-ja">ご利用ガイド</span></a></li>
             <li><a href="#tech" data-nav><span class="i18n-block-ko">기술</span><span class="i18n-block-en">Tech</span><span class="i18n-block-ja">技術</span></a></li>
             <li><a href="#partners" data-nav><span class="i18n-block-ko">파트너</span><span class="i18n-block-en">Partners</span><span class="i18n-block-ja">パートナー</span></a></li>
@@ -1178,7 +1233,7 @@
 
     <!-- Services -->
     <section id="services" aria-labelledby="services-title">
-        <div class="section-head">
+        <div class="section-head" id="servicesSectionHead">
             <h2 id="services-title"><i class="fas fa-th-large" aria-hidden="true"></i>
                 <span class="i18n-block-ko">서비스 허브</span>
                 <span class="i18n-block-en">Service Hub</span>
@@ -1207,6 +1262,9 @@
             <button type="button" class="filter-btn" data-filter="model" aria-pressed="false">
                 <span class="i18n-block-ko">오픈 모델</span><span class="i18n-block-en">Open Model</span><span class="i18n-block-ja">オープンモデル</span>
             </button>
+            <button type="button" class="filter-btn" data-filter="research" aria-pressed="false">
+                <span class="i18n-block-ko">연구·전시</span><span class="i18n-block-en">Research</span><span class="i18n-block-ja">研究・展示</span>
+            </button>
         </div>
 
         <div class="search-wrap">
@@ -1223,6 +1281,30 @@
             <span class="i18n-block-ko">검색 결과가 없습니다.</span>
             <span class="i18n-block-en">No matching services.</span>
             <span class="i18n-block-ja">検索結果がありません。</span>
+        </p>
+    </section>
+
+    <!-- Research & Exhibitions -->
+    <section id="research" aria-labelledby="research-title">
+        <div class="section-head">
+            <h2 id="research-title"><i class="fas fa-microscope" aria-hidden="true"></i>
+                <span class="i18n-block-ko">연구·전시</span>
+                <span class="i18n-block-en">Research & Exhibitions</span>
+                <span class="i18n-block-ja">研究・展示</span>
+            </h2>
+            <p class="section-lead">
+                <span class="i18n-block-ko">규칙 기반 품질 진단과 화학 청구항 분석, 근거 중심 심사품질의 미래를 연구·체험해 보세요.</span>
+                <span class="i18n-block-en">Explore rule-based quality diagnosis, chemical-claim analysis, and evidence-led examination quality.</span>
+                <span class="i18n-block-ja">ルールに基づく品質診断、化学クレーム分析、根拠に基づく審査品質の未来を体験できます。</span>
+            </p>
+        </div>
+        <div class="research-grid" id="researchGrid">
+            <!-- filled by JS from RESEARCH_PROJECTS -->
+        </div>
+        <p class="research-note">
+            <span class="i18n-block-ko">연구·시연 공간의 사례와 결과는 연구용이며, 실제 판단은 원문 근거와 사람의 검토를 전제로 합니다.</span>
+            <span class="i18n-block-en">Cases and results in research and demo spaces are for study purposes; real judgments require the original evidence and human review.</span>
+            <span class="i18n-block-ja">研究・デモ空間の事例と結果は研究用であり、実際の判断は原文の根拠と人のレビューを前提とします。</span>
         </p>
     </section>
 
@@ -1807,14 +1889,14 @@
             let currentLang = 'ko';
             let theme = 'dark';
 
-            // 배지 정렬: 운영 중 → 베타 → 신규/이벤트 → 휴면/일시정지
-            // (요청: 특실 검색 에이전트 다음에 컨테스트 배치)
-            const BADGE_ORDER = { live: 0, beta: 1, event: 2, new: 2, paused: 3 };
+            // 표시 순서는 상태 배지와 독립적으로 displayOrder로 관리한다.
+            // (신규/실험용/휴면 배지는 상태 표시일 뿐, 순서를 결정하지 않는다)
 
             const SERVICES = [
                 // ----- 운영 중 -----
                 {
                     id: 'notice',
+                    displayOrder: 1,
                     category: 'daily',
                     href: 'https://eqai.moip.ai.kr/notice',
                     img: 'notice.jpg',
@@ -1836,6 +1918,7 @@
                 },
                 {
                     id: 'cases',
+                    displayOrder: 2,
                     category: 'daily',
                     href: 'https://welcome.moip.ai.kr',
                     img: 'consultation.jpg',
@@ -1856,7 +1939,32 @@
                     keywords: 'case consultation welcome 사례 관리'
                 },
                 {
+                    id: 'marie-control',
+                    displayOrder: 3,
+                    category: 'diagnosis',
+                    href: 'https://agent.moip.ai.kr/',
+                    img: 'images/services/marie-control-card.jpg',
+                    imgFit: 'contain',
+                    badgePos: 'bottom',
+                    badge: 'new',
+                    badgeKo: '신규',
+                    badgeEn: 'New',
+                    badgeJa: '新規',
+                    titleKo: 'Marie AI Control Center',
+                    titleEn: 'Marie AI Control Center',
+                    titleJa: 'Marie AI Control Center',
+                    enLabel: 'Operational AI Control',
+                    descKo: 'PEQ Rule Engine과 KIPRIS PLUS 연계를 바탕으로 심사품질 진단·관리 업무를 지원하는 AI 작업 환경입니다.',
+                    descEn: 'An AI workspace for examination-quality diagnosis and management, integrating PEQ Rule Engine and KIPRIS PLUS.',
+                    descJa: 'PEQ Rule EngineとKIPRIS PLUSを連携し、審査品質の診断・管理業務を支援するAI作業環境です。',
+                    audienceKo: '진단관·심사품질',
+                    audienceEn: 'Quality reviewers',
+                    audienceJa: '診断官・審査品質',
+                    keywords: 'marie ai control center 마리 에이전트 심사품질 진단 관리 peq rule engine kipris plus マリー 審査品質 診断'
+                },
+                {
                     id: 'quality',
+                    displayOrder: 4,
                     category: 'diagnosis',
                     href: 'https://quality.moip.ai.kr',
                     img: 'aiconnect.jpg',
@@ -1878,6 +1986,7 @@
                 },
                 {
                     id: 'claims',
+                    displayOrder: 5,
                     category: 'diagnosis',
                     href: 'https://claims.moip.ai.kr/',
                     img: 'claimsbotlogo.jpg',
@@ -1899,6 +2008,7 @@
                 },
                 {
                     id: 'openmodel',
+                    displayOrder: 6,
                     category: 'model',
                     href: 'https://lulu.moip.ai.kr',
                     img: 'OWMlogo.jpg',
@@ -1921,6 +2031,7 @@
                 // ----- 베타 -----
                 {
                     id: 'search-agent',
+                    displayOrder: 7,
                     category: 'diagnosis',
                     href: 'https://patent.moip.ai.kr',
                     img: 'searchlogo.jpg',
@@ -1942,6 +2053,7 @@
                 },
                 {
                     id: 'prompt-manager',
+                    displayOrder: 8,
                     category: 'diagnosis',
                     href: 'https://pm.moip.ai.kr',
                     img: 'pmlogo.jpg',
@@ -1963,6 +2075,7 @@
                 },
                 {
                     id: 'claimscheck',
+                    displayOrder: 9,
                     category: 'diagnosis',
                     href: 'https://cc.moip.ai.kr',
                     img: 'claimschecklogo.jpg',
@@ -1985,6 +2098,7 @@
                 // ----- 신규 -----
                 {
                     id: 'arcade',
+                    displayOrder: 10,
                     category: 'lab',
                     href: 'https://enter.moip.ai.kr',
                     img: 'enterlogo.jpg',
@@ -2007,6 +2121,7 @@
                 // ----- 이벤트 -----
                 {
                     id: 'contest',
+                    displayOrder: 11,
                     category: 'lab',
                     href: 'https://eqai.moip.ai.kr/contest/',
                     img: 'contestlogo.jpg',
@@ -2029,6 +2144,7 @@
                 // ----- 신규 -----
                 {
                     id: 'cafe-bara',
+                    displayOrder: 12,
                     category: 'daily',
                     href: 'https://cafe-bara.inwardis.chatgpt.site/cafe-bara',
                     img: 'cafe-bara-card.jpg',
@@ -2048,9 +2164,40 @@
                     audienceJa: '審査・行政・日常',
                     keywords: 'cafe-bara cafe bara 카페바라 카페 바라 카피바라 집사 AI 업무 심사 행정 문서 첨삭 빨간펜 번역 메모 바이브 코딩 カフェ バラ カピバラ 執事 翻訳 メモ'
                 },
+                {
+                    id: 'continuity-dummy',
+                    displayOrder: 13,
+                    category: 'lab',
+                    href: 'https://dummy.moip.ai.kr/',
+                    img: 'images/services/continuity-dummy-card.webp',
+                    imgFit: 'cover',
+                    imgPos: 'center center',
+                    badge: 'experimental',
+                    badgeKo: '실험용',
+                    badgeEn: 'Experimental',
+                    badgeJa: '実験用',
+                    titleKo: '지식재산처 Continuity Dummy',
+                    titleEn: 'MOIP Continuity Dummy',
+                    titleJa: '知的財産処 Continuity Dummy',
+                    enLabel: 'Continuity & Training',
+                    descKo: '조직별 업무와 AI 시스템을 연결하고, 비상시 업무 연속성을 탐색하는 훈련·실험용 포털입니다.',
+                    descEn: 'A training and experimental portal linking departmental tasks with AI systems to explore continuity during disruptions.',
+                    descJa: '部署別業務とAIシステムをつなぎ、非常時の業務継続を探る訓練・実験用ポータルです。',
+                    noteKo: '훈련·시뮬레이션용 · 공식 행정처분 시스템 아님',
+                    noteEn: 'Training and simulation · Not an official administrative decision system',
+                    noteJa: '訓練・シミュレーション用・公式な行政処分システムではありません',
+                    audienceKo: '업무 연속성·훈련',
+                    audienceEn: 'Continuity & training',
+                    audienceJa: '業務継続・訓練',
+                    ctaKo: '실험 포털 보기',
+                    ctaEn: 'Explore portal',
+                    ctaJa: '実験ポータルを見る',
+                    keywords: 'continuity dummy coop ai coop 지식재산처 더미 업무연속성 업무 연속성 재난 훈련 실험 조직 위임 ダミー 業務継続 訓練'
+                },
                 // ----- 휴면 / 일시정지 -----
                 {
                     id: 'trademarkbot',
+                    displayOrder: 14,
                     category: 'diagnosis',
                     href: 'https://eqai.moip.ai.kr/trademarkbot/',
                     img: 'trademarkbotlogo.jpg',
@@ -2077,6 +2224,7 @@
                 beta: 'badge-beta',
                 new: 'badge-new',
                 event: 'badge-event',
+                experimental: 'badge-experimental',
                 paused: 'badge-paused'
             };
 
@@ -2093,30 +2241,33 @@
                 const grid = document.getElementById('serviceGrid');
                 const lang = document.documentElement.lang === 'en' ? 'en' : (document.documentElement.lang === 'ja' ? 'ja' : 'ko');
                 const ordered = SERVICES.slice().sort(function (a, b) {
-                    const pa = BADGE_ORDER[a.badge] != null ? BADGE_ORDER[a.badge] : 9;
-                    const pb = BADGE_ORDER[b.badge] != null ? BADGE_ORDER[b.badge] : 9;
-                    return pa - pb;
+                    return (a.displayOrder || 99) - (b.displayOrder || 99);
                 });
                 grid.innerHTML = ordered.map(function (s) {
                     const title = lang === 'en' ? s.titleEn : (lang === 'ja' ? s.titleJa : s.titleKo);
                     const desc = lang === 'en' ? s.descEn : (lang === 'ja' ? s.descJa : s.descKo);
                     const audience = lang === 'en' ? s.audienceEn : (lang === 'ja' ? s.audienceJa : s.audienceKo);
                     const badge = lang === 'en' ? s.badgeEn : (lang === 'ja' ? s.badgeJa : s.badgeKo);
-                    const go = lang === 'en' ? 'Open' : (lang === 'ja' ? '開く' : '바로가기');
+                    const note = lang === 'en' ? s.noteEn : (lang === 'ja' ? s.noteJa : s.noteKo);
+                    const defaultGo = lang === 'en' ? 'Open' : (lang === 'ja' ? '開く' : '바로가기');
+                    const go = lang === 'en' ? (s.ctaEn || defaultGo) : (lang === 'ja' ? (s.ctaJa || defaultGo) : (s.ctaKo || defaultGo));
                     const newTab = lang === 'en' ? ' (opens in new tab)' : (lang === 'ja' ? '（新しいタブ）' : ' (새 탭)');
                     const external = isExternal(s.href);
                     const rel = external ? 'noopener noreferrer' : '';
                     const target = external ? '_blank' : '_self';
                     const extIcon = external ? ' <i class="fas fa-external-link-alt" aria-hidden="true" style="font-size:0.75em"></i>' : '';
                     const isCafeBara = s.id === 'cafe-bara';
+                    const fitClass = s.imgFit === 'contain' ? ' service-thumb--contain' : '';
+                    const badgePosClass = s.badgePos === 'bottom' ? ' badge--bottom' : '';
+                    const imgPosStyle = s.imgPos ? ' style="object-position:' + s.imgPos + '"' : '';
                     return (
                         '<a class="service-card" href="' + s.href + '" target="' + target + '" rel="' + rel + '"' +
                         ' data-category="' + s.category + '" data-status="' + s.badge + '"' +
                         ' data-keywords="' + s.keywords.toLowerCase() + ' ' + s.titleKo.toLowerCase() + ' ' + s.titleEn.toLowerCase() + ' ' + s.titleJa.toLowerCase() + '"' +
                         ' aria-label="' + title + ' · ' + badge + (external ? newTab : '') + '">' +
-                        '<div class="service-thumb' + (isCafeBara ? ' service-thumb--cafe-bara' : '') + '">' +
-                        '<span class="badge ' + (badgeClass[s.badge] || 'badge-live') + '">' + badge + '</span>' +
-                        '<img src="' + s.img + '" alt="" width="640" height="' + (isCafeBara ? '640' : '360') + '" loading="lazy" decoding="async"' +
+                        '<div class="service-thumb' + (isCafeBara ? ' service-thumb--cafe-bara' : '') + fitClass + '">' +
+                        '<span class="badge ' + (badgeClass[s.badge] || 'badge-live') + badgePosClass + '">' + badge + '</span>' +
+                        '<img src="' + s.img + '" alt="" width="640" height="' + (isCafeBara ? '640' : '360') + '" loading="lazy" decoding="async"' + imgPosStyle +
                         ' onerror="this.style.opacity=0.2">' +
                         (isCafeBara ? '<div class="cafe-bara-brand" aria-hidden="true"><strong>Cafe-BARA</strong><small>☕ AI Work Café</small></div>' : '') +
                         '</div>' +
@@ -2124,6 +2275,7 @@
                         '<div class="en">' + s.enLabel + '</div>' +
                         '<h3>' + title + '</h3>' +
                         '<p>' + desc + '</p>' +
+                        (note ? '<p class="card-note">' + note + '</p>' : '') +
                         '<div class="service-meta"><span class="chip">' + audience + '</span></div>' +
                         '<div class="service-cta">' + go + ' →' + extIcon + '</div>' +
                         '</div></a>'
@@ -2132,12 +2284,134 @@
                 applyFilters();
             }
 
+            // 연구·전시 프로젝트 (연구 카드는 '운영 중' 배지 없음, 라벨로 성격 구분)
+            const RESEARCH_PROJECTS = [
+                {
+                    id: 'peq-rule-engine',
+                    displayOrder: 1,
+                    category: 'research',
+                    href: 'https://peqrule.moip.ai.kr/',
+                    img: 'images/services/peq-rule-card.jpg',
+                    imgFit: 'contain',
+                    labelKo: '연구',
+                    labelEn: 'Research',
+                    labelJa: '研究',
+                    titleKo: 'PEQ Rule Engine',
+                    titleEn: 'PEQ Rule Engine',
+                    titleJa: 'PEQ Rule Engine',
+                    enLabel: 'Rule-based Quality Diagnosis',
+                    descKo: 'Fact·Rule·Evidence의 연결을 따라 규칙 기반 심사품질 진단의 구조와 근거 추적을 살펴보는 연구·시연 공간입니다.',
+                    descEn: 'Explore the structure of rule-based examination-quality diagnosis and evidence tracing through Fact, Rule, and Evidence.',
+                    descJa: 'Fact・Rule・Evidenceのつながりを通じ、ルールに基づく審査品質診断の構造と根拠追跡を学ぶ研究・デモ空間です。',
+                    audienceKo: '진단관·연구자',
+                    audienceEn: 'Reviewers & researchers',
+                    audienceJa: '診断官・研究者',
+                    ctaKo: '연구·시연 살펴보기',
+                    ctaEn: 'Explore research & demo',
+                    ctaJa: '研究・デモを見る',
+                    keywords: 'peq rule engine fact evidence symbolic neuro symbolic 규칙 룰 엔진 심사품질 근거 연구 ルール 根拠 研究'
+                },
+                {
+                    id: 'markush-research',
+                    displayOrder: 2,
+                    category: 'research',
+                    href: 'https://markush.caipex.site/',
+                    img: 'images/services/markush-research-card.webp',
+                    imgFit: 'cover',
+                    imgPos: 'right center',
+                    labelKo: '연구',
+                    labelEn: 'Research',
+                    labelJa: '研究',
+                    titleKo: 'Markush 청구항 심사 연구',
+                    titleEn: 'Markush Claim Examination Research',
+                    titleJa: 'マーカッシュクレーム審査研究',
+                    enLabel: 'Chemical Claims & Evidence',
+                    descKo: '일반식·R 치환기·제외 조건과 문헌별 근거를 살펴보며, 마쿠쉬 청구항의 범위와 신규성·진보성 검토를 체험하는 연구 공간입니다.',
+                    descEn: 'Explore generic structures, R groups, exclusions, and documentary evidence in research on Markush claim scope, novelty, and inventive step.',
+                    descJa: '一般式・R置換基・除外条件と文献ごとの根拠を確認し、マーカッシュクレームの範囲と新規性・進歩性の検討を体験する研究空間です。',
+                    audienceKo: '화학·특허 심사',
+                    audienceEn: 'Chemical patent examination',
+                    audienceJa: '化学・特許審査',
+                    ctaKo: '마쿠쉬 연구 체험',
+                    ctaEn: 'Explore Markush research',
+                    ctaJa: 'マーカッシュ研究を体験',
+                    keywords: 'markush 마쿠쉬 마쿠시 청구항 화학 일반식 치환기 r 구조식 신규성 진보성 マーカッシュ 化学 置換基'
+                },
+                {
+                    id: 'examination-quality-future',
+                    displayOrder: 3,
+                    category: 'research',
+                    href: 'https://research.caipex.site/',
+                    img: 'images/services/quality-future-card.webp',
+                    imgFit: 'cover',
+                    imgPos: 'right center',
+                    labelKo: '연구전시',
+                    labelEn: 'Research Exhibition',
+                    labelJa: '研究展示',
+                    titleKo: '심사품질의 미래 연구전시',
+                    titleEn: 'Future of Examination Quality',
+                    titleJa: '審査品質の未来・研究展示',
+                    enLabel: 'Evidence-led Quality Research',
+                    descKo: '가상 사건을 통해 자료와 근거, 명시적 규칙, UNKNOWN, 사람의 검토를 연결하는 미래 심사품질 진단 흐름을 체험합니다.',
+                    descEn: 'Experience a proposed examination-quality workflow linking documents, evidence, explicit rules, UNKNOWN, and human review through fictional cases.',
+                    descJa: '仮想事例を通じて、資料・根拠・明示的ルール・UNKNOWN・人の検討をつなぐ将来の審査品質診断フローを体験します。',
+                    audienceKo: '심사관·연구자·정책 담당',
+                    audienceEn: 'Examiners, researchers & policy teams',
+                    audienceJa: '審査官・研究者・政策担当者',
+                    ctaKo: '연구전시 체험하기',
+                    ctaEn: 'Explore exhibition',
+                    ctaJa: '研究展示を体験',
+                    keywords: 'research future evidence unknown hitl 심사품질 미래 연구 전시 근거 규칙 진단 후보 사람 검토 審査品質 未来 研究 展示'
+                }
+            ];
+
+            function renderResearch() {
+                const grid = document.getElementById('researchGrid');
+                const lang = document.documentElement.lang === 'en' ? 'en' : (document.documentElement.lang === 'ja' ? 'ja' : 'ko');
+                const ordered = RESEARCH_PROJECTS.slice().sort(function (a, b) {
+                    return (a.displayOrder || 99) - (b.displayOrder || 99);
+                });
+                grid.innerHTML = ordered.map(function (r) {
+                    const title = lang === 'en' ? r.titleEn : (lang === 'ja' ? r.titleJa : r.titleKo);
+                    const desc = lang === 'en' ? r.descEn : (lang === 'ja' ? r.descJa : r.descKo);
+                    const audience = lang === 'en' ? r.audienceEn : (lang === 'ja' ? r.audienceJa : r.audienceKo);
+                    const label = lang === 'en' ? r.labelEn : (lang === 'ja' ? r.labelJa : r.labelKo);
+                    const go = lang === 'en' ? r.ctaEn : (lang === 'ja' ? r.ctaJa : r.ctaKo);
+                    const newTab = lang === 'en' ? ' (opens in new tab)' : (lang === 'ja' ? '（新しいタブ）' : ' (새 탭)');
+                    const external = isExternal(r.href);
+                    const rel = external ? 'noopener noreferrer' : '';
+                    const target = external ? '_blank' : '_self';
+                    const extIcon = external ? ' <i class="fas fa-external-link-alt" aria-hidden="true" style="font-size:0.75em"></i>' : '';
+                    const fitClass = r.imgFit === 'contain' ? ' service-thumb--contain' : '';
+                    const imgPosStyle = r.imgPos ? ' style="object-position:' + r.imgPos + '"' : '';
+                    return (
+                        '<a class="service-card research-card" href="' + r.href + '" target="' + target + '" rel="' + rel + '"' +
+                        ' data-category="' + r.category + '"' +
+                        ' data-keywords="' + r.keywords.toLowerCase() + ' ' + r.titleKo.toLowerCase() + ' ' + r.titleEn.toLowerCase() + ' ' + r.titleJa.toLowerCase() + '"' +
+                        ' aria-label="' + title + ' · ' + label + (external ? newTab : '') + '">' +
+                        '<div class="service-thumb' + fitClass + '">' +
+                        '<img src="' + r.img + '" alt="" width="640" height="360" loading="lazy" decoding="async"' + imgPosStyle +
+                        ' onerror="this.style.opacity=0.2">' +
+                        '</div>' +
+                        '<div class="service-body">' +
+                        '<div class="en">' + r.enLabel + '</div>' +
+                        '<h3>' + title + '</h3>' +
+                        '<p>' + desc + '</p>' +
+                        '<div class="service-meta"><span class="chip research-label">' + label + '</span><span class="chip">' + audience + '</span></div>' +
+                        '<div class="service-cta">' + go + ' →' + extIcon + '</div>' +
+                        '</div></a>'
+                    );
+                }).join('');
+            }
+
             let activeFilter = 'all';
             let searchQuery = '';
 
             function applyFilters() {
-                const cards = document.querySelectorAll('.service-card');
-                let visible = 0;
+                const cards = document.querySelectorAll('.service-card, .research-card');
+                let totalVisible = 0;
+                let svcVisible = 0;
+                let resVisible = 0;
                 cards.forEach(function (card) {
                     const cat = card.getAttribute('data-category');
                     const kw = (card.getAttribute('data-keywords') || '') + ' ' + card.textContent.toLowerCase();
@@ -2145,9 +2419,22 @@
                     const matchQ = !searchQuery || kw.indexOf(searchQuery) !== -1;
                     const show = matchCat && matchQ;
                     card.classList.toggle('is-hidden', !show);
-                    if (show) visible += 1;
+                    if (show) {
+                        totalVisible += 1;
+                        if (card.classList.contains('research-card')) { resVisible += 1; } else { svcVisible += 1; }
+                    }
                 });
-                document.getElementById('emptyState').classList.toggle('is-visible', visible === 0);
+                document.getElementById('emptyState').classList.toggle('is-visible', totalVisible === 0);
+                // 서비스 섹션: 제목·그리드는 숨기되 필터·검색은 유지
+                const svcHead = document.getElementById('servicesSectionHead');
+                if (svcHead) svcHead.classList.toggle('is-hidden', svcVisible === 0);
+                document.getElementById('serviceGrid').classList.toggle('is-hidden', svcVisible === 0);
+                // 연구·전시 섹션: 카드가 없으면 섹션 전체를 숨기고 네비 링크도 숨김
+                const researchSection = document.getElementById('research');
+                const resHidden = resVisible === 0;
+                researchSection.classList.toggle('is-hidden', resHidden);
+                const resNavLink = document.querySelector('[data-nav-section="research"]');
+                if (resNavLink) resNavLink.classList.toggle('is-hidden', resHidden);
             }
 
             document.querySelectorAll('.filter-btn').forEach(function (btn) {
@@ -2218,6 +2505,8 @@
                 langToggle.textContent = order.join(' | ').toUpperCase();
                 try { localStorage.setItem('moip_lang', lang); } catch (e) {}
                 renderServices();
+                renderResearch();
+                applyFilters();
                 if (themeToggle) {
                     themeToggle.setAttribute('aria-label', themeToggleLabels(theme, lang)[lang]);
                 }
@@ -2225,6 +2514,8 @@
             }
             let savedLang = 'ko';
             try { savedLang = localStorage.getItem('moip_lang') || 'ko'; } catch (e) {}
+            const urlLang = new URLSearchParams(window.location.search).get('lang');
+            if (urlLang && LANGS.indexOf(urlLang) !== -1) savedLang = urlLang;
             if (LANGS.indexOf(savedLang) === -1) savedLang = 'ko';
             setLang(savedLang);
             langToggle.addEventListener('click', function () {
@@ -2258,6 +2549,8 @@
             try {
                 savedTheme = localStorage.getItem('moip_theme');
             } catch (e) {}
+            const urlTheme = new URLSearchParams(window.location.search).get('theme');
+            if (urlTheme === 'light' || urlTheme === 'dark') savedTheme = urlTheme;
             if (savedTheme !== 'light' && savedTheme !== 'dark') {
                 savedTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
             }
