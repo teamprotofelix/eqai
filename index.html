@@ -500,11 +500,8 @@
             padding: 72px 20px;
             max-width: 1180px;
             margin: 0 auto;
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            /* Content stays readable without scroll-observer callbacks. */
         }
-        section.visible { opacity: 1; transform: translateY(0); }
 
         .section-head {
             text-align: center;
@@ -1132,7 +1129,6 @@
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
-            section { opacity: 1; transform: none; }
         }
     </style>
 </head>
@@ -2580,22 +2576,15 @@
                 savedTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
             }
 
-            // Scroll reveal
-            if (!reducedMotion && 'IntersectionObserver' in window) {
-                const observer = new IntersectionObserver(function (entries) {
-                    entries.forEach(function (entry) {
-                        if (entry.isIntersecting) entry.target.classList.add('visible');
-                    });
-                }, { threshold: 0.12 });
-                document.querySelectorAll('section').forEach(function (sec) { observer.observe(sec); });
-            } else {
-                document.querySelectorAll('section').forEach(function (sec) { sec.classList.add('visible'); });
-            }
-
             // Particles (optimized)
             // 다크: 밤하늘 별(청색 계열) / 라이트: 햇살·정원의 빛 알갱이(골드·그린 계열)
             const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
+            let ctx = null;
+            try {
+                ctx = canvas.getContext('2d');
+            } catch (e) {
+                // The optional background must not interrupt theme initialization.
+            }
             let particles = [];
             let running = true;
             let rafId = 0;
@@ -2614,6 +2603,7 @@
             }
 
             function resizeCanvas() {
+                if (!ctx) return;
                 const dpr = Math.min(window.devicePixelRatio || 1, 2);
                 canvas.width = Math.floor(window.innerWidth * dpr);
                 canvas.height = Math.floor(window.innerHeight * dpr);
@@ -2639,7 +2629,7 @@
             }
 
             function tick() {
-                if (!running) return;
+                if (!ctx || !running) return;
                 ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
                 const pal = PALETTES[theme] || PALETTES.dark;
                 for (let i = 0; i < particles.length; i++) {
@@ -2663,7 +2653,7 @@
             applyTheme(savedTheme, false);
             if (reducedMotion) {
                 tick();
-            } else {
+            } else if (ctx) {
                 rafId = requestAnimationFrame(tick);
             }
 
@@ -2671,7 +2661,7 @@
                 if (document.hidden) {
                     running = false;
                     if (rafId) cancelAnimationFrame(rafId);
-                } else if (!reducedMotion) {
+                } else if (ctx && !reducedMotion) {
                     running = true;
                     rafId = requestAnimationFrame(tick);
                 }
