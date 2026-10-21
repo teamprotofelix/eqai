@@ -1,0 +1,1893 @@
+{
+  "browserVersion": "154.0.8037.57",
+  "externalPresentationAssets": "empty responses, local HTML/JS/images unchanged",
+  "baselineCommit": "bd168dff760b9e4eb76f85439a4887286c1805d8",
+  "scenarios": [
+    {
+      "name": "desktop",
+      "options": {
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        }
+      },
+      "errors": [],
+      "failed": [],
+      "failures": [
+        {
+          "y": 2784,
+          "hidden": [
+            "research"
+          ]
+        },
+        {
+          "y": 3184,
+          "hidden": [
+            "research"
+          ]
+        }
+      ],
+      "samples": [
+        {
+          "label": "initial",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 0,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "366.656px 366.672px 366.656px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 2717.03125,
+              "top": 812,
+              "geometricRatio": 0.06919316809477256
+            },
+            {
+              "id": "research",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 774.96875,
+              "top": 3529.03125,
+              "geometricRatio": 0
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "services",
+            "BODY",
+            "HTML"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        },
+        {
+          "label": "anchor",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 736,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "366.656px 366.672px 366.656px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "visible",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0.999763",
+              "transform": "matrix(1, 0, 0, 1, 0, 0.00664398)",
+              "height": 2717.03125,
+              "top": 48.00665283203125,
+              "geometricRatio": 0.35037997710477886
+            },
+            {
+              "id": "research",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 774.96875,
+              "top": 2793.03125,
+              "geometricRatio": 0
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "IMG",
+            "service-thumb",
+            "service-card",
+            "serviceGrid",
+            "services"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        },
+        {
+          "label": "after-scroll",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 3984,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "366.656px 366.672px 366.656px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "visible",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "height": 2717.03125,
+              "top": -3200,
+              "geometricRatio": 0
+            },
+            {
+              "id": "research",
+              "classes": "visible",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0.0455454",
+              "transform": "matrix(1, 0, 0, 1, 0, 26.7247)",
+              "height": 774.96875,
+              "top": -456.244140625,
+              "geometricRatio": 0.4112741441187145
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "siteNav",
+            "H3",
+            "service-body",
+            "service-card research-card",
+            "researchGrid"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        },
+        {
+          "label": "returning-anchor",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 710,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "366.656px 366.672px 366.656px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "visible",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "height": 2717.03125,
+              "top": 74,
+              "geometricRatio": 0.340813157743401
+            },
+            {
+              "id": "research",
+              "classes": "visible",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "height": 774.96875,
+              "top": 2791.03125,
+              "geometricRatio": 0
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "IMG",
+            "service-thumb",
+            "service-card",
+            "serviceGrid",
+            "services"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        }
+      ],
+      "serviceWorkers": {
+        "controller": null,
+        "registrations": []
+      },
+      "observerEvents": [
+        {
+          "time": 219,
+          "id": "services",
+          "isIntersecting": false,
+          "ratio": 0.06919316202402115,
+          "target": {
+            "top": 812,
+            "height": 2717.03125,
+            "width": 1180
+          },
+          "root": {
+            "height": 1000,
+            "width": 1440
+          }
+        },
+        {
+          "time": 219,
+          "id": "research",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 3529.03125,
+            "height": 774.96875,
+            "width": 1180
+          },
+          "root": {
+            "height": 1000,
+            "width": 1440
+          }
+        },
+        {
+          "time": 219,
+          "id": "guide",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 4304,
+            "height": 670.859375,
+            "width": 1180
+          },
+          "root": {
+            "height": 1000,
+            "width": 1440
+          }
+        },
+        {
+          "time": 219,
+          "id": "tech",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 4974.859375,
+            "height": 1211.40625,
+            "width": 1180
+          },
+          "root": {
+            "height": 1000,
+            "width": 1440
+          }
+        },
+        {
+          "time": 219,
+          "id": "partners",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 6186.265625,
+            "height": 606.5,
+            "width": 1180
+          },
+          "root": {
+            "height": 1000,
+            "width": 1440
+          }
+        },
+        {
+          "time": 1484,
+          "id": "services",
+          "isIntersecting": true,
+          "ratio": 0.1464834064245224,
+          "target": {
+            "top": 602,
+            "height": 2717.03125,
+            "width": 1180
+          },
+          "root": {
+            "height": 1000,
+            "width": 1440
+          }
+        },
+        {
+          "time": 2592,
+          "id": "research",
+          "isIntersecting": true,
+          "ratio": 0.3290052115917206,
+          "target": {
+            "top": 745.03125,
+            "height": 774.96875,
+            "width": 1180
+          },
+          "root": {
+            "height": 1000,
+            "width": 1440
+          }
+        },
+        {
+          "time": 2627,
+          "id": "services",
+          "isIntersecting": false,
+          "ratio": 0.11668295413255692,
+          "target": {
+            "top": -2400,
+            "height": 2717.03125,
+            "width": 1180
+          },
+          "root": {
+            "height": 1000,
+            "width": 1440
+          }
+        },
+        {
+          "time": 2657,
+          "id": "guide",
+          "isIntersecting": true,
+          "ratio": 0.4173750877380371,
+          "target": {
+            "top": 720,
+            "height": 670.859375,
+            "width": 1180
+          },
+          "root": {
+            "height": 1000,
+            "width": 1440
+          }
+        },
+        {
+          "time": 2974,
+          "id": "guide",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 1086.875,
+            "height": 670.859375,
+            "width": 1180
+          },
+          "root": {
+            "height": 1000,
+            "width": 1440
+          }
+        },
+        {
+          "time": 3003,
+          "id": "services",
+          "isIntersecting": true,
+          "ratio": 0.2863534390926361,
+          "target": {
+            "top": -1939,
+            "height": 2717.03125,
+            "width": 1180
+          },
+          "root": {
+            "height": 1000,
+            "width": 1440
+          }
+        },
+        {
+          "time": 3038,
+          "id": "research",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 1209.1650390625,
+            "height": 774.96875,
+            "width": 1180
+          },
+          "root": {
+            "height": 1000,
+            "width": 1440
+          }
+        }
+      ]
+    },
+    {
+      "name": "viewport-360",
+      "options": {
+        "viewport": {
+          "width": 360,
+          "height": 640
+        }
+      },
+      "errors": [],
+      "failed": [],
+      "failures": [
+        {
+          "y": 778,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 1178,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 1578,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 1978,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 2378,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 2778,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 3178,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 3578,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 3978,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 4378,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 4778,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 5178,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 5578,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 5978,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 6378,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 6778,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 7178,
+          "hidden": [
+            "services",
+            "research"
+          ]
+        },
+        {
+          "y": 7578,
+          "hidden": [
+            "services",
+            "research"
+          ]
+        },
+        {
+          "y": 7978,
+          "hidden": [
+            "research"
+          ]
+        },
+        {
+          "y": 8378,
+          "hidden": [
+            "research"
+          ]
+        }
+      ],
+      "samples": [
+        {
+          "label": "initial",
+          "viewport": [
+            360,
+            640
+          ],
+          "scrollY": 0,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "328px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 6880.90625,
+              "top": 805.875,
+              "geometricRatio": 0
+            },
+            {
+              "id": "research",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 1648.203125,
+              "top": 7686.78125,
+              "geometricRatio": 0
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "hero-ctas",
+            "hero-content",
+            "top",
+            "BODY",
+            "HTML"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        },
+        {
+          "label": "anchor",
+          "viewport": [
+            360,
+            640
+          ],
+          "scrollY": 730,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "328px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 6880.90625,
+              "top": 75.875,
+              "geometricRatio": 0.08198411364782074
+            },
+            {
+              "id": "research",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 1648.203125,
+              "top": 6956.78125,
+              "geometricRatio": 0
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "IMG",
+            "service-thumb",
+            "service-card",
+            "serviceGrid",
+            "services"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        },
+        {
+          "label": "after-scroll",
+          "viewport": [
+            360,
+            640
+          ],
+          "scrollY": 9178,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "328px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 6880.90625,
+              "top": -8372.125,
+              "geometricRatio": 0
+            },
+            {
+              "id": "research",
+              "classes": "visible",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0.0455156",
+              "transform": "matrix(1, 0, 0, 1, 0, 26.7256)",
+              "height": 1648.203125,
+              "top": -1492.4931640625,
+              "geometricRatio": 0.09447255533962175
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "siteNav",
+            "service-cta",
+            "service-body",
+            "service-card research-card",
+            "researchGrid"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        },
+        {
+          "label": "returning-anchor",
+          "viewport": [
+            360,
+            640
+          ],
+          "scrollY": 1218,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "328px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 6880.90625,
+              "top": -412.125,
+              "geometricRatio": 0.09301100418277025
+            },
+            {
+              "id": "research",
+              "classes": "visible",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "height": 1648.203125,
+              "top": 6440.78125,
+              "geometricRatio": 0
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "siteNav",
+            "IMG",
+            "service-thumb",
+            "service-card",
+            "serviceGrid"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        }
+      ],
+      "serviceWorkers": {
+        "controller": null,
+        "registrations": []
+      },
+      "observerEvents": [
+        {
+          "time": 168,
+          "id": "services",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 805.875,
+            "height": 6880.90625,
+            "width": 360
+          },
+          "root": {
+            "height": 640,
+            "width": 360
+          }
+        },
+        {
+          "time": 168,
+          "id": "research",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 7686.78125,
+            "height": 1648.203125,
+            "width": 360
+          },
+          "root": {
+            "height": 640,
+            "width": 360
+          }
+        },
+        {
+          "time": 168,
+          "id": "guide",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 9334.984375,
+            "height": 1405.921875,
+            "width": 360
+          },
+          "root": {
+            "height": 640,
+            "width": 360
+          }
+        },
+        {
+          "time": 168,
+          "id": "tech",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 10740.90625,
+            "height": 1858.4375,
+            "width": 360
+          },
+          "root": {
+            "height": 640,
+            "width": 360
+          }
+        },
+        {
+          "time": 168,
+          "id": "partners",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 12599.34375,
+            "height": 927.609375,
+            "width": 360
+          },
+          "root": {
+            "height": 640,
+            "width": 360
+          }
+        },
+        {
+          "time": 2704,
+          "id": "research",
+          "isIntersecting": true,
+          "ratio": 0.3223017454147339,
+          "target": {
+            "top": 108.78125,
+            "height": 1648.203125,
+            "width": 360
+          },
+          "root": {
+            "height": 640,
+            "width": 360
+          }
+        },
+        {
+          "time": 2786,
+          "id": "research",
+          "isIntersecting": false,
+          "ratio": 0.09481117129325867,
+          "target": {
+            "top": -1491.93505859375,
+            "height": 1648.203125,
+            "width": 360
+          },
+          "root": {
+            "height": 640,
+            "width": 360
+          }
+        },
+        {
+          "time": 2786,
+          "id": "guide",
+          "isIntersecting": true,
+          "ratio": 0.3435579538345337,
+          "target": {
+            "top": 156.984375,
+            "height": 1405.921875,
+            "width": 360
+          },
+          "root": {
+            "height": 640,
+            "width": 360
+          }
+        },
+        {
+          "time": 2936,
+          "id": "research",
+          "isIntersecting": true,
+          "ratio": 0.12793287634849548,
+          "target": {
+            "top": -1437.34375,
+            "height": 1648.203125,
+            "width": 360
+          },
+          "root": {
+            "height": 640,
+            "width": 360
+          }
+        },
+        {
+          "time": 3036,
+          "id": "guide",
+          "isIntersecting": false,
+          "ratio": 0.06149420887231827,
+          "target": {
+            "top": 553.5440673828125,
+            "height": 1405.921875,
+            "width": 360
+          },
+          "root": {
+            "height": 640,
+            "width": 360
+          }
+        },
+        {
+          "time": 3169,
+          "id": "research",
+          "isIntersecting": false,
+          "ratio": 0.05293258652091026,
+          "target": {
+            "top": 552.7562255859375,
+            "height": 1648.203125,
+            "width": 360
+          },
+          "root": {
+            "height": 640,
+            "width": 360
+          }
+        }
+      ]
+    },
+    {
+      "name": "pixel-390",
+      "options": {
+        "userAgent": "Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.7922.34 Mobile Safari/537.36",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "screen": {
+          "width": 393,
+          "height": 851
+        },
+        "deviceScaleFactor": 2.75,
+        "isMobile": true,
+        "hasTouch": true,
+        "defaultBrowserType": "chromium"
+      },
+      "errors": [],
+      "failed": [],
+      "failures": [
+        {
+          "y": 706,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 1106,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 1506,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 1906,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 2306,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 2706,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 3106,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 3506,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 3906,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 4306,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 4706,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 5106,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 5506,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 5906,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 6306,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 6706,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 7106,
+          "hidden": [
+            "services",
+            "research"
+          ]
+        },
+        {
+          "y": 7506,
+          "hidden": [
+            "services",
+            "research"
+          ]
+        },
+        {
+          "y": 7906,
+          "hidden": [
+            "research"
+          ]
+        }
+      ],
+      "samples": [
+        {
+          "label": "initial",
+          "viewport": [
+            390,
+            844
+          ],
+          "scrollY": 0,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "358px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 7063.390625,
+              "top": 733.75,
+              "geometricRatio": 0.015608651121429378
+            },
+            {
+              "id": "research",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 1698.828125,
+              "top": 7797.140625,
+              "geometricRatio": 0
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "i18n-block-ko",
+            "section-lead",
+            "servicesSectionHead",
+            "services",
+            "BODY"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        },
+        {
+          "label": "anchor",
+          "viewport": [
+            390,
+            844
+          ],
+          "scrollY": 658,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "358px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 7063.390625,
+              "top": 75.75,
+              "geometricRatio": 0.10876504511599201
+            },
+            {
+              "id": "research",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 1698.828125,
+              "top": 7139.140625,
+              "geometricRatio": 0
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "IMG",
+            "service-thumb",
+            "service-card",
+            "serviceGrid",
+            "services"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        },
+        {
+          "label": "after-scroll",
+          "viewport": [
+            390,
+            844
+          ],
+          "scrollY": 9106,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "358px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 7063.390625,
+              "top": -8372.25,
+              "geometricRatio": 0
+            },
+            {
+              "id": "research",
+              "classes": "visible",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0.0707429",
+              "transform": "matrix(1, 0, 0, 1, 0, 26.0192)",
+              "height": 1698.82861328125,
+              "top": -1310.84033203125,
+              "geometricRatio": 0.22838577018114217
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "siteNav",
+            "IMG",
+            "service-thumb",
+            "service-card research-card",
+            "researchGrid"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        },
+        {
+          "label": "returning-anchor",
+          "viewport": [
+            390,
+            844
+          ],
+          "scrollY": 1111,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "358px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 7063.390625,
+              "top": -377.25,
+              "geometricRatio": 0.1194893564307156
+            },
+            {
+              "id": "research",
+              "classes": "visible",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "height": 1698.828125,
+              "top": 6658.140625,
+              "geometricRatio": 0
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "siteNav",
+            "IMG",
+            "service-thumb",
+            "service-card",
+            "serviceGrid"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        }
+      ],
+      "serviceWorkers": {
+        "controller": null,
+        "registrations": []
+      },
+      "observerEvents": [
+        {
+          "time": 206,
+          "id": "services",
+          "isIntersecting": false,
+          "ratio": 0.0156086515635252,
+          "target": {
+            "top": 733.75,
+            "height": 7063.390625,
+            "width": 390
+          },
+          "root": {
+            "height": 844,
+            "width": 390
+          }
+        },
+        {
+          "time": 206,
+          "id": "research",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 7797.140625,
+            "height": 1698.828125,
+            "width": 390
+          },
+          "root": {
+            "height": 844,
+            "width": 390
+          }
+        },
+        {
+          "time": 206,
+          "id": "guide",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 9495.96875,
+            "height": 1381.609375,
+            "width": 390
+          },
+          "root": {
+            "height": 844,
+            "width": 390
+          }
+        },
+        {
+          "time": 206,
+          "id": "tech",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 10877.578125,
+            "height": 1758.875,
+            "width": 390
+          },
+          "root": {
+            "height": 844,
+            "width": 390
+          }
+        },
+        {
+          "time": 206,
+          "id": "partners",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 12636.453125,
+            "height": 927.609375,
+            "width": 390
+          },
+          "root": {
+            "height": 844,
+            "width": 390
+          }
+        },
+        {
+          "time": 2864,
+          "id": "research",
+          "isIntersecting": true,
+          "ratio": 0.32543572783470154,
+          "target": {
+            "top": 291.140625,
+            "height": 1698.828125,
+            "width": 390
+          },
+          "root": {
+            "height": 844,
+            "width": 390
+          }
+        },
+        {
+          "time": 2964,
+          "id": "guide",
+          "isIntersecting": true,
+          "ratio": 0.3286249339580536,
+          "target": {
+            "top": 389.96875,
+            "height": 1381.609375,
+            "width": 390
+          },
+          "root": {
+            "height": 844,
+            "width": 390
+          }
+        },
+        {
+          "time": 3163,
+          "id": "guide",
+          "isIntersecting": false,
+          "ratio": 0.1033787950873375,
+          "target": {
+            "top": 701.1712646484375,
+            "height": 1381.609375,
+            "width": 390
+          },
+          "root": {
+            "height": 844,
+            "width": 390
+          }
+        },
+        {
+          "time": 3313,
+          "id": "research",
+          "isIntersecting": false,
+          "ratio": 0.06409519165754318,
+          "target": {
+            "top": 735.1132202148438,
+            "height": 1698.828125,
+            "width": 390
+          },
+          "root": {
+            "height": 844,
+            "width": 390
+          }
+        }
+      ]
+    },
+    {
+      "name": "pixel-landscape",
+      "options": {
+        "userAgent": "Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.7922.34 Mobile Safari/537.36",
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "screen": {
+          "width": 393,
+          "height": 851
+        },
+        "deviceScaleFactor": 2.75,
+        "isMobile": true,
+        "hasTouch": true,
+        "defaultBrowserType": "chromium"
+      },
+      "errors": [],
+      "failed": [],
+      "failures": [
+        {
+          "y": 707,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 1107,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 1507,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 1907,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 2307,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 2707,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 3107,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 3507,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 3907,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 4307,
+          "hidden": [
+            "services"
+          ]
+        },
+        {
+          "y": 4707,
+          "hidden": [
+            "services",
+            "research"
+          ]
+        },
+        {
+          "y": 5107,
+          "hidden": [
+            "research"
+          ]
+        }
+      ],
+      "samples": [
+        {
+          "label": "initial",
+          "viewport": [
+            844,
+            390
+          ],
+          "scrollY": 0,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "392px 392px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 4071.65625,
+              "top": 734.53125,
+              "geometricRatio": 0
+            },
+            {
+              "id": "research",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 1267.859375,
+              "top": 4806.1875,
+              "geometricRatio": 0
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "main-title",
+            "hero-content",
+            "top",
+            "BODY",
+            "HTML"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        },
+        {
+          "label": "anchor",
+          "viewport": [
+            844,
+            390
+          ],
+          "scrollY": 659,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "392px 392px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 4071.65625,
+              "top": 75.53125,
+              "geometricRatio": 0.07723361961118402
+            },
+            {
+              "id": "research",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 1267.859375,
+              "top": 4147.1875,
+              "geometricRatio": 0
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "services",
+            "BODY",
+            "HTML"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        },
+        {
+          "label": "after-scroll",
+          "viewport": [
+            844,
+            390
+          ],
+          "scrollY": 5907,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "392px 392px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 4071.65625,
+              "top": -5172.46875,
+              "geometricRatio": 0
+            },
+            {
+              "id": "research",
+              "classes": "visible",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0.04562",
+              "transform": "matrix(1, 0, 0, 1, 0, 26.7226)",
+              "height": 1267.859375,
+              "top": -1102.08984375,
+              "geometricRatio": 0.13074756910639243
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "siteNav",
+            "service-cta",
+            "service-body",
+            "service-card research-card",
+            "researchGrid"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        },
+        {
+          "label": "returning-anchor",
+          "viewport": [
+            844,
+            390
+          ],
+          "scrollY": 740,
+          "counts": [
+            15,
+            3
+          ],
+          "columns": "392px 392px",
+          "sections": [
+            {
+              "id": "services",
+              "classes": "",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "0",
+              "transform": "matrix(1, 0, 0, 1, 0, 28)",
+              "height": 4071.65625,
+              "top": -5.46875,
+              "geometricRatio": 0.09578411733554373
+            },
+            {
+              "id": "research",
+              "classes": "visible",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "height": 1267.859375,
+              "top": 4038.1875,
+              "geometricRatio": 0
+            }
+          ],
+          "card": {
+            "opacity": "1",
+            "display": "flex",
+            "visibility": "visible"
+          },
+          "layers": [
+            "IMG",
+            "service-thumb",
+            "service-card",
+            "serviceGrid",
+            "services"
+          ],
+          "stored": {
+            "lang": "ko",
+            "theme": null
+          }
+        }
+      ],
+      "serviceWorkers": {
+        "controller": null,
+        "registrations": []
+      },
+      "observerEvents": [
+        {
+          "time": 144,
+          "id": "services",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 734.53125,
+            "height": 4071.65625,
+            "width": 844
+          },
+          "root": {
+            "height": 390,
+            "width": 844
+          }
+        },
+        {
+          "time": 144,
+          "id": "research",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 4806.1875,
+            "height": 1267.859375,
+            "width": 844
+          },
+          "root": {
+            "height": 390,
+            "width": 844
+          }
+        },
+        {
+          "time": 144,
+          "id": "guide",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 6074.046875,
+            "height": 737.671875,
+            "width": 844
+          },
+          "root": {
+            "height": 390,
+            "width": 844
+          }
+        },
+        {
+          "time": 144,
+          "id": "tech",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 6811.71875,
+            "height": 1205.28125,
+            "width": 844
+          },
+          "root": {
+            "height": 390,
+            "width": 844
+          }
+        },
+        {
+          "time": 144,
+          "id": "partners",
+          "isIntersecting": false,
+          "ratio": 0,
+          "target": {
+            "top": 8017,
+            "height": 623.421875,
+            "width": 844
+          },
+          "root": {
+            "height": 390,
+            "width": 844
+          }
+        },
+        {
+          "time": 2671,
+          "id": "research",
+          "isIntersecting": true,
+          "ratio": 0.22937284409999847,
+          "target": {
+            "top": 99.1875,
+            "height": 1267.859375,
+            "width": 844
+          },
+          "root": {
+            "height": 390,
+            "width": 844
+          }
+        },
+        {
+          "time": 2738,
+          "id": "guide",
+          "isIntersecting": true,
+          "ratio": 0.3022388815879822,
+          "target": {
+            "top": 167.046875,
+            "height": 737.671875,
+            "width": 844
+          },
+          "root": {
+            "height": 390,
+            "width": 844
+          }
+        },
+        {
+          "time": 2904,
+          "id": "guide",
+          "isIntersecting": false,
+          "ratio": 0.11947692185640335,
+          "target": {
+            "top": 301.86529541015625,
+            "height": 737.671875,
+            "width": 844
+          },
+          "root": {
+            "height": 390,
+            "width": 844
+          }
+        },
+        {
+          "time": 3054,
+          "id": "research",
+          "isIntersecting": false,
+          "ratio": 0.01681753247976303,
+          "target": {
+            "top": 368.6776123046875,
+            "height": 1267.859375,
+            "width": 844
+          },
+          "root": {
+            "height": 390,
+            "width": 844
+          }
+        }
+      ]
+    }
+  ],
+  "reducedMotion": "no-preference",
+  "note": "Native observer entries logged without changing entries, callbacks, classes or styles. Fast-scroll zero-opacity samples can include a transient unrevealed research section; use stable anchor samples for the persistent services failure."
+}

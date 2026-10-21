@@ -1,0 +1,15 @@
+Chromium 154.0.8037.57 (mobile emulation, not an Android device)
+PASS viewport-360 normal-motion initial visit, CTA and all 18 cards/ancestors/images
+PASS viewport-360 6 language/theme combinations, filters, anchors, reload, history, resize, tab return, keyboard, no local errors
+PASS pixel-390 normal-motion initial visit, CTA and all 18 cards/ancestors/images
+PASS pixel-390 6 language/theme combinations, filters, anchors, reload, history, resize, tab return, keyboard, no local errors
+PASS landscape normal-motion initial visit, CTA and all 18 cards/ancestors/images
+PASS landscape 6 language/theme combinations, filters, anchors, reload, history, resize, tab return, keyboard, no local errors
+PASS desktop normal-motion initial visit, CTA and all 18 cards/ancestors/images
+PASS desktop 6 language/theme combinations, filters, anchors, reload, history, resize, tab return, keyboard, no local errors
+PASS robustness reduced-motion (expected errors: 0)
+PASS robustness no-observer (expected errors: 0)
+PASS robustness observer-throws (expected errors: 0)
+PASS robustness observer-silent (expected errors: 0)
+PASS robustness canvas-null (expected errors: 0)
+PASS robustness canvas-throws (expected errors: 0)
