@@ -50,13 +50,7 @@
             --nav-border: rgba(0, 229, 255, 0.15);
             --hover-bg: rgba(0, 229, 255, 0.12);
             --btn-bg: rgba(0, 0, 0, 0.45);
-            --btn-text: #fff;
             --input-bg: rgba(0, 0, 0, 0.45);
-            --hero-overlay-a: rgba(5, 5, 20, 0.55);
-            --hero-overlay-b: rgba(5, 5, 15, 0.78);
-            --hero-card-bg: rgba(0, 0, 0, 0.62);
-            --hero-shadow: rgba(0, 0, 0, 0.75);
-            --hero-glow-in: rgba(0, 229, 255, 0.06);
             --shadow-card: rgba(0, 0, 0, 0.45);
             --shadow-card-lg: rgba(0, 0, 0, 0.4);
             --card-border-hover: rgba(0, 229, 255, 0.55);
@@ -72,9 +66,6 @@
             --grad-h2-2: #00B4D8;
             --grad-h2-3: #A78BFA;
             --icon-glow: rgba(0, 229, 255, 0.5);
-            --glow-kf-a: rgba(0, 229, 255, 0.35);
-            --glow-kf-b: rgba(0, 229, 255, 0.75);
-            --logo-glow: rgba(0, 229, 255, 0.75);
             --partner-grad-1: #FFD700;
             --partner-grad-2: #FF6B6B;
             --partner-img-border: rgba(0, 229, 255, 0.28);
@@ -125,13 +116,7 @@
             --nav-border: rgba(8, 145, 178, 0.2);
             --hover-bg: rgba(8, 145, 178, 0.12);
             --btn-bg: rgba(255, 255, 255, 0.78);
-            --btn-text: #0f172a;
             --input-bg: rgba(255, 255, 255, 0.85);
-            --hero-overlay-a: rgba(236, 254, 255, 0.5);
-            --hero-overlay-b: rgba(224, 242, 254, 0.75);
-            --hero-card-bg: rgba(255, 255, 255, 0.82);
-            --hero-shadow: rgba(2, 132, 199, 0.25);
-            --hero-glow-in: rgba(2, 132, 199, 0.08);
             --shadow-card: rgba(2, 132, 199, 0.14);
             --shadow-card-lg: rgba(2, 132, 199, 0.12);
             --card-border-hover: rgba(8, 145, 178, 0.55);
@@ -147,9 +132,6 @@
             --grad-h2-2: #0891b2;
             --grad-h2-3: #7c3aed;
             --icon-glow: rgba(2, 132, 199, 0.35);
-            --glow-kf-a: rgba(2, 132, 199, 0.25);
-            --glow-kf-b: rgba(2, 132, 199, 0.5);
-            --logo-glow: rgba(2, 132, 199, 0.4);
             --partner-grad-1: #b45309;
             --partner-grad-2: #e11d48;
             --partner-img-border: rgba(8, 145, 178, 0.3);
@@ -354,48 +336,6 @@
             .nav-actions .nav-icon-btn.desktop-only { display: none; }
         }
 
-        /* ===== Hero ===== */
-        header.hero {
-            min-height: 72vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            background-image: linear-gradient(var(--hero-overlay-a), var(--hero-overlay-b)), url('aicenter.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            padding: 3rem 1.25rem 2.5rem;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            background: var(--hero-card-bg);
-            backdrop-filter: blur(14px);
-            padding: 2.4rem 1.8rem 2rem;
-            border-radius: 28px;
-            border: 1px solid var(--border);
-            box-shadow: 0 20px 60px var(--hero-shadow), inset 0 0 40px var(--hero-glow-in);
-            max-width: 820px;
-            width: 100%;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .main-logo {
-            max-width: min(640px, 100%);
-            width: auto;
-            height: auto;
-            max-height: min(42vh, 360px);
-            display: block;
-            margin: 0 auto 1.1rem;
-            object-fit: contain;
-            object-position: center;
-            filter: drop-shadow(0 0 36px var(--logo-glow));
-            border-radius: 16px;
-        }
-
         .main-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.6rem, 5vw, 2.8rem);
@@ -404,95 +344,8 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: glow 2.8s ease-in-out infinite alternate;
             margin-bottom: 0.7rem;
             letter-spacing: -0.5px;
-        }
-
-        .header-subtitle {
-            font-size: clamp(1rem, 3vw, 1.25rem);
-            opacity: 0.95;
-            line-height: 1.55;
-            max-width: 640px;
-            margin: 0 auto 1.4rem;
-            color: var(--text);
-        }
-
-        .hero-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            justify-content: center;
-            margin-bottom: 1.2rem;
-        }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 0.32rem 0.75rem;
-            border-radius: 999px;
-            border: 1px solid var(--border);
-            background: var(--chip-bg);
-            color: var(--chip-text);
-        }
-        .hero-badge i { font-size: 0.85rem; }
-
-        .hero-ctas {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            justify-content: center;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.45rem;
-            font-family: inherit;
-            font-weight: 700;
-            font-size: 1rem;
-            padding: 0.85rem 1.4rem;
-            border-radius: 999px;
-            border: 1px solid transparent;
-            text-decoration: none;
-            cursor: pointer;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-            min-height: 48px;
-            color: var(--btn-text);
-        }
-        .btn:focus-visible {
-            outline: 3px solid var(--focus);
-            outline-offset: 3px;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #00E5FF, #A78BFA);
-            color: #0b1220;
-            box-shadow: 0 14px 36px rgba(0, 229, 255, 0.35);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 18px 44px rgba(0, 229, 255, 0.5);
-        }
-        .btn-ghost {
-            background: var(--btn-bg);
-            border-color: var(--border-strong);
-        }
-        .btn-ghost:hover {
-            transform: translateY(-2px);
-            border-color: var(--cyan);
-            background: var(--hover-bg);
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(36px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes glow {
-            0% { filter: drop-shadow(0 0 8px var(--glow-kf-a)); }
-            100% { filter: drop-shadow(0 0 18px var(--glow-kf-b)); }
         }
 
         /* ===== Sections ===== */
@@ -684,10 +537,6 @@
             background: rgba(251, 146, 60, 0.95);
             color: #1c1917;
             border: 1px solid rgba(255, 255, 255, 0.35);
-        }
-        .badge--bottom {
-            top: auto;
-            bottom: 10px;
         }
         .service-thumb--contain {
             background: var(--thumb-contain-bg);
@@ -1114,13 +963,7 @@
         html[lang="ja"] .i18n-block-ja { display: revert !important; }
 
         @media (max-width: 768px) {
-            header.hero {
-                min-height: auto;
-                padding-top: 2rem;
-                background-attachment: scroll;
-            }
             section { padding: 56px 16px; }
-            .hero-ctas .btn { width: 100%; max-width: 360px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1131,6 +974,9 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="./cosmos.css">
+    <script defer src="./cosmos.js"></script>
+    <script defer src="./thought-experiment.js"></script>
 </head>
 <body>
     <a class="skip-link" href="#services">
@@ -1175,62 +1021,27 @@
 
     <header class="hero" id="top">
         <div class="hero-content">
-            <img src="QAlogo.jpg" alt="심사품질 AI센터 로고" class="main-logo" decoding="async">
-            <h1 class="main-title">Examination Quality AI</h1>
-            <p class="header-subtitle">
-                <span class="i18n-block-ko">
-                    특허·상표·디자인 심사품질 진단을 위한<br>
-                    <strong>근거 기반 Agentic AI 센터</strong> —<br>
-                    검색하고, 검증하고, 인용하며, 확신이 없으면 자제합니다.
-                </span>
-                <span class="i18n-block-en">
-                    An <strong>evidence-grounded Agentic AI center</strong> for examination quality —<br>
-                    retrieve, verify, cite, and abstain when unsure.
-                </span>
-                <span class="i18n-block-ja">
-                    特許・商標・意匠の審査品質診断のための<br>
-                    <strong>根拠に基づくAgentic AIセンター</strong> —<br>
-                    検索し、検証し、引用し、確信がなければ控えます。
-                </span>
-            </p>
-            <div class="hero-badges" aria-label="EQAI core principles">
-                <span class="hero-badge"><i class="fas fa-quote-right" aria-hidden="true"></i>
-                    <span class="i18n-block-ko">근거 기반 · 인용 우선</span>
-                    <span class="i18n-block-en">Evidence-grounded · citation-first</span>
-                    <span class="i18n-block-ja">根拠ベース・引用優先</span>
-                </span>
-                <span class="hero-badge"><i class="fas fa-chart-simple" aria-hidden="true"></i>
+            <div class="hero-constellation" id="heroConstellation">
+                <canvas id="heroParticles" aria-hidden="true"></canvas>
+                <div class="constellation-word" aria-hidden="true">EQAI</div>
+                <div class="constellation-stars" id="constellationStars"></div>
+            </div>
+            <h1 class="main-title" data-title-reveal>Examination Quality AI</h1>
+            <p class="hero-principles">
+                <span data-title-reveal>
                     <span class="i18n-block-ko">측정 가능한 품질</span>
                     <span class="i18n-block-en">Measurable quality</span>
                     <span class="i18n-block-ja">測定可能な品質</span>
                 </span>
-                <span class="hero-badge"><i class="fas fa-user-check" aria-hidden="true"></i>
-                    <span class="i18n-block-ko">Human-in-the-Loop</span>
-                    <span class="i18n-block-en">Human-in-the-Loop</span>
-                    <span class="i18n-block-ja">Human-in-the-Loop</span>
-                </span>
-            </div>
-            <div class="hero-ctas">
-                <a class="btn btn-primary" href="#services">
-                    <i class="fas fa-rocket" aria-hidden="true"></i>
-                    <span class="i18n-block-ko">서비스 시작</span>
-                    <span class="i18n-block-en">Start Services</span>
-                    <span class="i18n-block-ja">サービス開始</span>
-                </a>
-                <a class="btn btn-ghost" href="#guide">
-                    <i class="fas fa-map-signs" aria-hidden="true"></i>
-                    <span class="i18n-block-ko">이용 가이드</span>
-                    <span class="i18n-block-en">How to Use</span>
-                    <span class="i18n-block-ja">ご利用ガイド</span>
-                </a>
-            </div>
+                <span data-title-reveal>Human-in-the-Loop</span>
+            </p>
         </div>
     </header>
 
     <!-- Services -->
     <section id="services" aria-labelledby="services-title">
         <div class="section-head" id="servicesSectionHead">
-            <h2 id="services-title"><i class="fas fa-th-large" aria-hidden="true"></i>
+            <h2 id="services-title" data-title-reveal><i class="fas fa-th-large" aria-hidden="true"></i>
                 <span class="i18n-block-ko">서비스 허브</span>
                 <span class="i18n-block-en">Service Hub</span>
                 <span class="i18n-block-ja">サービスハブ</span>
@@ -1283,7 +1094,7 @@
     <!-- Research & Exhibitions -->
     <section id="research" aria-labelledby="research-title">
         <div class="section-head">
-            <h2 id="research-title"><i class="fas fa-microscope" aria-hidden="true"></i>
+            <h2 id="research-title" data-title-reveal><i class="fas fa-microscope" aria-hidden="true"></i>
                 <span class="i18n-block-ko">연구·전시</span>
                 <span class="i18n-block-en">Research & Exhibitions</span>
                 <span class="i18n-block-ja">研究・展示</span>
@@ -1307,7 +1118,7 @@
     <!-- Guide -->
     <section id="guide" aria-labelledby="guide-title">
         <div class="section-head">
-            <h2 id="guide-title"><i class="fas fa-route" aria-hidden="true"></i>
+            <h2 id="guide-title" data-title-reveal><i class="fas fa-route" aria-hidden="true"></i>
                 <span class="i18n-block-ko">이용 방법</span>
                 <span class="i18n-block-en">How to Use</span>
                 <span class="i18n-block-ja">ご利用方法</span>
@@ -1361,7 +1172,7 @@
             </article>
         </div>
 
-        <h3 style="text-align:center; margin: 0.5rem 0 1rem; font-size: 1.15rem;">
+        <h3 data-title-reveal style="text-align:center; margin: 0.5rem 0 1rem; font-size: 1.15rem;">
             <span class="i18n-block-ko">역할별 추천 경로</span>
             <span class="i18n-block-en">Recommended paths by role</span>
             <span class="i18n-block-ja">役割別のおすすめ経路</span>
@@ -1424,7 +1235,7 @@
     <!-- Tech -->
     <section id="tech" aria-labelledby="tech-title">
         <div class="section-head">
-            <h2 id="tech-title"><i class="fas fa-microchip" aria-hidden="true"></i>
+            <h2 id="tech-title" data-title-reveal><i class="fas fa-microchip" aria-hidden="true"></i>
                 <span class="i18n-block-ko">한눈에 보는 EQAI</span>
                 <span class="i18n-block-en">EQAI at a Glance</span>
                 <span class="i18n-block-ja">EQAI概要</span>
@@ -1775,7 +1586,7 @@
         </div>
 
         <div style="margin-top: 2.5rem;">
-            <h3 style="text-align:center; margin-bottom: 1.1rem; font-size: 1.15rem;">
+            <h3 data-title-reveal style="text-align:center; margin-bottom: 1.1rem; font-size: 1.15rem;">
                 <span class="i18n-block-ko">기대 효과</span>
                 <span class="i18n-block-en">Expected impact</span>
                 <span class="i18n-block-ja">期待効果</span>
@@ -1812,7 +1623,7 @@
     <!-- Partners -->
     <section id="partners" aria-labelledby="partners-title">
         <div class="section-head">
-            <h2 id="partners-title"><i class="fas fa-handshake" aria-hidden="true"></i>
+            <h2 id="partners-title" data-title-reveal><i class="fas fa-handshake" aria-hidden="true"></i>
                 <span class="i18n-block-ko">파트너 · 소속</span>
                 <span class="i18n-block-en">Partners</span>
                 <span class="i18n-block-ja">パートナー・所属</span>
@@ -1849,6 +1660,40 @@
                     <span class="grad"> TeamProtoFelix</span>
                 </p>
             </article>
+        </div>
+    </section>
+
+    <section class="thought-experiment" aria-labelledby="experimentTitle">
+        <div class="experiment-panel">
+            <div class="experiment-header">
+                <h2 id="experimentTitle" data-title-reveal>Live Thought Experiment</h2>
+                <a href="https://creative-lab.moip.ai.kr/AION_THE_BETWEEN/index.html" aria-label="AION — The Between">01 / 07</a>
+            </div>
+            <div class="experiment-field">
+                <canvas id="experimentGraph" tabindex="0" aria-describedby="experimentInstructions">
+                    128 possible endings
+                </canvas>
+                <div class="experiment-legend" aria-hidden="true">
+                    <span>128 Possible Endings</span><span>Touch a Star</span>
+                </div>
+            </div>
+            <div class="experiment-controls">
+                <p id="experimentInstructions" class="visually-hidden">
+                    <span class="i18n-block-ko">별을 눌러 경로를 밝히세요. 키보드는 방향키로 탐색하고 Enter로 선택합니다.</span>
+                    <span class="i18n-block-en">Choose a star to light its path. Use the arrow keys to explore and Enter to select.</span>
+                    <span class="i18n-block-ja">星を選んで経路を照らします。矢印キーで移動し、Enterキーで選択できます。</span>
+                </p>
+                <p id="experimentStatus" role="status"></p>
+                <button type="button" id="experimentReset">
+                    <span aria-hidden="true">↺</span>
+                    <span class="i18n-block-ko">다시 보기</span>
+                    <span class="i18n-block-en">Reset</span>
+                    <span class="i18n-block-ja">リセット</span>
+                </button>
+            </div>
+            <p class="experiment-fallback">
+                <a href="https://creative-lab.moip.ai.kr/AION_THE_BETWEEN/index.html">AION — The Between ↗</a>
+            </p>
         </div>
     </section>
 
@@ -1941,7 +1786,6 @@
                     href: 'https://agent.moip.ai.kr/',
                     img: 'images/services/marie-control-card.jpg',
                     imgFit: 'contain',
-                    badgePos: 'bottom',
                     badge: 'new',
                     badgeKo: '신규',
                     badgeEn: 'New',
@@ -2279,22 +2123,21 @@
                     const extIcon = external ? ' <i class="fas fa-external-link-alt" aria-hidden="true" style="font-size:0.75em"></i>' : '';
                     const isCafeBara = s.id === 'cafe-bara';
                     const fitClass = s.imgFit === 'contain' ? ' service-thumb--contain' : '';
-                    const badgePosClass = s.badgePos === 'bottom' ? ' badge--bottom' : '';
                     const imgPosStyle = s.imgPos ? ' style="object-position:' + s.imgPos + '"' : '';
                     return (
                         '<a class="service-card" href="' + s.href + '" target="' + target + '" rel="' + rel + '"' +
-                        ' data-category="' + s.category + '" data-status="' + s.badge + '"' +
+                        ' id="card-' + s.id + '" data-category="' + s.category + '" data-status="' + s.badge + '"' +
                         ' data-keywords="' + s.keywords.toLowerCase() + ' ' + s.titleKo.toLowerCase() + ' ' + s.titleEn.toLowerCase() + ' ' + s.titleJa.toLowerCase() + '"' +
                         ' aria-label="' + title + ' · ' + badge + (external ? newTab : '') + '">' +
                         '<div class="service-thumb' + (isCafeBara ? ' service-thumb--cafe-bara' : '') + fitClass + '">' +
-                        '<span class="badge ' + (badgeClass[s.badge] || 'badge-live') + badgePosClass + '">' + badge + '</span>' +
+                        '<span class="badge ' + (badgeClass[s.badge] || 'badge-live') + '">' + badge + '</span>' +
                         '<img src="' + s.img + '" alt="" width="640" height="' + (isCafeBara ? '640' : '360') + '" loading="lazy" decoding="async"' + imgPosStyle +
                         ' onerror="this.style.opacity=0.2">' +
                         (isCafeBara ? '<div class="cafe-bara-brand" aria-hidden="true"><strong>Cafe-BARA</strong><small>☕ AI Work Café</small></div>' : '') +
                         '</div>' +
                         '<div class="service-body">' +
                         '<div class="en">' + s.enLabel + '</div>' +
-                        '<h3>' + title + '</h3>' +
+                        '<h3 class="card-title" data-title-reveal>' + title + '</h3>' +
                         '<p>' + desc + '</p>' +
                         (note ? '<p class="card-note">' + note + '</p>' : '') +
                         '<div class="service-meta"><span class="chip">' + audience + '</span></div>' +
@@ -2383,6 +2226,30 @@
                     ctaEn: 'Explore exhibition',
                     ctaJa: '研究展示を体験',
                     keywords: 'research future evidence unknown hitl 심사품질 미래 연구 전시 근거 규칙 진단 후보 사람 검토 審査品質 未来 研究 展示'
+                },
+                {
+                    id: 'noema-portal',
+                    displayOrder: 4,
+                    category: 'research',
+                    href: 'https://creative-lab.moip.ai.kr/',
+                    img: 'images/services/noema-portal-card.webp',
+                    labelKo: '창의 전시',
+                    labelEn: 'Creative Exhibition',
+                    labelJa: '創作展示',
+                    titleKo: 'NOEMA 포털',
+                    titleEn: 'NOEMA Portal',
+                    titleJa: 'NOEMA ポータル',
+                    enLabel: 'NOEMA · Creative Lab',
+                    descKo: 'AI의 인지와 표현이 어디까지 뻗을 수 있는지 탐구합니다. 생명·시간·마음을 다룬 인터랙티브 작품 속에서 휴식과 새로운 통찰을 만나보세요.',
+                    descEn: 'Explore how far AI cognition and expression can reach. Find a moment of calm and new insight in interactive works on life, time and the mind.',
+                    descJa: 'AIの認知と表現の可能性を探ります。生命・時間・心をめぐるインタラクティブな作品で、安らぎと新たな気づきに出会えます。',
+                    audienceKo: '전체',
+                    audienceEn: 'Everyone',
+                    audienceJa: '全員',
+                    ctaKo: 'NOEMA 포털 열기',
+                    ctaEn: 'Explore NOEMA',
+                    ctaJa: 'NOEMAを開く',
+                    keywords: 'noema creative lab ai cognition healing contemplation 노에마 인지 힐링 사유 깨달음 認知 癒し'
                 }
             ];
 
@@ -2407,7 +2274,7 @@
                     const imgPosStyle = r.imgPos ? ' style="object-position:' + r.imgPos + '"' : '';
                     return (
                         '<a class="service-card research-card" href="' + r.href + '" target="' + target + '" rel="' + rel + '"' +
-                        ' data-category="' + r.category + '"' +
+                        ' id="card-' + r.id + '" data-category="' + r.category + '"' +
                         ' data-keywords="' + r.keywords.toLowerCase() + ' ' + r.titleKo.toLowerCase() + ' ' + r.titleEn.toLowerCase() + ' ' + r.titleJa.toLowerCase() + '"' +
                         ' aria-label="' + title + ' · ' + label + (external ? newTab : '') + '">' +
                         '<div class="service-thumb' + fitClass + '">' +
@@ -2416,7 +2283,7 @@
                         '</div>' +
                         '<div class="service-body">' +
                         '<div class="en">' + r.enLabel + '</div>' +
-                        '<h3>' + title + '</h3>' +
+                        '<h3 class="card-title" data-title-reveal>' + title + '</h3>' +
                         '<p>' + desc + '</p>' +
                         '<div class="service-meta"><span class="chip research-label">' + label + '</span><span class="chip">' + audience + '</span></div>' +
                         '<div class="service-cta">' + go + ' →' + extIcon + '</div>' +
@@ -2424,6 +2291,43 @@
                     );
                 }).join('');
             }
+
+            const constellationStars = document.getElementById('constellationStars');
+
+            function renderConstellation() {
+                const cards = document.querySelectorAll('.service-card');
+                const fragment = document.createDocumentFragment();
+                const label = { ko: '서비스 별자리', en: 'Service constellation', ja: 'サービスの星座' };
+                constellationStars.setAttribute('role', 'group');
+                constellationStars.setAttribute('aria-label', label[currentLang]);
+                cards.forEach(function (card, index) {
+                    const angle = -Math.PI / 2 + index * 2 * Math.PI / cards.length;
+                    const drift = index % 2 ? .96 : 1;
+                    const star = document.createElement('a');
+                    const title = card.querySelector('.card-title').textContent;
+                    star.className = 'constellation-star';
+                    if (card.classList.contains('research-card')) star.classList.add('constellation-star--research');
+                    star.href = '#' + card.id;
+                    star.setAttribute('aria-label', title);
+                    star.dataset.title = title;
+                    star.style.left = (50 + 43 * drift * Math.cos(angle)) + '%';
+                    star.style.top = (50 + 40 * drift * Math.sin(angle)) + '%';
+                    fragment.append(star);
+                });
+                constellationStars.replaceChildren(fragment);
+            }
+
+            constellationStars.addEventListener('click', function (event) {
+                const star = event.target.closest('.constellation-star');
+                if (!star || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                const card = document.getElementById(star.hash.slice(1));
+                if (card.classList.contains('is-hidden')) {
+                    document.getElementById('serviceSearch').value = '';
+                    searchQuery = '';
+                    document.querySelector('[data-filter="all"]').click();
+                }
+                card.focus({ preventScroll: true });
+            });
 
             let activeFilter = 'all';
             let searchQuery = '';
@@ -2528,6 +2432,8 @@
                 renderServices();
                 renderResearch();
                 applyFilters();
+                renderConstellation();
+                document.dispatchEvent(new Event('eqai:cards-rendered'));
                 if (themeToggle) {
                     themeToggle.setAttribute('aria-label', themeToggleLabels(theme, lang)[lang]);
                 }
