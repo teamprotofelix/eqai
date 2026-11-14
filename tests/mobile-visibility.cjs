@@ -195,6 +195,11 @@ async function screenshot(page, name) {
         const initialMarker = await marker.getAttribute('style');
         await page.waitForFunction(initial => document.querySelector('.constellation-star').getAttribute('style') !== initial, initialMarker);
         await marker.hover();
+        // Wait for the page's pointerover handler before sampling the moving target.
+        await page.waitForFunction(() => {
+            const star = document.querySelector('.constellation-star');
+            return star.matches(':hover') && document.querySelector('.constellation-caption').textContent === star.dataset.title;
+        });
         const hoveredMarker = await marker.getAttribute('style');
         await page.waitForTimeout(150);
         assert.equal(await marker.getAttribute('style'), hoveredMarker, 'A hovered star holds its click target');
