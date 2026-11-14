@@ -18,7 +18,8 @@ The test prefers `/usr/bin/chromium` when available, otherwise Playwright's inst
 
 The checks use normal motion first, inspect ancestor opacity/display/visibility and hit testing, and decode images. They never add `.visible`, override opacity or fake successful observer callbacks. Mobile viewport checks and Pixel 5 emulation are desktop Chromium runs, not Android device tests. Tab switching is checked; OS background suspension is not simulated.
 
-Coverage: 360×640, 390×844 with mobile emulation, 844×390 landscape, 1440×1000 desktop; KO/EN/JA and both themes; scrolling all 18 cards; search/filter AND, research-only and empty results; hash navigation, reload, history, orientation-sized viewport changes, keyboard/new tab and mobile navigation. Separate robustness cases disable the observer, throw on construction, withhold callbacks, enable reduced motion, or return null/throw from canvas context creation. Canvas failure must leave saved theme restoration and card controls working without JavaScript errors.
+Coverage: 360×640, 390×844 with mobile emulation, 844×390 landscape, 1440×1000 desktop; KO/EN/JA and both themes; scrolling all 19 cards; search/filter AND, research-only and empty results; hash navigation, reload, history, orientation-sized viewport changes, keyboard/new tab and mobile navigation. Separate robustness cases disable the observer, throw on construction, withhold callbacks, enable reduced motion, or return null/throw from canvas context creation. Canvas failure must leave saved theme restoration and card controls working without JavaScript errors.
+The same runner checks the 19 constellation links, Marie badge placement, NOEMA WebP dimensions, pointer-driven globe and idle word, title reveal after a language change, moving orbits, and reduced motion.
 
 To verify that this detects the original bug, provide the unmodified main HTML from before the fix:
 

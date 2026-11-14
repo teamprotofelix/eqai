@@ -49,12 +49,21 @@ async function readable(card) {
     });
     assert.ok(state.ancestors.every(s => Number(s.opacity) >= 0.9 && s.display !== 'none' && s.visibility === 'visible'), JSON.stringify(state));
     assert.ok(state.inViewport && state.hit, 'Card is in view and unobscured');
-    await card.locator('img').evaluate(img => img.decode());
+    const picture = card.locator('img');
+    await picture.evaluate(img => {
+        if (img.complete && img.naturalWidth) return;
+        return new Promise((resolve, reject) => {
+            img.addEventListener('load', resolve, { once: true });
+            img.addEventListener('error', () => reject(new Error('Image failed to load: ' + img.src)), { once: true });
+            img.loading = 'eager';
+        });
+    });
+    await picture.evaluate(img => img.decode());
 }
 
 async function allCards(page) {
     const cards = page.locator('.service-card');
-    assert.equal(await cards.count(), 18);
+    assert.equal(await cards.count(), 19);
     for (const card of await cards.all()) await readable(card);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'No horizontal overflow');
 }
@@ -93,12 +102,12 @@ async function screenshot(page, name) {
             page.on('response', response => { if (response.url().startsWith(base) && response.status() >= 400) failed.push(response.url()); });
             await page.goto(base + '/');
             assert.equal(await page.locator('#serviceGrid .service-card').count(), 15);
-            assert.equal(await page.locator('#researchGrid .research-card').count(), 3);
+            assert.equal(await page.locator('#researchGrid .research-card').count(), 4);
             await page.locator('.hero-ctas a[href="#services"]').click();
             await settled(page);
             await readable(page.locator('#serviceGrid .service-card').first());
             await allCards(page);
-            console.log('PASS', name, 'normal-motion initial visit, CTA and all 18 cards/ancestors/images');
+            console.log('PASS', name, 'normal-motion initial visit, CTA and all 19 cards/ancestors/images');
 
             for (const lang of ['ko', 'en', 'ja']) {
                 while (await page.getAttribute('html', 'lang') !== lang) await page.locator('#langToggle').click();
@@ -115,7 +124,7 @@ async function screenshot(page, name) {
                     await page.locator('#serviceSearch').fill('');
                     await page.locator('[data-filter="research"]').click();
                     assert.equal(await page.locator('#serviceGrid').isVisible(), false);
-                    assert.equal(await page.locator('.service-card:not(.is-hidden)').count(), 3);
+                    assert.equal(await page.locator('.service-card:not(.is-hidden)').count(), 4);
                     for (const card of await page.locator('.research-card').all()) await readable(card);
                     await page.locator('[data-filter="all"]').click();
                     await allCards(page);
@@ -163,6 +172,87 @@ async function screenshot(page, name) {
             console.log('PASS', name, '6 language/theme combinations, filters, anchors, reload, history, resize, tab return, keyboard, no local errors');
             await context.close();
         }
+        const cosmos = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+        await cosmos.route('**/*', route => route.request().url().startsWith(base + '/') ? route.continue() : route.fulfill({ status: 200, body: '' }));
+        const page = await cosmos.newPage();
+        await page.goto(base + '/?lang=ko');
+        const hero = page.locator('#heroParticles');
+        const frame = () => hero.evaluate(canvas => canvas.toDataURL());
+        const links = page.locator('.constellation-star');
+        const noema = page.locator('#card-noema-portal');
+        const noemaStar = page.locator('.constellation-star[href="#card-noema-portal"]');
+        const match = await links.evaluateAll(stars => stars.every(star =>
+            star.getAttribute('aria-label') === document.querySelector(star.hash).querySelector('.card-title').textContent
+        ));
+        assert.equal(await links.count(), 19);
+        assert.equal(match, true);
+        const badge = page.locator('#card-marie-control .badge');
+        assert.deepEqual(await badge.evaluate(element => {
+            const rect = element.getBoundingClientRect();
+            const thumb = element.parentElement.getBoundingClientRect();
+            return [rect.top - thumb.top, thumb.right - rect.right];
+        }), [10, 10]);
+        assert.equal(await badge.textContent(), '신규');
+        assert.equal(await noema.getAttribute('href'), 'https://creative-lab.moip.ai.kr/');
+        // Use a bitmap crop around the word, excluding the independently twinkling background.
+        const letterDensity = () => hero.evaluate(canvas => {
+            const { width, height } = canvas;
+            const pixels = canvas.getContext('2d').getImageData(width * .29, height * .36, width * .42, height * .28).data;
+            let count = 0;
+            for (let i = 0; i < pixels.length; i += 4) {
+                if (pixels[i] > 140 && pixels[i + 1] > 165 && pixels[i + 3] > 180) count++;
+            }
+            return count;
+        });
+        const letters = await letterDensity();
+        assert.ok(letters > 100);
+        const bounds = await hero.boundingBox();
+        await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+        async function waitForDensity(predicate) {
+            const deadline = Date.now() + 5000;
+            while (Date.now() < deadline) {
+                if (predicate(await letterDensity())) return;
+                await page.waitForTimeout(50);
+            }
+            assert.fail('The EQAI particle shape did not change as expected');
+        }
+        await waitForDensity(density => density < letters * .75);
+        await page.mouse.move(5, 5);
+        await waitForDensity(density => density > letters * .95);
+        await page.locator('[data-filter="daily"]').click();
+        await page.locator('#serviceSearch').fill('notice');
+        await noemaStar.focus();
+        await page.keyboard.press('Enter');
+        assert.equal(new URL(page.url()).hash, '#card-noema-portal');
+        assert.equal(await page.locator('#serviceSearch').inputValue(), '');
+        assert.equal(await noema.evaluate(el => el === document.activeElement), true);
+        await readable(noema);
+        assert.deepEqual(await noema.locator('img').evaluate(img => [img.naturalWidth, img.naturalHeight]), [1280, 720]);
+        const title = noema.locator('.card-title');
+        assert.equal(await title.textContent(), 'NOEMA 포털');
+        const overlay = noema.locator('.title-reveal');
+        await page.waitForFunction(() => !document.querySelector('#card-noema-portal .title-reveal').hasAttribute('data-glyphs'));
+        await page.locator('#langToggle').click();
+        await page.locator('#card-noema-portal h3').scrollIntoViewIfNeeded();
+        await page.waitForFunction(() => document.querySelector('#card-noema-portal .title-reveal').hasAttribute('data-glyphs'));
+        assert.equal(await overlay.getAttribute('aria-hidden'), 'true');
+        assert.equal(await title.textContent(), 'NOEMA Portal');
+        await page.waitForFunction(() => !document.querySelector('#card-noema-portal .title-reveal').hasAttribute('data-glyphs'));
+        const orbits = page.locator('#closingOrbits');
+        await orbits.scrollIntoViewIfNeeded();
+        const orbitFrame = await orbits.evaluate(canvas => canvas.toDataURL());
+        await page.waitForFunction(previous => document.querySelector('#closingOrbits').toDataURL() !== previous, orbitFrame);
+        await page.emulateMedia({ reducedMotion: 'reduce' });
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.waitForTimeout(100);
+        const still = await frame();
+        await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+        await page.waitForTimeout(150);
+        assert.equal(await frame(), still);
+        assert.equal(await page.locator('.title-reveal[data-glyphs]').count(), 0);
+        await cosmos.close();
+        console.log('PASS constellation links, globe and idle letters, NOEMA image, orbit animation and reduced motion');
+
         // Separate robustness checks: these are fault injection, not the original reproduction.
         for (const mode of ['reduced-motion', 'no-observer', 'observer-throws', 'observer-silent', 'canvas-null', 'canvas-throws']) {
             const context = await browser.newContext({ viewport: { width: 360, height: 640 }, reducedMotion: mode === 'reduced-motion' ? 'reduce' : 'no-preference' });
