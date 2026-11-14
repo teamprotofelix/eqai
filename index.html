@@ -50,7 +50,6 @@
             --nav-border: rgba(0, 229, 255, 0.15);
             --hover-bg: rgba(0, 229, 255, 0.12);
             --btn-bg: rgba(0, 0, 0, 0.45);
-            --btn-text: #fff;
             --input-bg: rgba(0, 0, 0, 0.45);
             --shadow-card: rgba(0, 0, 0, 0.45);
             --shadow-card-lg: rgba(0, 0, 0, 0.4);
@@ -117,7 +116,6 @@
             --nav-border: rgba(8, 145, 178, 0.2);
             --hover-bg: rgba(8, 145, 178, 0.12);
             --btn-bg: rgba(255, 255, 255, 0.78);
-            --btn-text: #0f172a;
             --input-bg: rgba(255, 255, 255, 0.85);
             --shadow-card: rgba(2, 132, 199, 0.14);
             --shadow-card-lg: rgba(2, 132, 199, 0.12);
@@ -349,84 +347,6 @@
             margin-bottom: 0.7rem;
             letter-spacing: -0.5px;
         }
-
-        .header-subtitle {
-            font-size: clamp(1rem, 3vw, 1.25rem);
-            opacity: 0.95;
-            line-height: 1.55;
-            max-width: 640px;
-            margin: 0 auto 1.4rem;
-            color: var(--text);
-        }
-
-        .hero-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            justify-content: center;
-            margin-bottom: 1.2rem;
-        }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 0.32rem 0.75rem;
-            border-radius: 999px;
-            border: 1px solid var(--border);
-            background: var(--chip-bg);
-            color: var(--chip-text);
-        }
-        .hero-badge i { font-size: 0.85rem; }
-
-        .hero-ctas {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            justify-content: center;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.45rem;
-            font-family: inherit;
-            font-weight: 700;
-            font-size: 1rem;
-            padding: 0.85rem 1.4rem;
-            border-radius: 999px;
-            border: 1px solid transparent;
-            text-decoration: none;
-            cursor: pointer;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-            min-height: 48px;
-            color: var(--btn-text);
-        }
-        .btn:focus-visible {
-            outline: 3px solid var(--focus);
-            outline-offset: 3px;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #00E5FF, #A78BFA);
-            color: #0b1220;
-            box-shadow: 0 14px 36px rgba(0, 229, 255, 0.35);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 18px 44px rgba(0, 229, 255, 0.5);
-        }
-        .btn-ghost {
-            background: var(--btn-bg);
-            border-color: var(--border-strong);
-        }
-        .btn-ghost:hover {
-            transform: translateY(-2px);
-            border-color: var(--cyan);
-            background: var(--hover-bg);
-        }
-
 
         /* ===== Sections ===== */
         section {
@@ -1044,7 +964,6 @@
 
         @media (max-width: 768px) {
             section { padding: 56px 16px; }
-            .hero-ctas .btn { width: 100%; max-width: 360px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1057,6 +976,7 @@
     </style>
     <link rel="stylesheet" href="./cosmos.css">
     <script defer src="./cosmos.js"></script>
+    <script defer src="./thought-experiment.js"></script>
 </head>
 <body>
     <a class="skip-link" href="#services">
@@ -1106,61 +1026,22 @@
                 <div class="constellation-word" aria-hidden="true">EQAI</div>
                 <div class="constellation-stars" id="constellationStars"></div>
             </div>
-            <h1 class="main-title">Examination Quality AI</h1>
-            <p class="header-subtitle">
-                <span class="i18n-block-ko">
-                    특허·상표·디자인 심사품질 진단을 위한<br>
-                    <strong>근거 기반 Agentic AI 센터</strong> —<br>
-                    검색하고, 검증하고, 인용하며, 확신이 없으면 자제합니다.
-                </span>
-                <span class="i18n-block-en">
-                    An <strong>evidence-grounded Agentic AI center</strong> for examination quality —<br>
-                    retrieve, verify, cite, and abstain when unsure.
-                </span>
-                <span class="i18n-block-ja">
-                    特許・商標・意匠の審査品質診断のための<br>
-                    <strong>根拠に基づくAgentic AIセンター</strong> —<br>
-                    検索し、検証し、引用し、確信がなければ控えます。
-                </span>
-            </p>
-            <div class="hero-badges" aria-label="EQAI core principles">
-                <span class="hero-badge"><i class="fas fa-quote-right" aria-hidden="true"></i>
-                    <span class="i18n-block-ko">근거 기반 · 인용 우선</span>
-                    <span class="i18n-block-en">Evidence-grounded · citation-first</span>
-                    <span class="i18n-block-ja">根拠ベース・引用優先</span>
-                </span>
-                <span class="hero-badge"><i class="fas fa-chart-simple" aria-hidden="true"></i>
+            <h1 class="main-title" data-title-reveal>Examination Quality AI</h1>
+            <p class="hero-principles">
+                <span data-title-reveal>
                     <span class="i18n-block-ko">측정 가능한 품질</span>
                     <span class="i18n-block-en">Measurable quality</span>
                     <span class="i18n-block-ja">測定可能な品質</span>
                 </span>
-                <span class="hero-badge"><i class="fas fa-user-check" aria-hidden="true"></i>
-                    <span class="i18n-block-ko">Human-in-the-Loop</span>
-                    <span class="i18n-block-en">Human-in-the-Loop</span>
-                    <span class="i18n-block-ja">Human-in-the-Loop</span>
-                </span>
-            </div>
-            <div class="hero-ctas">
-                <a class="btn btn-primary" href="#services">
-                    <i class="fas fa-rocket" aria-hidden="true"></i>
-                    <span class="i18n-block-ko">서비스 시작</span>
-                    <span class="i18n-block-en">Start Services</span>
-                    <span class="i18n-block-ja">サービス開始</span>
-                </a>
-                <a class="btn btn-ghost" href="#guide">
-                    <i class="fas fa-map-signs" aria-hidden="true"></i>
-                    <span class="i18n-block-ko">이용 가이드</span>
-                    <span class="i18n-block-en">How to Use</span>
-                    <span class="i18n-block-ja">ご利用ガイド</span>
-                </a>
-            </div>
+                <span data-title-reveal>Human-in-the-Loop</span>
+            </p>
         </div>
     </header>
 
     <!-- Services -->
     <section id="services" aria-labelledby="services-title">
         <div class="section-head" id="servicesSectionHead">
-            <h2 id="services-title"><i class="fas fa-th-large" aria-hidden="true"></i>
+            <h2 id="services-title" data-title-reveal><i class="fas fa-th-large" aria-hidden="true"></i>
                 <span class="i18n-block-ko">서비스 허브</span>
                 <span class="i18n-block-en">Service Hub</span>
                 <span class="i18n-block-ja">サービスハブ</span>
@@ -1213,7 +1094,7 @@
     <!-- Research & Exhibitions -->
     <section id="research" aria-labelledby="research-title">
         <div class="section-head">
-            <h2 id="research-title"><i class="fas fa-microscope" aria-hidden="true"></i>
+            <h2 id="research-title" data-title-reveal><i class="fas fa-microscope" aria-hidden="true"></i>
                 <span class="i18n-block-ko">연구·전시</span>
                 <span class="i18n-block-en">Research & Exhibitions</span>
                 <span class="i18n-block-ja">研究・展示</span>
@@ -1237,7 +1118,7 @@
     <!-- Guide -->
     <section id="guide" aria-labelledby="guide-title">
         <div class="section-head">
-            <h2 id="guide-title"><i class="fas fa-route" aria-hidden="true"></i>
+            <h2 id="guide-title" data-title-reveal><i class="fas fa-route" aria-hidden="true"></i>
                 <span class="i18n-block-ko">이용 방법</span>
                 <span class="i18n-block-en">How to Use</span>
                 <span class="i18n-block-ja">ご利用方法</span>
@@ -1291,7 +1172,7 @@
             </article>
         </div>
 
-        <h3 style="text-align:center; margin: 0.5rem 0 1rem; font-size: 1.15rem;">
+        <h3 data-title-reveal style="text-align:center; margin: 0.5rem 0 1rem; font-size: 1.15rem;">
             <span class="i18n-block-ko">역할별 추천 경로</span>
             <span class="i18n-block-en">Recommended paths by role</span>
             <span class="i18n-block-ja">役割別のおすすめ経路</span>
@@ -1354,7 +1235,7 @@
     <!-- Tech -->
     <section id="tech" aria-labelledby="tech-title">
         <div class="section-head">
-            <h2 id="tech-title"><i class="fas fa-microchip" aria-hidden="true"></i>
+            <h2 id="tech-title" data-title-reveal><i class="fas fa-microchip" aria-hidden="true"></i>
                 <span class="i18n-block-ko">한눈에 보는 EQAI</span>
                 <span class="i18n-block-en">EQAI at a Glance</span>
                 <span class="i18n-block-ja">EQAI概要</span>
@@ -1705,7 +1586,7 @@
         </div>
 
         <div style="margin-top: 2.5rem;">
-            <h3 style="text-align:center; margin-bottom: 1.1rem; font-size: 1.15rem;">
+            <h3 data-title-reveal style="text-align:center; margin-bottom: 1.1rem; font-size: 1.15rem;">
                 <span class="i18n-block-ko">기대 효과</span>
                 <span class="i18n-block-en">Expected impact</span>
                 <span class="i18n-block-ja">期待効果</span>
@@ -1742,7 +1623,7 @@
     <!-- Partners -->
     <section id="partners" aria-labelledby="partners-title">
         <div class="section-head">
-            <h2 id="partners-title"><i class="fas fa-handshake" aria-hidden="true"></i>
+            <h2 id="partners-title" data-title-reveal><i class="fas fa-handshake" aria-hidden="true"></i>
                 <span class="i18n-block-ko">파트너 · 소속</span>
                 <span class="i18n-block-en">Partners</span>
                 <span class="i18n-block-ja">パートナー・所属</span>
@@ -1782,9 +1663,39 @@
         </div>
     </section>
 
-    <div class="closing-cosmos" aria-hidden="true">
-        <canvas id="closingOrbits"></canvas>
-    </div>
+    <section class="thought-experiment" aria-labelledby="experimentTitle">
+        <div class="experiment-panel">
+            <div class="experiment-header">
+                <h2 id="experimentTitle" data-title-reveal>Live Thought Experiment</h2>
+                <a href="https://creative-lab.moip.ai.kr/AION_THE_BETWEEN/index.html" aria-label="AION — The Between">01 / 07</a>
+            </div>
+            <div class="experiment-field">
+                <canvas id="experimentGraph" tabindex="0" aria-describedby="experimentInstructions">
+                    128 possible endings
+                </canvas>
+                <div class="experiment-legend" aria-hidden="true">
+                    <span>128 Possible Endings</span><span>Touch a Star</span>
+                </div>
+            </div>
+            <div class="experiment-controls">
+                <p id="experimentInstructions" class="visually-hidden">
+                    <span class="i18n-block-ko">별을 눌러 경로를 밝히세요. 키보드는 방향키로 탐색하고 Enter로 선택합니다.</span>
+                    <span class="i18n-block-en">Choose a star to light its path. Use the arrow keys to explore and Enter to select.</span>
+                    <span class="i18n-block-ja">星を選んで経路を照らします。矢印キーで移動し、Enterキーで選択できます。</span>
+                </p>
+                <p id="experimentStatus" role="status"></p>
+                <button type="button" id="experimentReset">
+                    <span aria-hidden="true">↺</span>
+                    <span class="i18n-block-ko">다시 보기</span>
+                    <span class="i18n-block-en">Reset</span>
+                    <span class="i18n-block-ja">リセット</span>
+                </button>
+            </div>
+            <p class="experiment-fallback">
+                <a href="https://creative-lab.moip.ai.kr/AION_THE_BETWEEN/index.html">AION — The Between ↗</a>
+            </p>
+        </div>
+    </section>
 
     <footer>
         <p>
@@ -2226,7 +2137,7 @@
                         '</div>' +
                         '<div class="service-body">' +
                         '<div class="en">' + s.enLabel + '</div>' +
-                        '<h3><span class="card-title">' + title + '</span><span class="title-reveal" aria-hidden="true"></span></h3>' +
+                        '<h3 class="card-title" data-title-reveal>' + title + '</h3>' +
                         '<p>' + desc + '</p>' +
                         (note ? '<p class="card-note">' + note + '</p>' : '') +
                         '<div class="service-meta"><span class="chip">' + audience + '</span></div>' +
@@ -2372,7 +2283,7 @@
                         '</div>' +
                         '<div class="service-body">' +
                         '<div class="en">' + r.enLabel + '</div>' +
-                        '<h3><span class="card-title">' + title + '</span><span class="title-reveal" aria-hidden="true"></span></h3>' +
+                        '<h3 class="card-title" data-title-reveal>' + title + '</h3>' +
                         '<p>' + desc + '</p>' +
                         '<div class="service-meta"><span class="chip research-label">' + label + '</span><span class="chip">' + audience + '</span></div>' +
                         '<div class="service-cta">' + go + ' →' + extIcon + '</div>' +
@@ -2391,6 +2302,7 @@
                 constellationStars.setAttribute('aria-label', label[currentLang]);
                 cards.forEach(function (card, index) {
                     const angle = -Math.PI / 2 + index * 2 * Math.PI / cards.length;
+                    const drift = index % 2 ? .96 : 1;
                     const star = document.createElement('a');
                     const title = card.querySelector('.card-title').textContent;
                     star.className = 'constellation-star';
@@ -2398,8 +2310,8 @@
                     star.href = '#' + card.id;
                     star.setAttribute('aria-label', title);
                     star.dataset.title = title;
-                    star.style.left = (50 + 44 * Math.cos(angle)) + '%';
-                    star.style.top = (50 + 42 * Math.sin(angle)) + '%';
+                    star.style.left = (50 + 43 * drift * Math.cos(angle)) + '%';
+                    star.style.top = (50 + 40 * drift * Math.sin(angle)) + '%';
                     fragment.append(star);
                 });
                 constellationStars.replaceChildren(fragment);

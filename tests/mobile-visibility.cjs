@@ -71,7 +71,7 @@ async function allCards(page) {
 async function screenshot(page, name) {
     if (!shots) return;
     fs.mkdirSync(shots, { recursive: true });
-    await page.locator('.hero-ctas a[href="#services"]').click();
+    await page.evaluate(() => { location.hash = 'services'; });
     await settled(page);
     await page.screenshot({ path: path.join(shots, name + '.jpg'), type: 'jpeg', quality: 75 });
 }
@@ -103,11 +103,11 @@ async function screenshot(page, name) {
             await page.goto(base + '/');
             assert.equal(await page.locator('#serviceGrid .service-card').count(), 15);
             assert.equal(await page.locator('#researchGrid .research-card').count(), 4);
-            await page.locator('.hero-ctas a[href="#services"]').click();
+            await page.evaluate(() => { location.hash = 'services'; });
             await settled(page);
             await readable(page.locator('#serviceGrid .service-card').first());
             await allCards(page);
-            console.log('PASS', name, 'normal-motion initial visit, CTA and all 19 cards/ancestors/images');
+            console.log('PASS', name, 'normal-motion initial visit, service anchor and all 19 cards/ancestors/images');
 
             for (const lang of ['ko', 'en', 'ja']) {
                 while (await page.getAttribute('html', 'lang') !== lang) await page.locator('#langToggle').click();
@@ -186,6 +186,18 @@ async function screenshot(page, name) {
         ));
         assert.equal(await links.count(), 19);
         assert.equal(match, true);
+        const headline = page.locator('.main-title');
+        assert.equal(await headline.textContent(), 'Examination Quality AI');
+        assert.equal(await page.locator('.hero-principles > span').count(), 2);
+        assert.equal(await page.locator('.hero a:not(.constellation-star)').count(), 0);
+        assert.equal(await page.locator('.section-head h2[data-title-reveal]').count(), 5);
+        const marker = links.first();
+        const initialMarker = await marker.getAttribute('style');
+        await page.waitForFunction(initial => document.querySelector('.constellation-star').getAttribute('style') !== initial, initialMarker);
+        await marker.hover();
+        const hoveredMarker = await marker.getAttribute('style');
+        await page.waitForTimeout(150);
+        assert.equal(await marker.getAttribute('style'), hoveredMarker, 'A hovered star holds its click target');
         const badge = page.locator('#card-marie-control .badge');
         assert.deepEqual(await badge.evaluate(element => {
             const rect = element.getBoundingClientRect();
@@ -238,20 +250,47 @@ async function screenshot(page, name) {
         assert.equal(await overlay.getAttribute('aria-hidden'), 'true');
         assert.equal(await title.textContent(), 'NOEMA Portal');
         await page.waitForFunction(() => !document.querySelector('#card-noema-portal .title-reveal').hasAttribute('data-glyphs'));
-        const orbits = page.locator('#closingOrbits');
-        await orbits.scrollIntoViewIfNeeded();
-        const orbitFrame = await orbits.evaluate(canvas => canvas.toDataURL());
-        await page.waitForFunction(previous => document.querySelector('#closingOrbits').toDataURL() !== previous, orbitFrame);
+        const experiment = page.locator('#experimentGraph');
+        const status = page.locator('#experimentStatus');
+        await experiment.scrollIntoViewIfNeeded();
+        const graph = () => experiment.evaluate(canvas => canvas.toDataURL());
+        const initialGraph = await graph();
+        const star = await experiment.evaluate(canvas => {
+            const { width, height } = canvas;
+            const pixels = canvas.getContext('2d').getImageData(0, 0, width, height).data;
+            const rect = canvas.getBoundingClientRect();
+            for (let y = 20; y < height - 25; y++) {
+                for (let x = Math.floor(width * .38); x < width; x++) {
+                    const i = (y * width + x) * 4;
+                    if (pixels[i + 1] > 205 && pixels[i + 3] > 155) {
+                        return [rect.left + x * rect.width / width, rect.top + y * rect.height / height];
+                    }
+                }
+            }
+            throw Error('No branch star was painted');
+        });
+        await page.mouse.click(...star);
+        assert.match(await status.textContent(), /other 127/);
+        assert.notEqual(await graph(), initialGraph);
+        await experiment.focus();
+        await page.keyboard.press('ArrowDown');
+        await page.keyboard.press('Enter');
+        assert.match(await status.textContent(), /other 127/);
+        await page.locator('#experimentReset').click();
+        assert.match(await status.textContent(), /open again/);
+        assert.notEqual(await graph(), initialGraph);
         await page.emulateMedia({ reducedMotion: 'reduce' });
         await page.evaluate(() => window.scrollTo(0, 0));
         await page.waitForTimeout(100);
         const still = await frame();
+        const staticMarker = await marker.getAttribute('style');
         await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
         await page.waitForTimeout(150);
         assert.equal(await frame(), still);
+        assert.equal(await marker.getAttribute('style'), staticMarker);
         assert.equal(await page.locator('.title-reveal[data-glyphs]').count(), 0);
         await cosmos.close();
-        console.log('PASS constellation links, globe and idle letters, NOEMA image, orbit animation and reduced motion');
+        console.log('PASS drifting stars, globe and idle letters, title animation, NOEMA image, AION pointer/keyboard/reset and reduced motion');
 
         // Separate robustness checks: these are fault injection, not the original reproduction.
         for (const mode of ['reduced-motion', 'no-observer', 'observer-throws', 'observer-silent', 'canvas-null', 'canvas-throws']) {
@@ -276,6 +315,8 @@ async function screenshot(page, name) {
             assert.deepEqual(errors, []);
             if (mode.startsWith('canvas-')) {
                 await page.reload();
+                assert.equal(await page.locator('.experiment-fallback a').isVisible(), true);
+                assert.equal(await page.locator('#experimentGraph').isVisible(), false);
                 assert.equal(await page.getAttribute('html', 'data-theme'), await page.evaluate(() => localStorage.getItem('moip_theme')));
                 await readable(page.locator('#serviceGrid .service-card').first());
             }

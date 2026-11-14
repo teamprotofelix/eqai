@@ -93,13 +93,38 @@
     stars.addEventListener('focusout', () => { caption.textContent = ''; });
     document.addEventListener('eqai:cards-rendered', () => { caption.textContent = ''; });
 
-    const pointer = { x: 0, y: 0, last: -Infinity };
+    const pointer = { x: 0, y: 0, vx: 0, vy: 0, last: -Infinity };
+    let hoveredStar = null;
+    let markers = Array.from(stars.children);
+    const pulses = [];
+    function resetMarkers() {
+        markers = Array.from(stars.children);
+        hoveredStar = null;
+    }
+    document.addEventListener('eqai:cards-rendered', resetMarkers);
+    stars.addEventListener('pointerover', event => { hoveredStar = event.target.closest('.constellation-star'); });
+    stars.addEventListener('pointerout', event => {
+        hoveredStar = event.relatedTarget?.closest?.('.constellation-star') || null;
+    });
     function trackPointer(event) {
         if (motion.matches || event.target.closest('.constellation-star')) return;
         const bounds = hero.getBoundingClientRect();
-        pointer.x = event.clientX - bounds.left;
-        pointer.y = event.clientY - bounds.top;
-        pointer.last = performance.now();
+        const now = performance.now();
+        const x = event.clientX - bounds.left;
+        const y = event.clientY - bounds.top;
+        if (now - pointer.last < 120 && event.type === 'pointermove') {
+            pointer.vx = Math.max(-34, Math.min(34, x - pointer.x));
+            pointer.vy = Math.max(-34, Math.min(34, y - pointer.y));
+        } else {
+            pointer.vx = pointer.vy = 0;
+        }
+        pointer.x = x;
+        pointer.y = y;
+        pointer.last = now;
+        if (event.type === 'pointerdown') {
+            pulses.push({ x, y, start: now });
+            if (pulses.length > 4) pulses.shift();
+        }
     }
     hero.addEventListener('pointermove', event => {
         if (event.pointerType === 'mouse' || event.pointerType === 'pen' || event.buttons) trackPointer(event);
@@ -128,6 +153,11 @@
                 particles.push({ x, y, seed: Math.random() });
             }
         }
+        // Distribute adjacent lettering samples across the globe so paths fan out.
+        for (let i = particles.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [particles[i], particles[j]] = [particles[j], particles[i]];
+        }
         return { width, height, stars: generateStars(width < 480 ? 120 : 200), particles, morph: 0 };
     }
 
@@ -136,10 +166,22 @@
         const centerX = width / 2;
         const centerY = height / 2;
         const radius = Math.min(width * .36, height * .39);
-        const active = !still && performance.now() - pointer.last < 2100;
-        scene.morph = still ? 0 : scene.morph + ((active ? 1 : 0) - scene.morph) * .14;
+        const now = performance.now();
+        const idleFor = now - pointer.last;
+        const active = !still && idleFor < 1900;
+        const interaction = active ? Math.max(0, 1 - idleFor / 520) : 0;
+        const pointerX = pointer.x / width - .5;
+        const pointerY = pointer.y / height - .5;
+        scene.morph = still ? 0 : scene.morph + ((active ? 1 : 0) - scene.morph) * .15;
         const blend = scene.morph < .002 ? 0 : scene.morph;
-        const rotation = time * .55 + (pointer.x / width - .5) * .85;
+        const rotation = time * .73 + pointerX * 1.5 * blend;
+        const tilt = .25 + pointerY * 1.45 * blend;
+        const cosTilt = Math.cos(tilt);
+        const sinTilt = Math.sin(tilt);
+        const reach = Math.min(150, width * .32);
+        while (pulses.length && now - pulses[0].start > 1000) pulses.shift();
+        const wavefronts = still ? [] : pulses.map(pulse => ({ ...pulse, progress: (now - pulse.start) / 1000 }));
+        moveMarkers(still ? 0 : time, still, interaction, pointerX, pointerY);
         ctx.clearRect(0, 0, width, height);
         paintStars(ctx, scene, still ? 0 : time);
 
@@ -164,92 +206,90 @@
             const latitude = 1 - (2 * i + 1) / particles.length;
             const ring = Math.sqrt(1 - latitude * latitude);
             const longitude = i * 2.399963 + rotation;
-            const depth = ring * Math.sin(longitude);
-            const perspective = 1 + depth * .18;
-            let globeX = centerX + ring * Math.cos(longitude) * radius * perspective;
-            let globeY = centerY + latitude * radius * perspective;
-            if (active) {
-                const dx = globeX - pointer.x;
-                const dy = globeY - pointer.y;
-                const force = Math.max(0, 1 - Math.hypot(dx, dy) / 86) * .38;
-                globeX += dx * force;
-                globeY += dy * force;
+            const z = ring * Math.sin(longitude);
+            const depth = latitude * sinTilt + z * cosTilt;
+            const perspective = 1 + depth * .24;
+            const breath = radius * (1 + .032 * Math.sin(time * 2.8 + i * .28));
+            const globeX = centerX + (ring * Math.cos(longitude) * breath * perspective) + pointerX * width * .06;
+            const globeY = centerY + ((latitude * cosTilt - z * sinTilt) * breath * perspective) + pointerY * height * .12;
+            let x = p.x + (globeX - p.x) * blend;
+            let y = p.y + (globeY - p.y) * blend;
+            const dx = x - pointer.x;
+            const dy = y - pointer.y;
+            const force = Math.max(0, 1 - Math.hypot(dx, dy) / reach) * interaction * 1.25;
+            x += (dx - pointer.vy * .78) * force;
+            y += (dy + pointer.vx * .78) * force;
+            for (const wave of wavefronts) {
+                const wx = x - wave.x;
+                const wy = y - wave.y;
+                const distance = Math.hypot(wx, wy);
+                const push = Math.max(0, 1 - Math.abs(distance - wave.progress * radius * 3.3) / 37)
+                    * (1 - wave.progress) * .55;
+                x += wx * push;
+                y += wy * push;
             }
-            const x = p.x + (globeX - p.x) * blend;
-            const y = p.y + (globeY - p.y) * blend;
-            const size = (.65 + p.seed * .82) * Math.max(1, width / 650);
+            const size = (.65 + p.seed * .82) * Math.max(1, width / 650) * (1 + blend * depth * .28);
             ctx.fillStyle = p.seed > .93 ? '#ffe0a9' : p.seed > .35 ? '#bbecff' : '#78aaff';
-            ctx.globalAlpha = (.72 + p.seed * .28) * (1 - blend * (1 - depth) * .31);
+            ctx.globalAlpha = (.77 + p.seed * .23) * (1 - blend * (1 - depth) * .31);
             ctx.beginPath();
             ctx.arc(x, y, size, 0, TAU);
             ctx.fill();
         }
         ctx.globalAlpha = 1;
+        for (const wave of wavefronts) {
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(166,229,255,' + ((1 - wave.progress) * .47) + ')';
+            ctx.arc(wave.x, wave.y, 5 + wave.progress * radius * 3.3, 0, TAU);
+            ctx.stroke();
+        }
         if (particles.length) hero.classList.add('has-particles');
     }
 
-    function drawOrbits(ctx, scene, time, still) {
-        const { width, height } = scene;
-        const size = Math.min(width * .49, height * 1.08);
-        const x = width / 2;
-        const y = height / 2;
-        const t = still ? 0 : time;
-        ctx.clearRect(0, 0, width, height);
-        paintStars(ctx, scene, t);
-
-        const halo = ctx.createRadialGradient(x, y, 0, x, y, size * .52);
-        halo.addColorStop(0, '#fff1c8');
-        halo.addColorStop(.025, '#d3e8ff');
-        halo.addColorStop(.085, '#a1d5f699');
-        halo.addColorStop(.35, '#6387cf38');
-        halo.addColorStop(1, '#6387cf00');
-        ctx.fillStyle = halo;
-        ctx.fillRect(0, 0, width, height);
-
-        const colors = ['116,212,255', '255,211,147', '179,169,255', '140,229,219'];
-        for (let i = 0; i < 6; i++) {
-            const color = colors[i % colors.length];
-            const rx = size * (.29 + i * .102);
-            const ry = rx * (.30 + i * .023);
-            const tilt = -.28 + i * .113 + Math.sin(t * .09 + i) * .07;
-            const angle = t * (.51 - i * .052) + i * 1.83;
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.rotate(tilt);
-
-            ctx.strokeStyle = 'rgba(' + color + ',.26)';
-            ctx.beginPath();
-            ctx.ellipse(0, 0, rx, ry, 0, 0, TAU);
-            ctx.stroke();
-            for (let j = 0; j < 12; j++) {
-                const tail = angle - j * .035;
-                ctx.strokeStyle = 'rgba(' + color + ',' + (.75 - j * .055) + ')';
-                ctx.lineWidth = 1.6;
-                ctx.beginPath();
-                ctx.ellipse(0, 0, rx, ry, 0, tail - .036, tail);
-                ctx.stroke();
-            }
-            const px = rx * Math.cos(angle);
-            const py = ry * Math.sin(angle);
-            ctx.fillStyle = '#fff2d7';
-            ctx.shadowColor = 'rgb(' + color + ')';
-            ctx.shadowBlur = 12;
-            ctx.beginPath();
-            ctx.arc(px, py, i % 2 ? 2.5 : 3.4, 0, TAU);
-            ctx.fill();
-            ctx.restore();
-        }
-        ctx.canvas.parentElement.classList.add('has-orbits');
+    function moveMarkers(time, still, interaction, x, y) {
+        const focused = document.activeElement;
+        markers.forEach((star, index) => {
+            // Hold the current hit target while it is hovered, pressed or focused.
+            if (!still && (star === hoveredStar || star === focused)) return;
+            const phase = index * .92;
+            const dx = Math.sin(time * .92 + phase) * 8 + Math.sin(time * .47 + phase) * 5 + x * interaction * 9;
+            const dy = Math.cos(time * 1.13 + phase) * 8 + y * interaction * 10;
+            star.style.setProperty('--star-x', (still ? 0 : dx).toFixed(1) + 'px');
+            star.style.setProperty('--star-y', (still ? 0 : dy).toFixed(1) + 'px');
+            star.style.setProperty('--star-turn', (still ? 0 : Math.sin(time + phase) * 19).toFixed(1) + 'deg');
+            star.style.setProperty('--star-light', (still ? .48 : .48 + Math.sin(time * 2.2 + phase) * .33).toFixed(2));
+        });
     }
 
-    function observeCardTitles() {
+    function observeTitles() {
         let observer;
+        let revision = 0;
         const glyphs = '◇⟐⌁⟁⋔⟡⊹⟢⌬∴⧖';
+        function wrapText(root) {
+            // Leave the original text and surrounding icons in the accessibility tree.
+            const textNodes = Array.from(root.childNodes).filter(node =>
+                node.nodeType === Node.TEXT_NODE && node.textContent.trim()
+            );
+            for (const node of textNodes) {
+                const wrapper = document.createElement('span');
+                wrapper.className = 'reveal-text';
+                const original = document.createElement('span');
+                original.className = 'reveal-original';
+                const overlay = document.createElement('span');
+                overlay.className = 'title-reveal';
+                overlay.setAttribute('aria-hidden', 'true');
+                node.replaceWith(wrapper);
+                original.append(node);
+                wrapper.append(original, overlay);
+            }
+        }
+
         function reveal(overlay) {
             const title = Array.from(overlay.previousElementSibling.textContent);
             const start = performance.now();
+            const currentRevision = revision;
             let lastStep = -1;
             function update(now) {
+                if (currentRevision !== revision) return;
                 const progress = (now - start) / 460;
                 if (progress >= 1 || motion.matches || document.hidden || !overlay.isConnected) {
                     overlay.removeAttribute('data-glyphs');
@@ -268,24 +308,33 @@
             update(start);
         }
         function observe() {
+            revision++;
             observer?.disconnect();
+            document.querySelectorAll('.title-reveal[data-glyphs]').forEach(el => el.removeAttribute('data-glyphs'));
             if (motion.matches) return;
             const current = new IntersectionObserver(entries => {
                 for (const entry of entries) {
                     if (!entry.isIntersecting || entry.intersectionRatio < .5) continue;
                     current.unobserve(entry.target);
-                    reveal(entry.target.querySelector('.title-reveal'));
+                    const overlay = Array.from(entry.target.querySelectorAll('.title-reveal')).find(el => el.parentElement.getClientRects().length);
+                    if (overlay) reveal(overlay);
                 }
             }, { threshold: .5 });
             observer = current;
-            for (const heading of document.querySelectorAll('.service-body h3')) current.observe(heading);
+            for (const heading of document.querySelectorAll('[data-title-reveal]')) {
+                const translations = Array.from(heading.children).filter(el =>
+                    el.matches('.i18n-block-ko, .i18n-block-en, .i18n-block-ja')
+                );
+                const root = translations.find(el => getComputedStyle(el).display !== 'none') || heading;
+                wrapText(root);
+                current.observe(heading);
+            }
         }
         try { observe(); } catch { return; }
         document.addEventListener('eqai:cards-rendered', observe);
+        motion.addEventListener('change', observe);
     }
 
-    observeCardTitles();
+    observeTitles();
     mountScene(document.getElementById('heroParticles'), prepareHero, drawHero);
-    mountScene(document.getElementById('closingOrbits'),
-        (width, height) => ({ width, height, stars: generateStars(width < 480 ? 140 : 300) }), drawOrbits);
 })();
