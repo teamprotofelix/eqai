@@ -167,7 +167,7 @@ async function screenshot(page, name) {
             assert.equal(await card.getAttribute('rel'), 'noopener noreferrer');
             const opened = page.waitForEvent('popup'); await page.keyboard.press('Enter');
             const popup = await opened; await popup.waitForLoadState();
-            assert.equal(popup.url(), await card.getAttribute('href')); await popup.close();
+            assert.equal(popup.url(), new URL(await card.getAttribute('href')).href); await popup.close();
             assert.deepEqual(errors, []); assert.deepEqual(failed, []);
             console.log('PASS', name, '6 language/theme combinations, filters, anchors, reload, history, resize, tab return, keyboard, no local errors');
             await context.close();
